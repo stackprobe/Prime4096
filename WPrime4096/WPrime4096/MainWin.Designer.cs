@@ -175,15 +175,14 @@
 			// 
 			this.T素因数分解_結果.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.T素因数分解_結果.Location = new System.Drawing.Point(15, 183);
-			this.T素因数分解_結果.MaxLength = 1235;
+			this.T素因数分解_結果.Location = new System.Drawing.Point(15, 203);
 			this.T素因数分解_結果.Multiline = true;
 			this.T素因数分解_結果.Name = "T素因数分解_結果";
 			this.T素因数分解_結果.ReadOnly = true;
 			this.T素因数分解_結果.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T素因数分解_結果.Size = new System.Drawing.Size(620, 206);
+			this.T素因数分解_結果.Size = new System.Drawing.Size(620, 186);
 			this.T素因数分解_結果.TabIndex = 2;
-			this.T素因数分解_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目\r\n10行目";
+			this.T素因数分解_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目";
 			this.T素因数分解_結果.TextChanged += new System.EventHandler(this.T素因数分解_結果_TextChanged);
 			this.T素因数分解_結果.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T素因数分解_結果_KeyPress);
 			// 
@@ -196,14 +195,14 @@
 			this.T素因数分解_入力.Multiline = true;
 			this.T素因数分解_入力.Name = "T素因数分解_入力";
 			this.T素因数分解_入力.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T素因数分解_入力.Size = new System.Drawing.Size(620, 106);
+			this.T素因数分解_入力.Size = new System.Drawing.Size(620, 126);
 			this.T素因数分解_入力.TabIndex = 0;
-			this.T素因数分解_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
+			this.T素因数分解_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目";
 			// 
 			// Btn素因数分解
 			// 
 			this.Btn素因数分解.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn素因数分解.Location = new System.Drawing.Point(455, 127);
+			this.Btn素因数分解.Location = new System.Drawing.Point(455, 147);
 			this.Btn素因数分解.Name = "Btn素因数分解";
 			this.Btn素因数分解.Size = new System.Drawing.Size(180, 50);
 			this.Btn素因数分解.TabIndex = 1;
@@ -229,15 +228,14 @@
 			// 
 			this.T判定_結果.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.T判定_結果.Location = new System.Drawing.Point(15, 183);
-			this.T判定_結果.MaxLength = 1235;
+			this.T判定_結果.Location = new System.Drawing.Point(15, 203);
 			this.T判定_結果.Multiline = true;
 			this.T判定_結果.Name = "T判定_結果";
 			this.T判定_結果.ReadOnly = true;
 			this.T判定_結果.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T判定_結果.Size = new System.Drawing.Size(620, 206);
+			this.T判定_結果.Size = new System.Drawing.Size(620, 186);
 			this.T判定_結果.TabIndex = 3;
-			this.T判定_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目\r\n10行目";
+			this.T判定_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目";
 			this.T判定_結果.TextChanged += new System.EventHandler(this.T判定_結果_TextChanged);
 			this.T判定_結果.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T判定_結果_KeyPress);
 			// 
@@ -250,14 +248,14 @@
 			this.T判定_入力.Multiline = true;
 			this.T判定_入力.Name = "T判定_入力";
 			this.T判定_入力.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T判定_入力.Size = new System.Drawing.Size(620, 106);
+			this.T判定_入力.Size = new System.Drawing.Size(620, 126);
 			this.T判定_入力.TabIndex = 0;
-			this.T判定_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
+			this.T判定_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目";
 			// 
 			// Btn判定
 			// 
 			this.Btn判定.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn判定.Location = new System.Drawing.Point(269, 127);
+			this.Btn判定.Location = new System.Drawing.Point(269, 147);
 			this.Btn判定.Name = "Btn判定";
 			this.Btn判定.Size = new System.Drawing.Size(180, 50);
 			this.Btn判定.TabIndex = 1;
@@ -268,7 +266,7 @@
 			// Btn最寄りの素数を探す
 			// 
 			this.Btn最寄りの素数を探す.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn最寄りの素数を探す.Location = new System.Drawing.Point(455, 127);
+			this.Btn最寄りの素数を探す.Location = new System.Drawing.Point(455, 147);
 			this.Btn最寄りの素数を探す.Name = "Btn最寄りの素数を探す";
 			this.Btn最寄りの素数を探す.Size = new System.Drawing.Size(180, 50);
 			this.Btn最寄りの素数を探す.TabIndex = 2;

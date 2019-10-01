@@ -54,16 +54,16 @@ namespace Charlotte
 			// --
 
 			this.T出力_最小値.Text = "" + 2;
-			this.T出力_最大値.Text = "" + 100;
+			this.T出力_最大値.Text = "" + 10000000000;
 
-			this.T判定_入力.Text = "" + 2;
+			this.T判定_入力.Text = Consts.S2P1279_1;
 			this.T判定_結果.Text = "";
 
-			this.T素因数分解_入力.Text = "" + 2;
+			this.T素因数分解_入力.Text = Consts.SMP1000;
 			this.T素因数分解_結果.Text = "";
 
 			this.T個数_最小値.Text = "" + 2;
-			this.T個数_最大値.Text = "" + 100;
+			this.T個数_最大値.Text = "" + 10000000000;
 
 			// --
 
@@ -190,29 +190,29 @@ namespace Charlotte
 			try
 			{
 				int d = this.Height - this.Base_MainWin_H;
+				int d2 = d / 2;
+				int d3 = d / 3;
 
-				d /= 2;
+				this.T出力_最小値.Height = this.Base_T1_H + d2;
+				this.L出力_最大値.Top = this.Base_L2_T + d2;
+				this.T出力_最大値.Top = this.Base_T2_T + d2;
+				this.T出力_最大値.Height = this.Base_T2_H + d2;
 
-				this.T出力_最小値.Height = this.Base_T1_H + d;
-				this.L出力_最大値.Top = this.Base_L2_T + d;
-				this.T出力_最大値.Top = this.Base_T2_T + d;
-				this.T出力_最大値.Height = this.Base_T2_H + d;
+				this.T判定_入力.Height = this.Base2_T1_H + d3;
+				this.Btn判定.Top = this.Base2_B1_T + d3;
+				this.Btn最寄りの素数を探す.Top = this.Base2_B1_T + d3;
+				this.T判定_結果.Top = this.Base2_T2_T + d3;
+				this.T判定_結果.Height = this.Base2_T2_H + (d - d3);
 
-				this.T判定_入力.Height = this.Base2_T1_H + d;
-				this.Btn判定.Top = this.Base2_B1_T + d;
-				this.Btn最寄りの素数を探す.Top = this.Base2_B1_T + d;
-				this.T判定_結果.Top = this.Base2_T2_T + d;
-				this.T判定_結果.Height = this.Base2_T2_H + d;
+				this.T素因数分解_入力.Height = this.Base2_T1_H + d3;
+				this.Btn素因数分解.Top = this.Base2_B1_T + d3;
+				this.T素因数分解_結果.Top = this.Base2_T2_T + d3;
+				this.T素因数分解_結果.Height = this.Base2_T2_H + (d - d3);
 
-				this.T素因数分解_入力.Height = this.Base2_T1_H + d;
-				this.Btn素因数分解.Top = this.Base2_B1_T + d;
-				this.T素因数分解_結果.Top = this.Base2_T2_T + d;
-				this.T素因数分解_結果.Height = this.Base2_T2_H + d;
-
-				this.T個数_最小値.Height = this.Base_T1_H + d;
-				this.L個数_最大値.Top = this.Base_L2_T + d;
-				this.T個数_最大値.Top = this.Base_T2_T + d;
-				this.T個数_最大値.Height = this.Base_T2_H + d;
+				this.T個数_最小値.Height = this.Base_T1_H + d2;
+				this.L個数_最大値.Top = this.Base_L2_T + d2;
+				this.T個数_最大値.Top = this.Base_T2_T + d2;
+				this.T個数_最大値.Height = this.Base_T2_H + d2;
 			}
 			catch
 			{ }
