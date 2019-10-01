@@ -1,2 +1,1 @@
-int A_IsPrime(char *sn);
-int A_IsPrime_R(char *sn);
+int A_IsPrime(UI4096_t prm, int r_flg);
