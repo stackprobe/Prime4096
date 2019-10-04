@@ -2,14 +2,45 @@
 
 static int OutputDivFlag;
 
-int main(int argc, char **argv)
+static UI4096_t GetLowerPrime(UI4096_t value)
 {
-	mutex();
+	while(!UI4096_IsZero(value))
 	{
-		IsPrime(2);
-	}
-	unmutex();
+		value = UI4096_Sub(value, UI4096_N1);
 
+		if(A_IsPrime(value, 0))
+			return value;
+
+		if(IsStopped())
+			break;
+	}
+	return UI4096_N0;
+}
+static UI4096_t GetHigherPrime(UI4096_t value)
+{
+	while(!UI4096_IsFill(value))
+	{
+		value = UI4096_Add(value, UI4096_N1, NULL);
+
+		if(A_IsPrime(value, 0))
+			return value;
+
+		if(IsStopped())
+			break;
+	}
+	return UI4096_N0;
+}
+static void Main2(void)
+{
+	Consts_INIT();
+	Stop_INIT();
+	LoadConfig();
+
+	if(argIs("/S"))
+	{
+		Stop();
+		return;
+	}
 	OutputDivFlag = argIs("/D");
 
 	if(argIs("/P"))
@@ -30,11 +61,27 @@ int main(int argc, char **argv)
 	}
 	if(argIs("/L"))
 	{
-		error(); // TODO
+		char *sn;
+		char *outFile;
+
+		sn      = nextArg();
+		outFile = nextArg();
+
+		writeOneLineNoRet_b_cx(outFile, UI4096ToA(GetLowerPrime(AToUI4096(sn))));
+
+		return;
 	}
 	if(argIs("/H"))
 	{
-		error(); // TODO
+		char *sn;
+		char *outFile;
+
+		sn      = nextArg();
+		outFile = nextArg();
+
+		writeOneLineNoRet_b_cx(outFile, UI4096ToA(GetHigherPrime(AToUI4096(sn))));
+
+		return;
 	}
 	if(argIs("/R"))
 	{
@@ -45,4 +92,9 @@ int main(int argc, char **argv)
 		error(); // TODO
 	}
 	error_m("Unknown Arg");
+}
+int main(int argc, char **argv)
+{
+	Main2();
+	termination(0);
 }
