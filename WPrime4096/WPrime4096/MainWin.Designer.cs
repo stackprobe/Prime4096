@@ -47,7 +47,6 @@
 			this.T判定_結果 = new System.Windows.Forms.TextBox();
 			this.T判定_入力 = new System.Windows.Forms.TextBox();
 			this.Btn判定 = new System.Windows.Forms.Button();
-			this.Btn最寄りの素数を探す = new System.Windows.Forms.Button();
 			this.TabPage出力 = new System.Windows.Forms.TabPage();
 			this.Btn出力 = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -56,6 +55,10 @@
 			this.T出力_最大値 = new System.Windows.Forms.TextBox();
 			this.T出力_最小値 = new System.Windows.Forms.TextBox();
 			this.MainTab = new System.Windows.Forms.TabControl();
+			this.TabPage最寄りの素数 = new System.Windows.Forms.TabPage();
+			this.Btn探索 = new System.Windows.Forms.Button();
+			this.T探索_結果 = new System.Windows.Forms.TextBox();
+			this.T探索_入力 = new System.Windows.Forms.TextBox();
 			this.TabPage個数.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.TabPage素因数分解.SuspendLayout();
@@ -63,6 +66,7 @@
 			this.TabPage出力.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.MainTab.SuspendLayout();
+			this.TabPage最寄りの素数.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MainTimer
@@ -182,7 +186,6 @@
 			this.T素因数分解_結果.Size = new System.Drawing.Size(620, 186);
 			this.T素因数分解_結果.TabIndex = 2;
 			this.T素因数分解_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目";
-			this.T素因数分解_結果.TextChanged += new System.EventHandler(this.T素因数分解_結果_TextChanged);
 			this.T素因数分解_結果.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T素因数分解_結果_KeyPress);
 			// 
 			// T素因数分解_入力
@@ -214,7 +217,6 @@
 			this.TabPage判定.Controls.Add(this.T判定_結果);
 			this.TabPage判定.Controls.Add(this.T判定_入力);
 			this.TabPage判定.Controls.Add(this.Btn判定);
-			this.TabPage判定.Controls.Add(this.Btn最寄りの素数を探す);
 			this.TabPage判定.Location = new System.Drawing.Point(4, 29);
 			this.TabPage判定.Name = "TabPage判定";
 			this.TabPage判定.Padding = new System.Windows.Forms.Padding(3);
@@ -235,7 +237,6 @@
 			this.T判定_結果.Size = new System.Drawing.Size(620, 186);
 			this.T判定_結果.TabIndex = 3;
 			this.T判定_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目";
-			this.T判定_結果.TextChanged += new System.EventHandler(this.T判定_結果_TextChanged);
 			this.T判定_結果.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T判定_結果_KeyPress);
 			// 
 			// T判定_入力
@@ -254,24 +255,13 @@
 			// Btn判定
 			// 
 			this.Btn判定.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn判定.Location = new System.Drawing.Point(269, 147);
+			this.Btn判定.Location = new System.Drawing.Point(455, 147);
 			this.Btn判定.Name = "Btn判定";
 			this.Btn判定.Size = new System.Drawing.Size(180, 50);
 			this.Btn判定.TabIndex = 1;
 			this.Btn判定.Text = "素数かどうか判定する";
 			this.Btn判定.UseVisualStyleBackColor = true;
 			this.Btn判定.Click += new System.EventHandler(this.Btn判定_Click);
-			// 
-			// Btn最寄りの素数を探す
-			// 
-			this.Btn最寄りの素数を探す.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn最寄りの素数を探す.Location = new System.Drawing.Point(455, 147);
-			this.Btn最寄りの素数を探す.Name = "Btn最寄りの素数を探す";
-			this.Btn最寄りの素数を探す.Size = new System.Drawing.Size(180, 50);
-			this.Btn最寄りの素数を探す.TabIndex = 2;
-			this.Btn最寄りの素数を探す.Text = "最寄りの素数を探す";
-			this.Btn最寄りの素数を探す.UseVisualStyleBackColor = true;
-			this.Btn最寄りの素数を探す.Click += new System.EventHandler(this.Btn最寄りの素数を探す_Click);
 			// 
 			// TabPage出力
 			// 
@@ -363,6 +353,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.MainTab.Controls.Add(this.TabPage出力);
 			this.MainTab.Controls.Add(this.TabPage判定);
+			this.MainTab.Controls.Add(this.TabPage最寄りの素数);
 			this.MainTab.Controls.Add(this.TabPage素因数分解);
 			this.MainTab.Controls.Add(this.TabPage個数);
 			this.MainTab.Location = new System.Drawing.Point(12, 12);
@@ -370,6 +361,56 @@
 			this.MainTab.SelectedIndex = 0;
 			this.MainTab.Size = new System.Drawing.Size(660, 437);
 			this.MainTab.TabIndex = 0;
+			// 
+			// TabPage最寄りの素数
+			// 
+			this.TabPage最寄りの素数.Controls.Add(this.Btn探索);
+			this.TabPage最寄りの素数.Controls.Add(this.T探索_結果);
+			this.TabPage最寄りの素数.Controls.Add(this.T探索_入力);
+			this.TabPage最寄りの素数.Location = new System.Drawing.Point(4, 29);
+			this.TabPage最寄りの素数.Name = "TabPage最寄りの素数";
+			this.TabPage最寄りの素数.Size = new System.Drawing.Size(652, 404);
+			this.TabPage最寄りの素数.TabIndex = 4;
+			this.TabPage最寄りの素数.Text = "最寄りの素数";
+			this.TabPage最寄りの素数.UseVisualStyleBackColor = true;
+			// 
+			// Btn探索
+			// 
+			this.Btn探索.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.Btn探索.Location = new System.Drawing.Point(455, 147);
+			this.Btn探索.Name = "Btn探索";
+			this.Btn探索.Size = new System.Drawing.Size(180, 50);
+			this.Btn探索.TabIndex = 1;
+			this.Btn探索.Text = "最寄りの素数を探す";
+			this.Btn探索.UseVisualStyleBackColor = true;
+			this.Btn探索.Click += new System.EventHandler(this.Btn探索_Click);
+			// 
+			// T探索_結果
+			// 
+			this.T探索_結果.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.T探索_結果.Location = new System.Drawing.Point(15, 203);
+			this.T探索_結果.Multiline = true;
+			this.T探索_結果.Name = "T探索_結果";
+			this.T探索_結果.ReadOnly = true;
+			this.T探索_結果.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.T探索_結果.Size = new System.Drawing.Size(620, 186);
+			this.T探索_結果.TabIndex = 2;
+			this.T探索_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目";
+			this.T探索_結果.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T探索_結果_KeyPress);
+			// 
+			// T探索_入力
+			// 
+			this.T探索_入力.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.T探索_入力.Location = new System.Drawing.Point(15, 15);
+			this.T探索_入力.MaxLength = 1235;
+			this.T探索_入力.Multiline = true;
+			this.T探索_入力.Name = "T探索_入力";
+			this.T探索_入力.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.T探索_入力.Size = new System.Drawing.Size(620, 126);
+			this.T探索_入力.TabIndex = 0;
+			this.T探索_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目";
 			// 
 			// MainWin
 			// 
@@ -402,6 +443,8 @@
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.MainTab.ResumeLayout(false);
+			this.TabPage最寄りの素数.ResumeLayout(false);
+			this.TabPage最寄りの素数.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -425,7 +468,6 @@
 		private System.Windows.Forms.TextBox T判定_結果;
 		private System.Windows.Forms.TextBox T判定_入力;
 		private System.Windows.Forms.Button Btn判定;
-		private System.Windows.Forms.Button Btn最寄りの素数を探す;
 		private System.Windows.Forms.TabPage TabPage出力;
 		private System.Windows.Forms.Button Btn出力;
 		private System.Windows.Forms.GroupBox groupBox1;
@@ -434,6 +476,10 @@
 		private System.Windows.Forms.TextBox T出力_最大値;
 		private System.Windows.Forms.TextBox T出力_最小値;
 		private System.Windows.Forms.TabControl MainTab;
+		private System.Windows.Forms.TabPage TabPage最寄りの素数;
+		private System.Windows.Forms.Button Btn探索;
+		private System.Windows.Forms.TextBox T探索_結果;
+		private System.Windows.Forms.TextBox T探索_入力;
 	}
 }
 

@@ -59,6 +59,9 @@ namespace Charlotte
 			this.T判定_入力.Text = Consts.S2P1279_1;
 			this.T判定_結果.Text = "";
 
+			this.T探索_入力.Text = ("" + 1) + StringTools.Repeat("0", 400);
+			this.T探索_結果.Text = "";
+
 			this.T素因数分解_入力.Text = Consts.SMP1000;
 			this.T素因数分解_結果.Text = "";
 
@@ -71,6 +74,8 @@ namespace Charlotte
 			this.T出力_最大値.SelectAll();
 
 			this.T判定_入力.SelectAll();
+
+			this.T探索_入力.SelectAll();
 
 			this.T素因数分解_入力.SelectAll();
 
@@ -86,7 +91,9 @@ namespace Charlotte
 
 			this.MainToolTip.SetToolTip(this.T判定_入力, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
 
-			this.MainToolTip.SetToolTip(this.T素因数分解_入力, Utils.AutoInsertNewLine("2 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
+			this.MainToolTip.SetToolTip(this.T探索_入力, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
+
+			this.MainToolTip.SetToolTip(this.T素因数分解_入力, Utils.AutoInsertNewLine("1 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
 
 			this.MainToolTip.SetToolTip(this.T個数_最小値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
 			this.MainToolTip.SetToolTip(this.T個数_最大値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
@@ -200,9 +207,13 @@ namespace Charlotte
 
 				this.T判定_入力.Height = this.Base2_T1_H + d3;
 				this.Btn判定.Top = this.Base2_B1_T + d3;
-				this.Btn最寄りの素数を探す.Top = this.Base2_B1_T + d3;
 				this.T判定_結果.Top = this.Base2_T2_T + d3;
 				this.T判定_結果.Height = this.Base2_T2_H + (d - d3);
+
+				this.T探索_入力.Height = this.Base2_T1_H + d3;
+				this.Btn探索.Top = this.Base2_B1_T + d3;
+				this.T探索_結果.Top = this.Base2_T2_T + d3;
+				this.T探索_結果.Height = this.Base2_T2_H + (d - d3);
 
 				this.T素因数分解_入力.Height = this.Base2_T1_H + d3;
 				this.Btn素因数分解.Top = this.Base2_B1_T + d3;
@@ -227,8 +238,11 @@ namespace Charlotte
 
 			this.T判定_入力.Visible = flag;
 			this.Btn判定.Visible = flag;
-			this.Btn最寄りの素数を探す.Visible = flag;
 			this.T判定_結果.Visible = flag;
+
+			this.T探索_入力.Visible = flag;
+			this.Btn探索.Visible = flag;
+			this.T探索_結果.Visible = flag;
 
 			this.T素因数分解_入力.Visible = flag;
 			this.Btn素因数分解.Visible = flag;
@@ -240,11 +254,6 @@ namespace Charlotte
 			this.T個数_最大値.Visible = flag;
 		}
 
-		private void T判定_結果_TextChanged(object sender, EventArgs e)
-		{
-			// noop
-		}
-
 		private void T判定_結果_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if (e.KeyChar == 1) // ctrl_a
@@ -254,9 +263,13 @@ namespace Charlotte
 			}
 		}
 
-		private void T素因数分解_結果_TextChanged(object sender, EventArgs e)
+		private void T探索_結果_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			// noop
+			if (e.KeyChar == 1) // ctrl_a
+			{
+				this.T探索_結果.SelectAll();
+				e.Handled = true;
+			}
 		}
 
 		private void T素因数分解_結果_KeyPress(object sender, KeyPressEventArgs e)
@@ -284,7 +297,7 @@ namespace Charlotte
 			}
 		}
 
-		private void Btn最寄りの素数を探す_Click(object sender, EventArgs e)
+		private void Btn探索_Click(object sender, EventArgs e)
 		{
 			using (this.MTBusy.Section())
 			{
