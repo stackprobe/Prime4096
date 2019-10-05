@@ -22,17 +22,23 @@ static UI4096_t Sqrt(UI4096_t val)
 void A_Factorization(UI4096_t val, char *outFile)
 {
 	FILE *fp = fileOpen(outFile, "wt");
-	UI4096_t dVal = UI4096_N0;
+	UI4096_t dVal;
 	UI4096_t tmp[2];
 	uint64 d;
 
-	while(!UI4096_IsZero(val) && !(UI4096_y(val) & 1))
+	if(UI4096_Comp(val, UI4096_N2) < 0)
+		goto endSearch;
+
+	while(UI4096_Comp(UI4096_N2, val) < 0 && !(UI4096_y(val) & 1))
 	{
+LOGPOS();
 		writeLine(fp, "2");
 		val = UI4096_DivTwo(val);
 	}
 	if(A_IsPrime(val, 0))
 		goto endSearch;
+
+	dVal = UI4096_N0;
 
 	for(d = 3; ; d += 2)
 	{
@@ -43,6 +49,7 @@ void A_Factorization(UI4096_t val, char *outFile)
 
 			while(UI4096_IsZero(UI4096_Mod(val, dVal, tmp)))
 			{
+LOGPOS();
 				writeLine_x(fp, xcout("%I64u", d));
 				val = tmp[0];
 

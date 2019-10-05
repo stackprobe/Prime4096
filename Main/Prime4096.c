@@ -1,11 +1,10 @@
 #include "libs\all.h"
 
-static int OutputDivFlag;
-
 static UI4096_t GetLowerPrime(UI4096_t value)
 {
 	while(!UI4096_IsZero(value))
 	{
+LOGPOS();
 		value = UI4096_Sub(value, UI4096_N1);
 
 		if(A_IsPrime(value, 0))
@@ -20,6 +19,7 @@ static UI4096_t GetHigherPrime(UI4096_t value)
 {
 	while(!UI4096_IsFill(value))
 	{
+LOGPOS();
 		value = UI4096_Add(value, UI4096_N1, NULL);
 
 		if(A_IsPrime(value, 0))
@@ -41,8 +41,6 @@ static void Main2(void)
 		Stop();
 		return;
 	}
-	OutputDivFlag = argIs("/D");
-
 	if(argIs("/P"))
 	{
 		char *sn;
