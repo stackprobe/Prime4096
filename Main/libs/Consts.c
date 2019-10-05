@@ -17,6 +17,7 @@ D_VAR(4096)
 #undef D_VAR
 
 UI4096_t UI4096_N10P9;
+UI4096_t UI4096_N2P2048;
 
 void Consts_INIT(void)
 {
@@ -37,4 +38,7 @@ void Consts_INIT(void)
 #undef D_INIT
 
 	UI4096_N10P9 = UI4096_x(1000000000);
+
+	UI4096_N2P2048 = UI4096_N0;
+	UI4096_N2P2048.H.L.L.L.L.L.L.Value = 1;
 }

@@ -22,7 +22,7 @@
 			if(UI ## bit ## _y(exp) & 1) { \
 				ret = ModMul ## bit(ret, val, mod); \
 			} \
-			exp = UI ## bit ## _Div(exp, UI ## bit ## _N2, NULL); \
+			exp = UI ## bit ## _DivTwo(exp); \
 			if(UI ## bit ## _IsZero(exp)) { \
 				break; \
 			} \
@@ -42,7 +42,7 @@
 		uint k; \
 cout("S_IP.1 %s bit=" # bit "\n", LOGPOS_Time(0)); \
 		d = val = ToUI ## bit(arr); \
-		for(r = 0; (d = UI ## bit ## _Div(d, UI ## bit ## _N2, NULL)), !(UI ## bit ## _y(d) & 1); r++); \
+		for(r = 0; (d = UI ## bit ## _DivTwo(d)), !(UI ## bit ## _y(d) & 1); r++); \
 		val_1   = UI ## bit ## _Sub(val, UI ## bit ## _N1); \
 		val_3.L = UI ## bit ## _Sub(val, UI ## bit ## _N3); \
 		val_3.H = UI ## bit ## _N0; \
@@ -62,13 +62,12 @@ cout("S_IP.7 %s\n", LOGPOS_Time(0)); \
 					if(!c) return 0; \
 					x = ModPow ## bit(x, UI ## bit ## _N2, val); \
 					if(!UI ## bit ## _Comp(x, val_1)) break; \
+					if(IsStopped()) return 0; /* ’†’f—p */ \
 				} \
 			} \
 cout("S_IP.8 %s\n", LOGPOS_Time(0)); \
-			if(IsStopped()) return 0; \
-cout("S_IP.9 %s\n", LOGPOS_Time(0)); \
 		} \
-cout("S_IP.10 %s\n", LOGPOS_Time(0)); \
+cout("S_IP.9 %s\n", LOGPOS_Time(0)); \
 		return 1; \
 	}
 

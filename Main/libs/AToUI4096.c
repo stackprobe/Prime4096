@@ -31,14 +31,18 @@ LOGPOS();
 LOGPOS();
 	return ret;
 }
-char *UI4096ToA(UI4096_t val)
+char *c_UI4096ToA(UI4096_t val)
 {
-	char *ret = (char *)memAlloc(1242 + 1);
+	static char *buff;
+	char *ret;
 	uint i;
 LOGPOS();
 
-	ret[1242] = '\0';
-
+	if(!buff)
+	{
+		buff = (char *)memAlloc(1242 + 1);
+		buff[1242] = '\0';
+	}
 	for(i = 0; i < 138; i++)
 	{
 		UI4096_t tmp[2];
@@ -46,12 +50,12 @@ LOGPOS();
 
 		val = UI4096_Div(val, UI4096_N10P9, tmp);
 		errorCase(sprintf(s9, "%09u", UI4096_y(tmp[1])) != 9);
-		memcpy(ret + (1242 - 9) - 9 * i, s9, 9);
+		memcpy(buff + (1242 - 9) - 9 * i, s9, 9);
 	}
-	trimLead(ret, '0');
+	ret = NextNotZero(buff);
 
 	if(!*ret)
-		strcpy(ret, "0");
+		ret--;
 
 LOGPOS();
 	return ret;

@@ -52,12 +52,18 @@ static void Main2(void)
 		outFile = nextArg();
 
 		writeOneLineNoRet_b(outFile, A_IsPrime(AToUI4096(sn), 0) ? "P" : "N");
-
 		return;
 	}
 	if(argIs("/F"))
 	{
-		error(); // TODO
+		char *sn;
+		char *outFile;
+
+		sn      = nextArg();
+		outFile = nextArg();
+
+		A_Factorization(AToUI4096(sn), outFile);
+		return;
 	}
 	if(argIs("/L"))
 	{
@@ -67,8 +73,7 @@ static void Main2(void)
 		sn      = nextArg();
 		outFile = nextArg();
 
-		writeOneLineNoRet_b_cx(outFile, UI4096ToA(GetLowerPrime(AToUI4096(sn))));
-
+		writeOneLineNoRet_b(outFile, c_UI4096ToA(GetLowerPrime(AToUI4096(sn))));
 		return;
 	}
 	if(argIs("/H"))
@@ -79,17 +84,34 @@ static void Main2(void)
 		sn      = nextArg();
 		outFile = nextArg();
 
-		writeOneLineNoRet_b_cx(outFile, UI4096ToA(GetHigherPrime(AToUI4096(sn))));
-
+		writeOneLineNoRet_b(outFile, c_UI4096ToA(GetHigherPrime(AToUI4096(sn))));
 		return;
 	}
 	if(argIs("/R"))
 	{
-		error(); // TODO
+		char *sminval;
+		char *smaxval;
+		char *outFile;
+
+		sminval = nextArg();
+		smaxval = nextArg();
+		outFile = nextArg();
+
+		FindPrimes(AToUI4096(sminval), AToUI4096(smaxval), outFile, 0);
+		return;
 	}
 	if(argIs("/C"))
 	{
-		error(); // TODO
+		char *sminval;
+		char *smaxval;
+		char *outFile;
+
+		sminval = nextArg();
+		smaxval = nextArg();
+		outFile = nextArg();
+
+		FindPrimes(AToUI4096(sminval), AToUI4096(smaxval), outFile, 1);
+		return;
 	}
 	error_m("Unknown Arg");
 }
