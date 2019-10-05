@@ -137,12 +137,14 @@ void FindPrimes(UI4096_t minval, UI4096_t maxval, char *outFile, int countMode)
 				goto endFunc;
 		}
 	}
+
 endSearch:
 	if(countMode)
 	{
 		WrStr(c_UI4096ToA(PrimeCount));
 		WrStr("\n");
 	}
+
 endFunc:
 	fileClose(Writer);
 	Writer = NULL;

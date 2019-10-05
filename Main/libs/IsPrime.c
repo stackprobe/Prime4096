@@ -120,18 +120,10 @@ int A_IsPrime(UI4096_t val, int r_flg)
 	}
 	return S_IsPrime(val);
 }
-int A_IsPrimeOrLargeValue(UI4096_t val)
+int A_IsPrime64(uint64 value)
 {
-	uint *arr = UI4096ToUIArr(val);
+	if(value < MILLER_RABIN_LMT)
+		return IsPrime(value);
 
-	if(GetUIArrSize(arr) <= 2)
-	{
-		uint64 value = (uint64)arr[1] << 32 | arr[0];
-
-		if(value < MILLER_RABIN_LMT)
-			return IsPrime(value);
-
-		return IsPrime_M_K(value, MillerRabin_K);
-	}
-	return 1;
+	return IsPrime_M_K(value, MillerRabin_K);
 }
