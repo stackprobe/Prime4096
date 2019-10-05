@@ -49,7 +49,6 @@
 			this.Btn判定 = new System.Windows.Forms.Button();
 			this.Btn最寄りの素数を探す = new System.Windows.Forms.Button();
 			this.TabPage出力 = new System.Windows.Forms.TabPage();
-			this.Chkファイルを分割して出力 = new System.Windows.Forms.CheckBox();
 			this.Btn出力 = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.L出力_最大値 = new System.Windows.Forms.Label();
@@ -276,7 +275,6 @@
 			// 
 			// TabPage出力
 			// 
-			this.TabPage出力.Controls.Add(this.Chkファイルを分割して出力);
 			this.TabPage出力.Controls.Add(this.Btn出力);
 			this.TabPage出力.Controls.Add(this.groupBox1);
 			this.TabPage出力.Location = new System.Drawing.Point(4, 29);
@@ -286,17 +284,6 @@
 			this.TabPage出力.TabIndex = 0;
 			this.TabPage出力.Text = "出力";
 			this.TabPage出力.UseVisualStyleBackColor = true;
-			// 
-			// Chkファイルを分割して出力
-			// 
-			this.Chkファイルを分割して出力.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.Chkファイルを分割して出力.AutoSize = true;
-			this.Chkファイルを分割して出力.Location = new System.Drawing.Point(30, 354);
-			this.Chkファイルを分割して出力.Name = "Chkファイルを分割して出力";
-			this.Chkファイルを分割して出力.Size = new System.Drawing.Size(171, 24);
-			this.Chkファイルを分割して出力.TabIndex = 1;
-			this.Chkファイルを分割して出力.Text = "ファイルを分割して出力";
-			this.Chkファイルを分割して出力.UseVisualStyleBackColor = true;
 			// 
 			// Btn出力
 			// 
@@ -412,7 +399,6 @@
 			this.TabPage判定.ResumeLayout(false);
 			this.TabPage判定.PerformLayout();
 			this.TabPage出力.ResumeLayout(false);
-			this.TabPage出力.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.MainTab.ResumeLayout(false);
@@ -441,7 +427,6 @@
 		private System.Windows.Forms.Button Btn判定;
 		private System.Windows.Forms.Button Btn最寄りの素数を探す;
 		private System.Windows.Forms.TabPage TabPage出力;
-		private System.Windows.Forms.CheckBox Chkファイルを分割して出力;
 		private System.Windows.Forms.Button Btn出力;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Label L出力_最大値;

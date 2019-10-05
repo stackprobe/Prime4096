@@ -1,6 +1,7 @@
 #include "all.h"
 
 static uint EvStop;
+static int Stopped;
 
 static void FNLZ(void)
 {
@@ -17,9 +18,13 @@ void Stop(void)
 }
 int IsStopped(void)
 {
+	if(Stopped)
+		return 1;
+
 	if(pulseSec(2, NULL) && handleWaitForMillis(EvStop, 0))
 	{
 		LOGPOS();
+		Stopped = 1;
 		return 1;
 	}
 	return 0;

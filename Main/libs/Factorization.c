@@ -29,18 +29,28 @@ void A_Factorization(UI4096_t val, char *outFile)
 	while(!UI4096_IsZero(val) && !(UI4096_y(val) & 1))
 	{
 		writeLine(fp, "2");
-		val = UI4096_Div(val, UI4096_N2, NULL);
+		val = UI4096_DivTwo(val);
 	}
-	while(UI4096_Comp(dVal, eVal) <= 0)
+	if(!A_IsPrime(val, 0))
 	{
-		if(UI4096_IsZero(UI4096_Mod(val, dVal, tmp)))
+		while(UI4096_Comp(dVal, eVal) <= 0)
 		{
-			writeLine(fp, c_UI4096ToA(dVal));
-			val = tmp[0];
-			eVal = Sqrt(val);
+			if(IsStopped())
+				break;
+
+			if(A_IsPrimeOrLargeValue(dVal) && UI4096_IsZero(UI4096_Mod(val, dVal, tmp)))
+			{
+				writeLine(fp, c_UI4096ToA(dVal));
+				val = tmp[0];
+
+				if(A_IsPrime(val, 0))
+					break;
+
+				eVal = Sqrt(val);
+			}
+			else
+				dVal = UI4096_Add(dVal, UI4096_N2, NULL);
 		}
-		else
-			dVal = UI4096_Add(dVal, UI4096_N2, NULL);
 	}
 	writeLine(fp, c_UI4096ToA(val));
 	fileClose(fp);

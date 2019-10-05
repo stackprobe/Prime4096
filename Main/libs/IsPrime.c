@@ -40,34 +40,33 @@
 		uint r; \
 		uint c; \
 		uint k; \
-cout("S_IP.1 %s bit=" # bit "\n", LOGPOS_Time(0)); \
+/* cout("S_IP.1 %s bit=" # bit "\n", LOGPOS_Time(0)); */ \
 		d = val = ToUI ## bit(arr); \
 		for(r = 0; (d = UI ## bit ## _DivTwo(d)), !(UI ## bit ## _y(d) & 1); r++); \
 		val_1   = UI ## bit ## _Sub(val, UI ## bit ## _N1); \
 		val_3.L = UI ## bit ## _Sub(val, UI ## bit ## _N3); \
 		val_3.H = UI ## bit ## _N0; \
-cout("S_IP.2 %s\n", LOGPOS_Time(0)); \
+/* cout("S_IP.2 %s\n", LOGPOS_Time(0)); */ \
 		for(k = MillerRabin_K; k; k--) { \
-cout("S_IP.3 %s\n", LOGPOS_Time(0)); \
+/* cout("S_IP.3 %s\n", LOGPOS_Time(0)); */ \
 			RandBytes(&valRand, sizeof(valRand)); \
-cout("S_IP.4 %s\n", LOGPOS_Time(0)); \
+/* cout("S_IP.4 %s\n", LOGPOS_Time(0)); */ \
 			x = UI ## dblBit ## _Mod(valRand, val_3, NULL).L; \
-cout("S_IP.5 %s\n", LOGPOS_Time(0)); \
+/* cout("S_IP.5 %s\n", LOGPOS_Time(0)); */ \
 			x = UI ## bit ## _Add(x, UI ## bit ## _N2, NULL); \
-cout("S_IP.6 %s\n", LOGPOS_Time(0)); \
+/* cout("S_IP.6 %s\n", LOGPOS_Time(0)); */ \
 			x = ModPow ## bit(x, d, val); \
-cout("S_IP.7 %s\n", LOGPOS_Time(0)); \
+/* cout("S_IP.7 %s\n", LOGPOS_Time(0)); */ \
 			if(UI ## bit ## _Comp(x, UI ## bit ## _N1) && UI ## bit ## _Comp(x, val_1)) { \
 				for(c = r; ; c--) { \
 					if(!c) return 0; \
 					x = ModPow ## bit(x, UI ## bit ## _N2, val); \
 					if(!UI ## bit ## _Comp(x, val_1)) break; \
-					if(IsStopped()) return 0; /* ’†’f—p */ \
 				} \
 			} \
-cout("S_IP.8 %s\n", LOGPOS_Time(0)); \
+/* cout("S_IP.8 %s\n", LOGPOS_Time(0)); */ \
 		} \
-cout("S_IP.9 %s\n", LOGPOS_Time(0)); \
+/* cout("S_IP.9 %s\n", LOGPOS_Time(0)); */ \
 		return 1; \
 	}
 
@@ -112,13 +111,27 @@ int A_IsPrime(UI4096_t val, int r_flg)
 		uint64 value = (uint64)arr[1] << 32 | arr[0];
 
 		if(r_flg)
-		{
 			return IsPrime_R(value);
-		}
-		else if(value < MILLER_RABIN_LMT)
-		{
+
+		if(value < MILLER_RABIN_LMT)
 			return IsPrime(value);
-		}
+
+		return IsPrime_M_K(value, MillerRabin_K);
 	}
 	return S_IsPrime(val);
+}
+int A_IsPrimeOrLargeValue(UI4096_t val)
+{
+	uint *arr = UI4096ToUIArr(val);
+
+	if(GetUIArrSize(arr) <= 2)
+	{
+		uint64 value = (uint64)arr[1] << 32 | arr[0];
+
+		if(value < MILLER_RABIN_LMT)
+			return IsPrime(value);
+
+		return IsPrime_M_K(value, MillerRabin_K);
+	}
+	return 1;
 }
