@@ -28,7 +28,50 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
-			MessageBox.Show(APP_TITLE); // ---- 0001
+			Ground.EvStop = new NamedEventUnit("{c4ef09ea-5598-4ddf-98f0-9c06b17d9b6c}");
+			try
+			{
+				this.Main3(ar);
+			}
+			finally
+			{
+				Ground.EvStop.Dispose();
+				Ground.EvStop = null;
+			}
+		}
+
+		private void Main3(ArgsReader ar)
+		{
+			if (ar.ArgIs("/S"))
+			{
+				Ground.EvStop.Set();
+				return;
+			}
+			if (ar.ArgIs("/P"))
+			{
+				throw null; // TODO
+			}
+			if (ar.ArgIs("/F"))
+			{
+				throw null; // TODO
+			}
+			if (ar.ArgIs("/L"))
+			{
+				throw null; // TODO
+			}
+			if (ar.ArgIs("/H"))
+			{
+				throw null; // TODO
+			}
+			if (ar.ArgIs("/R"))
+			{
+				throw null; // TODO
+			}
+			if (ar.ArgIs("/C"))
+			{
+				throw null; // TODO
+			}
+			throw new ArgumentException("不明なコマンド引数");
 		}
 	}
 }
