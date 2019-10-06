@@ -1,6 +1,6 @@
 C:\Factory\Tools\RDMD.exe /RC out
 
-COPY Prime54\Prime54.exe out
+COPY Prime53\Prime53.exe out
 
 FOR %%E IN (out\*.exe) DO (
 	C:\Factory\SubTools\EmbedConfig.exe --factory-dir-disabled "%%E"
