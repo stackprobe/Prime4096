@@ -3,11 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.Tools;
+using System.IO;
+using Charlotte.TCalcs;
 
 namespace Charlotte
 {
 	public static class Ground
 	{
+		public static readonly TCalc TCalc_Int = new TCalc(10, 0);
+
+		// ---- Conf 項目 ----
+
+		public static int MillerRabin_K = 30;
+
+		// ----
+
+		public static void LoadConf()
+		{
+			string confFile = Path.Combine(ProcMain.SelfDir, Path.GetFileNameWithoutExtension(ProcMain.SelfFile) + ".conf");
+
+			if (File.Exists(confFile) == false)
+				return;
+
+			string[] lines = File.ReadAllLines(confFile, StringTools.ENCODING_SJIS).Where(line => line != "" && line.StartsWith(";") == false).ToArray();
+			int c = 0;
+
+			if (lines.Length != int.Parse(lines[c++])) // 有効項目数
+				throw new Exception();
+
+			// ---- Conf 項目 ----
+
+			MillerRabin_K = IntTools.ToInt(lines[c++], 1, IntTools.IMAX, 30);
+
+			// ----
+		}
+
 		public static NamedEventUnit EvStop;
 	}
 }

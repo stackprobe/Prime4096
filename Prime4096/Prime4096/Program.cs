@@ -28,6 +28,8 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
+			Ground.LoadConf();
+
 			Ground.EvStop = new NamedEventUnit("{c4ef09ea-5598-4ddf-98f0-9c06b17d9b6c}");
 			try
 			{
@@ -49,7 +51,11 @@ namespace Charlotte
 			}
 			if (ar.ArgIs("/P"))
 			{
-				throw null; // TODO
+				string sn = ar.NextArg();
+				string outFile = ar.NextArg();
+
+				File.WriteAllText(outFile, PrimeUtils.IsPrime(Common.ToBigInteger(sn)) ? "P" : "N", Encoding.ASCII);
+				return;
 			}
 			if (ar.ArgIs("/F"))
 			{
