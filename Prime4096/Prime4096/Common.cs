@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Numerics;
 using Charlotte.TCalcs;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -54,7 +55,7 @@ namespace Charlotte
 
 			while (value.IsZero)
 			{
-				byte[] bUnit = (value % Consts.BI10P19).ToByteArray();
+				var bUnit = BluffListTools.Create((value % Consts.BI10P19).ToByteArray()).FreeRange(0x00);
 
 				ulong unit =
 					((ulong)bUnit[0] << 0) |
@@ -88,7 +89,7 @@ namespace Charlotte
 
 		public static ulong ToULong(BigInteger value)
 		{
-			byte[] buff = value.ToByteArray();
+			var buff = BluffListTools.Create(value.ToByteArray()).FreeRange(0x00);
 
 			ulong ret =
 				((ulong)buff[0] << 0) |
