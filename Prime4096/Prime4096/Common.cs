@@ -85,5 +85,22 @@ namespace Charlotte
 
 			return ret;
 		}
+
+		public static ulong ToULong(BigInteger value)
+		{
+			byte[] buff = value.ToByteArray();
+
+			ulong ret =
+				((ulong)buff[0] << 0) |
+				((ulong)buff[1] << 8) |
+				((ulong)buff[2] << 16) |
+				((ulong)buff[3] << 24) |
+				((ulong)buff[4] << 32) |
+				((ulong)buff[5] << 40) |
+				((ulong)buff[6] << 48) |
+				((ulong)buff[7] << 56);
+
+			return ret;
+		}
 	}
 }

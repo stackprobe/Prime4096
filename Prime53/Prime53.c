@@ -11,9 +11,26 @@ static void Main2(void)
 		Stop();
 		return;
 	}
+	if(argIs("/D")) // ƒŠƒŠ[ƒXŠÂ‹«—p Prime.dat íœ
+	{
+		LOGPOS();
+		mutex();
+		LOGPOS();
+		coExecute_x(xcout("DEL \"%s\"", combine(getSelfDir(), "Prime.dat")));
+		LOGPOS();
+		unmutex();
+		LOGPOS();
+		return;
+	}
 	if(argIs("/P"))
 	{
-		error(); // TODO -- ”»’è
+		uint64 value;
+		char *outFile;
+
+		value = toValue64(nextArg());
+		outFile = nextArg();
+
+		writeOneLineNoRet_b(outFile, A_IsPrime(value) ? "P" : "N");
 		return;
 	}
 	if(argIs("/F"))

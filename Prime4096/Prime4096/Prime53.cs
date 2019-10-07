@@ -12,5 +12,30 @@ namespace Charlotte
 		{
 			throw null; // TODO
 		}
+
+		public static ulong[] Factorization(ulong value)
+		{
+			throw null; // TODO
+		}
+
+		public static ulong GetLowerPrime(ulong value)
+		{
+			throw null; // TODO
+		}
+
+		public static ulong GetHigherPrime(ulong value)
+		{
+			throw null; // TODO
+		}
+
+		public static void FindPrimes(ulong minval, ulong maxval, string outFile, Func<bool> interlude)
+		{
+			throw null; // TODO
+		}
+
+		public static void WritePrimeCount(ulong minval, ulong maxval, string outFile, Func<bool> interlude)
+		{
+			throw null; // TODO
+		}
 	}
 }

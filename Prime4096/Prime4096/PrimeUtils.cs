@@ -20,6 +20,7 @@ namespace Charlotte
 			if (value.IsEven)
 				return false;
 
+			int valueScale = value.ToByteArray().Length;
 			BigInteger d = value >> 1;
 			int r = 0;
 
@@ -30,7 +31,7 @@ namespace Charlotte
 			}
 			for (int k = 0; k < Ground.MillerRabin_K; k++)
 			{
-				BigInteger x = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(4096 + 8), new byte[] { 0x00 } })) % (value - 3) + 2;
+				BigInteger x = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 3) + 2;
 
 				x = BigInteger.ModPow(x, d, value);
 
@@ -41,7 +42,8 @@ namespace Charlotte
 						if (c <= 0)
 							return false;
 
-						BigInteger.ModPow(x, 2, value);
+						x = (x * x) % value;
+						//BigInteger.ModPow(x, 2, value);
 
 						if (x == value - 1)
 							break;
@@ -54,26 +56,9 @@ namespace Charlotte
 		public static bool IsPrime(BigInteger value)
 		{
 			if (value < Consts.BI2P64)
-			{
-				byte[] bUnit = value.ToByteArray();
+				return Prime53.IsPrime(Common.ToULong(value));
 
-				// unit ???
-				ulong unit =
-					((ulong)bUnit[0] << 0) |
-					((ulong)bUnit[1] << 8) |
-					((ulong)bUnit[2] << 16) |
-					((ulong)bUnit[3] << 24) |
-					((ulong)bUnit[4] << 32) |
-					((ulong)bUnit[5] << 40) |
-					((ulong)bUnit[6] << 48) |
-					((ulong)bUnit[7] << 56);
-
-				return Prime53.IsPrime(unit);
-			}
-			else
-			{
-				return IsPrime_M(value);
-			}
+			return IsPrime_M(value);
 		}
 	}
 }

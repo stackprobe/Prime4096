@@ -15,3 +15,4 @@
 #include "Config.h"
 #include "Common.h"
 #include "Stop.h"
+#include "IsPrime.h"
