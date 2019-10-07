@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Numerics;
+using Charlotte.Tools;
+using System.IO;
+using System.Diagnostics;
 
 namespace Charlotte
 {
@@ -10,22 +13,22 @@ namespace Charlotte
 	{
 		public static bool IsPrime(ulong value)
 		{
-			throw null; // TODO
+			return Perform("/P " + value)[0] == "P";
 		}
 
 		public static ulong[] Factorization(ulong value)
 		{
-			throw null; // TODO
+			return Perform("/P " + value).Select(v => ulong.Parse(v)).ToArray();
 		}
 
 		public static ulong GetLowerPrime(ulong value)
 		{
-			throw null; // TODO
+			return ulong.Parse(Perform("/L " + value)[0]);
 		}
 
 		public static ulong GetHigherPrime(ulong value)
 		{
-			throw null; // TODO
+			return ulong.Parse(Perform("/H " + value)[0]);
 		}
 
 		public static void FindPrimes(ulong minval, ulong maxval, string outFile, Func<bool> interlude)
@@ -34,6 +37,11 @@ namespace Charlotte
 		}
 
 		public static void WritePrimeCount(ulong minval, ulong maxval, string outFile, Func<bool> interlude)
+		{
+			throw null; // TODO
+		}
+
+		private static string[] Perform(string arguments)
 		{
 			throw null; // TODO
 		}
