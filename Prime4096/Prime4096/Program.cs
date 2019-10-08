@@ -28,6 +28,7 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
+			Prime53.INIT();
 			Ground.LoadConf();
 
 			Ground.EvStop = new NamedEventUnit("{c4ef09ea-5598-4ddf-98f0-9c06b17d9b6c}");

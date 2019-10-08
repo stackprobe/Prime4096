@@ -293,7 +293,7 @@ namespace Charlotte
 		{
 			using (this.MTBusy.Section())
 			{
-				MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "エラー", "未実装", true);
+				// TODO
 			}
 		}
 
