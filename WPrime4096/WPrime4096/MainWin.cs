@@ -40,6 +40,8 @@ namespace Charlotte
 		{
 			// -- 0001
 
+			Prime4096.INIT();
+
 			this.Base_MainWin_H = this.Height;
 			this.Base_T1_H = this.T出力_最小値.Height;
 			this.Base_L2_T = this.L出力_最大値.Top;
@@ -84,19 +86,17 @@ namespace Charlotte
 
 			// --
 
-			const int ttMaxLineLen = 180;
+			this.MainToolTip.SetToolTip(this.T出力_最小値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_ToolTip));
+			this.MainToolTip.SetToolTip(this.T出力_最大値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_ToolTip));
 
-			this.MainToolTip.SetToolTip(this.T出力_最小値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
-			this.MainToolTip.SetToolTip(this.T出力_最大値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
+			this.MainToolTip.SetToolTip(this.T判定_入力, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_ToolTip));
 
-			this.MainToolTip.SetToolTip(this.T判定_入力, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
+			this.MainToolTip.SetToolTip(this.T探索_入力, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_ToolTip));
 
-			this.MainToolTip.SetToolTip(this.T探索_入力, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
+			this.MainToolTip.SetToolTip(this.T素因数分解_入力, Utils.AutoInsertNewLine("1 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_ToolTip));
 
-			this.MainToolTip.SetToolTip(this.T素因数分解_入力, Utils.AutoInsertNewLine("1 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
-
-			this.MainToolTip.SetToolTip(this.T個数_最小値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
-			this.MainToolTip.SetToolTip(this.T個数_最大値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", ttMaxLineLen));
+			this.MainToolTip.SetToolTip(this.T個数_最小値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_ToolTip));
+			this.MainToolTip.SetToolTip(this.T個数_最大値, Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_ToolTip));
 
 			// ----
 
@@ -291,10 +291,38 @@ namespace Charlotte
 
 		private void Btn判定_Click(object sender, EventArgs e)
 		{
+			this.Visible = false;
+
 			using (this.MTBusy.Section())
 			{
-				// TODO
+				try
+				{
+					string value = this.T判定_入力.Text;
+
+					if (
+						StringTools.LiteValidate(value, StringTools.DECIMAL) == false ||
+						Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", value)[0] == '-'
+						)
+						throw new Exception(Utils.AutoInsertNewLine("0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
+
+					bool ret = false;
+
+					BusyDlgTools.Show("Prime4096", "素数かどうか判定しています...", () =>
+					{
+						ret = Prime4096.IsPrime(value);
+					});
+
+					this.T判定_結果.Text = value + "\r\n===> " + (ret ? "素数です。" : "素数ではありません。");
+				}
+				catch (Exception ex)
+				{
+					MessageDlgTools.Warning("Prime4096", ex);
+				}
 			}
+			this.Visible = true;
+
+			this.T判定_結果.SelectionStart = this.T判定_結果.TextLength;
+			this.T判定_結果.ScrollToCaret();
 		}
 
 		private void Btn探索_Click(object sender, EventArgs e)
