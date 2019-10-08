@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Charlotte.Tools;
 using Charlotte.Chocomint.Dialogs;
+using System.IO;
 
 namespace Charlotte
 {
@@ -292,29 +293,57 @@ namespace Charlotte
 					string minval = this.T出力_最小値.Text;
 					string maxval = this.T出力_最大値.Text;
 
-					if (
-						StringTools.LiteValidate(minval, StringTools.DECIMAL) == false ||
-						StringTools.LiteValidate(maxval, StringTools.DECIMAL) == false ||
-						Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", minval)[0] == '-' ||
-						Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", maxval)[0] == '-'
-						)
-						throw new Exception(Utils.AutoInsertNewLine("0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
+					if (minval == "")
+						throw new Exception("最小値 : 未入力です。");
+
+					if (maxval == "")
+						throw new Exception("最大値 : 未入力です。");
+
+					if (StringTools.LiteValidate(minval, StringTools.DECIMAL) == false)
+						throw new Exception("最小値 : [0-9] 以外の文字が含まれています。");
+
+					if (StringTools.LiteValidate(minval, StringTools.DECIMAL) == false)
+						throw new Exception("最大値 : [0-9] 以外の文字が含まれています。");
+
+					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", minval)[0] == '-')
+						throw new Exception(Utils.AutoInsertNewLine("最小値 : 0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
+
+					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", maxval)[0] == '-')
+						throw new Exception(Utils.AutoInsertNewLine("最大値 : 0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
 
 					if (Ground.TCalc_Int.Calc(maxval, "-", minval)[0] == '-')
 						throw new Exception("最大値 < 最小値 になっています。");
 
-					string outFile = InputFileDlgTools.Save("Prime4096", "出力ファイルを入力して下さい。");
+					string outFile = "Prime_" + minval + "-" + maxval + ".txt";
 
-					if (outFile != null)
-					{
-						throw null; // TODO
+					if (100 < outFile.Length)
+						outFile = "Prime.txt";
 
-						//WaitDlgTools.Show("Prime4096", "素数を出力しています...", () => { }, () => 0.5, () => { }); // TODO
+					//outFile = Path.Combine(ProcMain.SelfDir, outFile);
+					outFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), outFile);
 
+					outFile = InputFileDlgTools.Save(
+						"Prime4096",
+						"出力ファイルを選択して下さい。",
+						false,
+						outFile
+						);
 
+					if (outFile == null)
+						throw new Cancelled();
 
-					}
+					bool[] cancelledBox = new bool[1];
+
+					WaitDlgTools.Show(
+						"Prime4096",
+						"出力しています...",
+						() => Prime4096.FindPrimes(minval, maxval, outFile, () => cancelledBox[0] == false),
+						() => 0.5, // TODO
+						() => cancelledBox[0] = true
+						);
 				}
+				catch (Cancelled)
+				{ }
 				catch (Exception ex)
 				{
 					MessageDlgTools.Warning("Prime4096", ex);
@@ -325,6 +354,8 @@ namespace Charlotte
 
 		private void Btn判定_Click(object sender, EventArgs e)
 		{
+			string text = "";
+
 			this.Visible = false;
 
 			using (this.MTBusy.Section())
@@ -333,20 +364,20 @@ namespace Charlotte
 				{
 					string value = this.T判定_入力.Text;
 
-					if (
-						StringTools.LiteValidate(value, StringTools.DECIMAL) == false ||
-						Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", value)[0] == '-'
-						)
-						throw new Exception(Utils.AutoInsertNewLine("0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
+					if (value == "")
+						throw new Exception("未入力です。");
 
-					bool ret = false;
+					if (StringTools.LiteValidate(value, StringTools.DECIMAL) == false)
+						throw new Exception("[0-9] 以外の文字が含まれています。");
+
+					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", value)[0] == '-')
+						throw new Exception(Utils.AutoInsertNewLine("0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
 
 					BusyDlgTools.Show("Prime4096", "素数かどうか判定しています...", () =>
 					{
-						ret = Prime4096.IsPrime(value);
-					});
-
-					this.T判定_結果.Text = value + "\r\n===> " + (ret ? "素数です。" : "素数ではありません。");
+						text = value + "\r\n===> " + (Prime4096.IsPrime(value) ? "素数です。" : "素数ではありません。");
+					}
+					);
 				}
 				catch (Exception ex)
 				{
@@ -355,6 +386,7 @@ namespace Charlotte
 			}
 			this.Visible = true;
 
+			this.T判定_結果.Text = text;
 			this.T判定_結果.SelectionStart = this.T判定_結果.TextLength;
 			this.T判定_結果.ScrollToCaret();
 		}

@@ -141,7 +141,7 @@
 			this.T個数_最大値.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.T個数_最大値.Location = new System.Drawing.Point(15, 188);
-			this.T個数_最大値.MaxLength = 1235;
+			this.T個数_最大値.MaxLength = 1234;
 			this.T個数_最大値.Multiline = true;
 			this.T個数_最大値.Name = "T個数_最大値";
 			this.T個数_最大値.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -154,7 +154,7 @@
 			this.T個数_最小値.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.T個数_最小値.Location = new System.Drawing.Point(15, 46);
-			this.T個数_最小値.MaxLength = 1235;
+			this.T個数_最小値.MaxLength = 1234;
 			this.T個数_最小値.Multiline = true;
 			this.T個数_最小値.Name = "T個数_最小値";
 			this.T個数_最小値.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -193,7 +193,7 @@
 			this.T素因数分解_入力.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.T素因数分解_入力.Location = new System.Drawing.Point(15, 15);
-			this.T素因数分解_入力.MaxLength = 1235;
+			this.T素因数分解_入力.MaxLength = 1234;
 			this.T素因数分解_入力.Multiline = true;
 			this.T素因数分解_入力.Name = "T素因数分解_入力";
 			this.T素因数分解_入力.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -244,7 +244,7 @@
 			this.T判定_入力.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.T判定_入力.Location = new System.Drawing.Point(15, 15);
-			this.T判定_入力.MaxLength = 1235;
+			this.T判定_入力.MaxLength = 1234;
 			this.T判定_入力.Multiline = true;
 			this.T判定_入力.Name = "T判定_入力";
 			this.T判定_入力.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -325,7 +325,7 @@
 			this.T出力_最大値.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.T出力_最大値.Location = new System.Drawing.Point(15, 188);
-			this.T出力_最大値.MaxLength = 1235;
+			this.T出力_最大値.MaxLength = 1234;
 			this.T出力_最大値.Multiline = true;
 			this.T出力_最大値.Name = "T出力_最大値";
 			this.T出力_最大値.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -338,7 +338,7 @@
 			this.T出力_最小値.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.T出力_最小値.Location = new System.Drawing.Point(15, 46);
-			this.T出力_最小値.MaxLength = 1235;
+			this.T出力_最小値.MaxLength = 1234;
 			this.T出力_最小値.Multiline = true;
 			this.T出力_最小値.Name = "T出力_最小値";
 			this.T出力_最小値.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -404,7 +404,7 @@
 			this.T探索_入力.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.T探索_入力.Location = new System.Drawing.Point(15, 15);
-			this.T探索_入力.MaxLength = 1235;
+			this.T探索_入力.MaxLength = 1234;
 			this.T探索_入力.Multiline = true;
 			this.T探索_入力.Name = "T探索_入力";
 			this.T探索_入力.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
