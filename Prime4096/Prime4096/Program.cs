@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using Charlotte.Tools;
+using System.Numerics;
 
 namespace Charlotte
 {
@@ -60,25 +61,80 @@ namespace Charlotte
 			}
 			if (ar.ArgIs("/F"))
 			{
-				throw null; // TODO
+				string sn = ar.NextArg();
+				string outFile = ar.NextArg();
+
+				FactorizationUtils.Factorization(sn, outFile);
+				return;
 			}
 			if (ar.ArgIs("/L"))
 			{
-				throw null; // TODO
+				string sn = ar.NextArg();
+				string outFile = ar.NextArg();
+
+				File.WriteAllText(outFile, Common.ToString(
+					GetLowerPrime(
+						Common.ToBigInteger(sn)
+						)
+					),
+					Encoding.ASCII
+					);
+				return;
 			}
 			if (ar.ArgIs("/H"))
 			{
-				throw null; // TODO
+				string sn = ar.NextArg();
+				string outFile = ar.NextArg();
+
+				File.WriteAllText(outFile, Common.ToString(
+					GetHigherPrime(
+						Common.ToBigInteger(sn)
+						)
+					),
+					Encoding.ASCII
+					);
+				return;
 			}
 			if (ar.ArgIs("/R"))
 			{
-				throw null; // TODO
+				string sn1 = ar.NextArg();
+				string sn2 = ar.NextArg();
+				string outFile = ar.NextArg();
+
+				FindPrimesUtils.FindPrimes(
+					Common.ToBigInteger(sn1),
+					Common.ToBigInteger(sn2),
+					outFile
+					);
+				return;
 			}
 			if (ar.ArgIs("/C"))
 			{
-				throw null; // TODO
+				string sn1 = ar.NextArg();
+				string sn2 = ar.NextArg();
+				string outFile = ar.NextArg();
+
+				File.WriteAllText(outFile, Common.ToString(
+					FindPrimesUtils.GetPrimeCount(
+						Common.ToBigInteger(sn1),
+						Common.ToBigInteger(sn2)
+						)
+					),
+					Encoding.ASCII
+					);
+				return;
 			}
 			throw new ArgumentException("不明なコマンド引数");
+		}
+
+		private BigInteger GetLowerPrime(BigInteger bigInteger)
+		{
+			throw null; // TODO
+		}
+
+		private BigInteger GetHigherPrime(BigInteger bigInteger)
+		{
+			throw null; // TODO
 		}
 	}
 }

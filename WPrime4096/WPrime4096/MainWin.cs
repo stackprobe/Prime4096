@@ -283,10 +283,44 @@ namespace Charlotte
 
 		private void Btn出力_Click(object sender, EventArgs e)
 		{
+			this.Visible = false;
+
 			using (this.MTBusy.Section())
 			{
-				MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "エラー", "未実装", true);
+				try
+				{
+					string minval = this.T出力_最小値.Text;
+					string maxval = this.T出力_最大値.Text;
+
+					if (
+						StringTools.LiteValidate(minval, StringTools.DECIMAL) == false ||
+						StringTools.LiteValidate(maxval, StringTools.DECIMAL) == false ||
+						Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", minval)[0] == '-' ||
+						Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", maxval)[0] == '-'
+						)
+						throw new Exception(Utils.AutoInsertNewLine("0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
+
+					if (Ground.TCalc_Int.Calc(maxval, "-", minval)[0] == '-')
+						throw new Exception("最大値 < 最小値 になっています。");
+
+					string outFile = InputFileDlgTools.Save("Prime4096", "出力ファイルを入力して下さい。");
+
+					if (outFile != null)
+					{
+						throw null; // TODO
+
+						//WaitDlgTools.Show("Prime4096", "素数を出力しています...", () => { }, () => 0.5, () => { }); // TODO
+
+
+
+					}
+				}
+				catch (Exception ex)
+				{
+					MessageDlgTools.Warning("Prime4096", ex);
+				}
 			}
+			this.Visible = true;
 		}
 
 		private void Btn判定_Click(object sender, EventArgs e)

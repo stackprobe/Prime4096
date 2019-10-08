@@ -16,3 +16,4 @@
 #include "Common.h"
 #include "Stop.h"
 #include "IsPrime.h"
+#include "FindPrimes.h"

@@ -27,19 +27,19 @@ namespace Charlotte
 			return Perform("/P " + value)[0] == "P";
 		}
 
-		public static string[] Factorization(string value)
+		public static string[] Factorization(string value, Func<bool> interlude)
 		{
-			return Perform("/F " + value);
+			return Perform_Interlude("/F " + value, interlude);
 		}
 
-		public static string GetLowerPrime(string value)
+		public static string GetLowerPrime(string value, Func<bool> interlude)
 		{
-			return Perform("/L " + value)[0];
+			return Perform_Interlude("/L " + value, interlude)[0];
 		}
 
-		public static string GetHigherPrime(ulong value)
+		public static string GetHigherPrime(ulong value, Func<bool> interlude)
 		{
-			return Perform("/H " + value)[0];
+			return Perform_Interlude("/H " + value, interlude)[0];
 		}
 
 		public static void FindPrimes(string minval, string maxval, string outFile, Func<bool> interlude)
@@ -54,11 +54,16 @@ namespace Charlotte
 
 		private static string[] Perform(string arguments)
 		{
+			return Perform_Interlude(arguments, () => true);
+		}
+
+		private static string[] Perform_Interlude(string arguments, Func<bool> interlude)
+		{
 			using (WorkingDir wd = new WorkingDir())
 			{
 				string outFile = wd.MakePath();
 
-				Perform_OutFile_Interlude(arguments, outFile, () => true);
+				Perform_OutFile_Interlude(arguments, outFile, interlude);
 
 				return File.ReadAllLines(outFile, Encoding.ASCII);
 			}

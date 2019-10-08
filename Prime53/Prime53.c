@@ -1,5 +1,34 @@
 #include "libs\all.h"
 
+static void S_Factorization(uint64 value, char *outFile)
+{
+	FILE *fp = fileOpen(outFile, "wt");
+	uint64 dest[64];
+	uint index;
+
+	Factorization(value, dest);
+
+	for(index = 0; dest[index] != 0ui64; index++)
+		writeLine_x(fp, xcout("%I64u", dest[index]));
+
+	fileClose(fp);
+}
+static uint64 GetLowerPrime(uint64 value)
+{
+	while(value != 0ui64)
+		if(A_IsPrime(--value))
+			return value;
+
+	return 0ui64;
+}
+static uint64 GetHigherPrime(uint64 value)
+{
+	while(value != UINT64MAX)
+		if(A_IsPrime(++value))
+			return value;
+
+	return 0ui64;
+}
 static void Main2(void)
 {
 	Consts_INIT();
@@ -16,7 +45,7 @@ static void Main2(void)
 		LOGPOS();
 		mutex();
 		LOGPOS();
-		coExecute_x(xcout("DEL \"%s\"", combine(getSelfDir(), "Prime.dat")));
+		coExecute_x(xcout("DEL \"%s\"", c_combine(getSelfDir(), "Prime.dat")));
 		LOGPOS();
 		unmutex();
 		LOGPOS();
@@ -35,27 +64,61 @@ static void Main2(void)
 	}
 	if(argIs("/F"))
 	{
-		error(); // TODO -- 素因数分解
+		uint64 value;
+		char *outFile;
+
+		value = toValue64(nextArg());
+		outFile = nextArg();
+
+		S_Factorization(value, outFile);
 		return;
 	}
 	if(argIs("/L"))
 	{
-		error(); // TODO -- 探索 - 小さい方へ
+		uint64 value;
+		char *outFile;
+
+		value = toValue64(nextArg());
+		outFile = nextArg();
+
+		writeOneLineNoRet_b_cx(outFile, xcout("%I64u", GetLowerPrime(value)));
 		return;
 	}
 	if(argIs("/H"))
 	{
-		error(); // TODO -- 探索 - 大きい方へ
+		uint64 value;
+		char *outFile;
+
+		value = toValue64(nextArg());
+		outFile = nextArg();
+
+		writeOneLineNoRet_b_cx(outFile, xcout("%I64u", GetHigherPrime(value)));
 		return;
 	}
 	if(argIs("/R"))
 	{
-		error(); // TODO -- 範囲 - 出力
+		uint64 minval;
+		uint64 maxval;
+		char *outFile;
+
+		minval = toValue64(nextArg());
+		maxval = toValue64(nextArg());
+		outFile = nextArg();
+
+		FindPrimes(minval, maxval, outFile);
 		return;
 	}
 	if(argIs("/C"))
 	{
-		error(); // TODO -- 範囲 - 個数を出力
+		uint64 minval;
+		uint64 maxval;
+		char *outFile;
+
+		minval = toValue64(nextArg());
+		maxval = toValue64(nextArg());
+		outFile = nextArg();
+
+		WritePrimeCount(minval, maxval, outFile);
 		return;
 	}
 	error(); // 不明なコマンド引数
