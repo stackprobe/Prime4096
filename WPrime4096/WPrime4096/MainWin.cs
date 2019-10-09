@@ -103,7 +103,7 @@ namespace Charlotte
 
 			this.RefreshUI();
 
-			ChocomintCommon.PostShown(this);
+			ChocomintDialogsCommon.PostShown(this);
 
 			// ----
 
@@ -294,22 +294,22 @@ namespace Charlotte
 					string maxval = this.T出力_最大値.Text;
 
 					if (minval == "")
-						throw new Exception("最小値 : 未入力です。");
+						throw new Exception("最小値 が 未入力です。");
 
 					if (maxval == "")
-						throw new Exception("最大値 : 未入力です。");
+						throw new Exception("最大値 が 未入力です。");
 
 					if (StringTools.LiteValidate(minval, StringTools.DECIMAL) == false)
-						throw new Exception("最小値 : [0-9] 以外の文字が含まれています。");
+						throw new Exception("最小値 に [0-9] 以外の文字が含まれています。");
 
 					if (StringTools.LiteValidate(minval, StringTools.DECIMAL) == false)
-						throw new Exception("最大値 : [0-9] 以外の文字が含まれています。");
+						throw new Exception("最大値 に [0-9] 以外の文字が含まれています。");
 
 					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", minval)[0] == '-')
-						throw new Exception(Utils.AutoInsertNewLine("最小値 : 0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
+						throw new LongMessageException(Utils.AutoInsertNewLine("最小値 には 0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_LongMessageDlg));
 
 					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", maxval)[0] == '-')
-						throw new Exception(Utils.AutoInsertNewLine("最大値 : 0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
+						throw new LongMessageException(Utils.AutoInsertNewLine("最大値 には 0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_LongMessageDlg));
 
 					if (Ground.TCalc_Int.Calc(maxval, "-", minval)[0] == '-')
 						throw new Exception("最大値 < 最小値 になっています。");
@@ -330,7 +330,7 @@ namespace Charlotte
 						);
 
 					if (outFile == null)
-						throw new Cancelled();
+						throw new Returning();
 
 					bool[] cancelledBox = new bool[1];
 
@@ -342,8 +342,12 @@ namespace Charlotte
 						() => cancelledBox[0] = true
 						);
 				}
-				catch (Cancelled)
+				catch (Returning)
 				{ }
+				catch (LongMessageException ex)
+				{
+					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
+				}
 				catch (Exception ex)
 				{
 					MessageDlgTools.Warning("Prime4096", ex);
@@ -371,13 +375,17 @@ namespace Charlotte
 						throw new Exception("[0-9] 以外の文字が含まれています。");
 
 					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", value)[0] == '-')
-						throw new Exception(Utils.AutoInsertNewLine("0 以上 2^4096-1 (" + Consts.S2P4096_1 + ") 以下の整数を入力して下さい。", Consts.MaxLineLen_MessageDlg));
+						throw new LongMessageException(Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_LongMessageDlg));
 
 					BusyDlgTools.Show("Prime4096", "素数かどうか判定しています...", () =>
 					{
 						text = value + "\r\n===> " + (Prime4096.IsPrime(value) ? "素数です。" : "素数ではありません。");
 					}
 					);
+				}
+				catch (LongMessageException ex)
+				{
+					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
 				}
 				catch (Exception ex)
 				{

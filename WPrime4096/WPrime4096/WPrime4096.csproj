@@ -60,9 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cancelled.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Ground.cs" />
+    <Compile Include="LongMessageException.cs" />
     <Compile Include="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>
