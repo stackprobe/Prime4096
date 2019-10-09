@@ -317,7 +317,7 @@ namespace Charlotte
 
 					string outFile = "Prime_" + minval + "-" + maxval + ".txt";
 
-					if (100 < outFile.Length)
+					if (Consts.OutputLocalFileLenMax < outFile.Length)
 						outFile = "Prime.txt";
 
 					//outFile = Path.Combine(ProcMain.SelfDir, outFile);
@@ -342,6 +342,11 @@ namespace Charlotte
 						() => 0.5, // TODO
 						() => cancelledBox[0] = true
 						);
+
+					if (WaitDlg.LastCancelled)
+						MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "Prime4096", "中止しました。");
+					else
+						MessageDlgTools.Information("Prime4096", "完了しました。");
 				}
 				catch (Returning)
 				{ }
@@ -381,7 +386,7 @@ namespace Charlotte
 
 					BusyDlgTools.Show("Prime4096", "素数かどうか判定しています...", () =>
 					{
-						text = value + "\r\n===> " + (Prime4096.IsPrime(value) ? "素数です。" : "素数ではありません。");
+						text = value + "\r\n----> " + (Prime4096.IsPrime(value) ? "素数です。" : "素数ではありません。");
 					}
 					);
 				}
@@ -403,26 +408,193 @@ namespace Charlotte
 
 		private void Btn探索_Click(object sender, EventArgs e)
 		{
+			string text = "";
+
+			this.Visible = false;
+
 			using (this.MTBusy.Section())
 			{
-				MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "エラー", "未実装", true);
+				try
+				{
+					string value = this.T探索_入力.Text;
+
+					if (value == "")
+						throw new Exception("未入力です。");
+
+					if (StringTools.LiteValidate(value, StringTools.DECIMAL) == false)
+						throw new Exception("[0-9] 以外の文字が含まれています。");
+
+					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", value)[0] == '-')
+						throw new LongMessageException(Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_LongMessageDlg));
+
+					bool[] cancelledBox = new bool[1];
+
+					WaitDlgTools.Show(
+						"Prime4096",
+						"最寄りの素数を探しています...",
+						() =>
+						{
+							text = string.Join("\r\n",
+								"小さい方 ---->",
+								Prime4096.GetLowerPrime(value, () => cancelledBox[0] == false),
+								"",
+								"大きい方 ---->",
+								Prime4096.GetHigherPrime(value, () => cancelledBox[0] == false)
+								);
+						},
+						() => 0.5, // TODO
+						() => cancelledBox[0] = true
+						);
+
+					if (WaitDlg.LastCancelled)
+						text = "中止しました。";
+				}
+				catch (LongMessageException ex)
+				{
+					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
+				}
+				catch (Exception ex)
+				{
+					MessageDlgTools.Warning("Prime4096", ex);
+				}
 			}
+			this.Visible = true;
+
+			this.T探索_結果.Text = text;
+			this.T探索_結果.SelectionStart = this.T探索_結果.TextLength;
+			//this.T探索_結果.ScrollToCaret();
 		}
 
 		private void Btn素因数分解_Click(object sender, EventArgs e)
 		{
+			string text = "";
+
+			this.Visible = false;
+
 			using (this.MTBusy.Section())
 			{
-				MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "エラー", "未実装", true);
+				try
+				{
+					string value = this.T素因数分解_入力.Text;
+
+					if (value == "")
+						throw new Exception("未入力です。");
+
+					if (StringTools.LiteValidate(value, StringTools.DECIMAL) == false)
+						throw new Exception("[0-9] 以外の文字が含まれています。");
+
+					if (
+						Ground.TCalc_Int.Calc(value, "-", "1")[0] == '-' ||
+						Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", value)[0] == '-'
+						)
+						throw new LongMessageException(Utils.AutoInsertNewLine("1 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_LongMessageDlg));
+
+					bool[] cancelledBox = new bool[1];
+
+					WaitDlgTools.Show(
+						"Prime4096",
+						"素因数分解しています...",
+						() => text = string.Join("\r\n", Prime4096.Factorization(value, () => cancelledBox[0] == false)),
+						() => 0.5, // TODO
+						() => cancelledBox[0] = true
+						);
+
+					if (WaitDlg.LastCancelled)
+						text = "中止しました。";
+				}
+				catch (LongMessageException ex)
+				{
+					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
+				}
+				catch (Exception ex)
+				{
+					MessageDlgTools.Warning("Prime4096", ex);
+				}
 			}
+			this.Visible = true;
+
+			this.T素因数分解_結果.Text = text;
+			this.T素因数分解_結果.SelectionStart = this.T素因数分解_結果.TextLength;
+			//this.T素因数分解_結果.ScrollToCaret();
 		}
 
 		private void Btn個数_Click(object sender, EventArgs e)
 		{
+			this.Visible = false;
+
 			using (this.MTBusy.Section())
 			{
-				MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "エラー", "未実装", true);
+				try
+				{
+					string minval = this.T個数_最小値.Text;
+					string maxval = this.T個数_最大値.Text;
+
+					if (minval == "")
+						throw new Exception("最小値 が 未入力です。");
+
+					if (maxval == "")
+						throw new Exception("最大値 が 未入力です。");
+
+					if (StringTools.LiteValidate(minval, StringTools.DECIMAL) == false)
+						throw new Exception("最小値 に [0-9] 以外の文字が含まれています。");
+
+					if (StringTools.LiteValidate(minval, StringTools.DECIMAL) == false)
+						throw new Exception("最大値 に [0-9] 以外の文字が含まれています。");
+
+					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", minval)[0] == '-')
+						throw new LongMessageException(Utils.AutoInsertNewLine("最小値 には 0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_LongMessageDlg));
+
+					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", maxval)[0] == '-')
+						throw new LongMessageException(Utils.AutoInsertNewLine("最大値 には 0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_LongMessageDlg));
+
+					if (Ground.TCalc_Int.Calc(maxval, "-", minval)[0] == '-')
+						throw new Exception("最大値 < 最小値 になっています。");
+
+					string outFile = "PrimeCount_" + minval + "-" + maxval + ".txt";
+
+					if (Consts.OutputLocalFileLenMax < outFile.Length)
+						outFile = "PrimeCount.txt";
+
+					//outFile = Path.Combine(ProcMain.SelfDir, outFile);
+					outFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), outFile);
+
+					outFile = InputFileDlgTools.Save(
+						"Prime4096",
+						"出力ファイルを選択して下さい。",
+						false,
+						outFile
+						);
+
+					if (outFile == null)
+						throw new Returning();
+
+					bool[] cancelledBox = new bool[1];
+
+					WaitDlgTools.Show(
+						"Prime4096",
+						"出力しています...",
+						() => Prime4096.WritePrimeCount(minval, maxval, outFile, () => cancelledBox[0] == false),
+						() => 0.5, // TODO
+						() => cancelledBox[0] = true
+						);
+
+					if (WaitDlg.LastCancelled)
+						MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "Prime4096", "中止しました。");
+					else
+						MessageDlgTools.Information("Prime4096", "完了しました。");
+				}
+				catch (Returning)
+				{ }
+				catch (LongMessageException ex)
+				{
+					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
+				}
+				catch (Exception ex)
+				{
+					MessageDlgTools.Warning("Prime4096", ex);
+				}
 			}
+			this.Visible = true;
 		}
 	}
 }

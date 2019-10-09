@@ -37,7 +37,7 @@ namespace Charlotte
 			return Perform_Interlude("/L " + value, interlude)[0];
 		}
 
-		public static string GetHigherPrime(ulong value, Func<bool> interlude)
+		public static string GetHigherPrime(string value, Func<bool> interlude)
 		{
 			return Perform_Interlude("/H " + value, interlude)[0];
 		}

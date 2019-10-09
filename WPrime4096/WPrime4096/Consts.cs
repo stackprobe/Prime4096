@@ -31,5 +31,7 @@ namespace Charlotte
 		public const int MaxLineLen_ToolTip = 115;
 		public const int MaxLineLen_LongMessageDlg = 72;
 		public static readonly I2Size LongMessageDlg_Size = new I2Size(780, 530);
+
+		public const int OutputLocalFileLenMax = 100;
 	}
 }
