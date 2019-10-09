@@ -285,6 +285,7 @@ namespace Charlotte
 		private void Btn出力_Click(object sender, EventArgs e)
 		{
 			this.Visible = false;
+			InputFileDlg.FAT32 = true;
 
 			using (this.MTBusy.Section())
 			{
@@ -354,6 +355,7 @@ namespace Charlotte
 				}
 			}
 			this.Visible = true;
+			InputFileDlg.FAT32 = false; // 復元
 		}
 
 		private void Btn判定_Click(object sender, EventArgs e)
