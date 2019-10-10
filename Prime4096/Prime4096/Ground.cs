@@ -15,7 +15,7 @@ namespace Charlotte
 
 		// ---- Conf 項目 ----
 
-		public static int MillerRabin_K = 30;
+		public static int MillerRabin_K = 50;
 
 		// ----
 

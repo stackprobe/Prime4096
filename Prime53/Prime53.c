@@ -35,9 +35,9 @@ static void Main2(void)
 	Stop_INIT();
 	LoadConfig();
 
-	if(argIs("/S"))
+	if(argIs("/2"))
 	{
-		Stop();
+		IsPrime(2);
 		return;
 	}
 	if(argIs("/D")) // ƒŠƒŠ[ƒXŠÂ‹«—p Prime.dat íœ
@@ -49,6 +49,11 @@ static void Main2(void)
 		LOGPOS();
 		unmutex();
 		LOGPOS();
+		return;
+	}
+	if(argIs("/S"))
+	{
+		Stop();
 		return;
 	}
 	if(argIs("/P"))

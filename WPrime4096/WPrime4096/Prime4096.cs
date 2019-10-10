@@ -17,7 +17,7 @@ namespace Charlotte
 			string file = Path.Combine(ProcMain.SelfDir, "Prime4096.exe");
 
 			if (File.Exists(file) == false)
-				file = FileTools.MakeFullPath(@"..\..\..\..\Prime4096\Prime4096\bin\Release\Prime4096.exe");
+				file = FileTools.MakeFullPath(@"..\..\..\..\Prime4096\Prime4096\bin\Release\Prime4096.exe"); // devenv
 
 			Prime4096File = file;
 		}

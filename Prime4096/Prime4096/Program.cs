@@ -131,7 +131,7 @@ namespace Charlotte
 					return value;
 
 				if (Ground.EvStop.WaitForMillis(0))
-					break;
+					return 0;
 			}
 			return Prime53.GetLowerPrime(Common.ToULong(value - 1));
 		}
@@ -146,9 +146,9 @@ namespace Charlotte
 					return ret;
 
 				//value = Consts.BI2P64 - 1;
-				value = Consts.BI2P64;
+				value = Consts.BI2P64; // 2^64 is not prime
 			}
-			while (value < Consts.BI2P4096_1)
+			while (value < Consts.BI2P4096_1) // 2^4096-1 is not prime
 			{
 				value++;
 

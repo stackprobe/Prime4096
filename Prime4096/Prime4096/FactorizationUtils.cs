@@ -11,7 +11,7 @@ namespace Charlotte
 	{
 		public static void Factorization(BigInteger value, string outFile)
 		{
-			// TODO ρ-法
+			// TODO GNFS ???
 
 			List<string> lines = new List<string>();
 
@@ -23,7 +23,7 @@ namespace Charlotte
 				value >>= 1;
 				lines.Add("2");
 			}
-			if (PrimeUtils.IsPrime(value))
+			if (PrimeUtils.IsPrime_M(value))
 				goto gotPrime;
 
 			BigInteger denom = 3;
@@ -36,7 +36,7 @@ namespace Charlotte
 					value /= denom;
 					lines.Add(Common.ToString(denom));
 
-					if (PrimeUtils.IsPrime(value))
+					if (PrimeUtils.IsPrime_M(value))
 						goto gotPrime;
 
 					if (Ground.EvStop.WaitForMillis(0))

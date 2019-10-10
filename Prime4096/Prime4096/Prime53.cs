@@ -48,12 +48,12 @@ namespace Charlotte
 			Perform_OutFile_Interlude("/R " + minval + " " + maxval, outFile, interlude);
 		}
 
-#if false // not used
+		/*
 		public static void WritePrimeCount(ulong minval, ulong maxval, string outFile, Func<bool> interlude)
 		{
 			Perform_OutFile_Interlude("/C " + minval + " " + maxval, outFile, interlude);
 		}
-#endif
+		*/
 
 		public static ulong GetPrimeCount(ulong minval, ulong maxval, Func<bool> interlude)
 		{

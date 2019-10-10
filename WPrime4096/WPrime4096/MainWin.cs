@@ -9,11 +9,32 @@ using System.Windows.Forms;
 using Charlotte.Tools;
 using Charlotte.Chocomint.Dialogs;
 using System.IO;
+using System.Security.Permissions;
 
 namespace Charlotte
 {
 	public partial class MainWin : Form
 	{
+		#region ALT_F4 抑止
+
+		private bool XPressed = false;
+
+		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+		protected override void WndProc(ref Message m)
+		{
+			const int WM_SYSCOMMAND = 0x112;
+			const long SC_CLOSE = 0xF060L;
+
+			if (m.Msg == WM_SYSCOMMAND && (m.WParam.ToInt64() & 0xFFF0L) == SC_CLOSE)
+			{
+				this.XPressed = true;
+				return;
+			}
+			base.WndProc(ref m);
+		}
+
+		#endregion
+
 		public MainWin()
 		{
 			InitializeComponent();
@@ -42,6 +63,9 @@ namespace Charlotte
 			// -- 0001
 
 			Prime4096.INIT();
+			Prime53Lite.INIT();
+
+			Prime53Lite.GeneratePrimeDat();
 
 			this.Base_MainWin_H = this.Height;
 			this.Base_T1_H = this.T出力_最小値.Height;
@@ -138,6 +162,11 @@ namespace Charlotte
 
 				// -- 9900
 
+				BusyDlgTools.Show("Prime4096", "Deleting Prime.dat", () =>
+				{
+					Prime53Lite.RemovePrimeDat();
+				});
+
 				Ground.Destroy();
 
 				// ----
@@ -158,6 +187,12 @@ namespace Charlotte
 			try
 			{
 				// -- 3001
+
+				if (this.XPressed)
+				{
+					this.XPressed = false;
+					this.CloseWindow();
+				}
 			}
 			catch (Exception ex)
 			{

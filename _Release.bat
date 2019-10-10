@@ -6,6 +6,7 @@ FOR %%E IN (out\*.exe) DO (
 	C:\Factory\SubTools\EmbedConfig.exe --factory-dir-disabled "%%E"
 )
 
+COPY Prime53\Prime53.conf out
 COPY Prime4096\Prime4096\bin\Release\Prime4096.exe out
 COPY WPrime4096\WPrime4096\bin\Release\WPrime4096.exe out
 COPY WPrime4096\WPrime4096\bin\Release\Chocolate.dll out
