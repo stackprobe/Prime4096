@@ -122,7 +122,7 @@ namespace Charlotte
 
 		private BigInteger GetLowerPrime(BigInteger value)
 		{
-			while (value.IsZero == false)
+			while (Consts.BI2P64 < value)
 			{
 				value--;
 
@@ -131,14 +131,22 @@ namespace Charlotte
 
 				if (Ground.EvStop.WaitForMillis(0))
 					break;
-
-				Common.ReportWithoutRate();
 			}
-			return 0;
+			return Prime53.GetLowerPrime(Common.ToULong(value - 1));
 		}
 
 		private BigInteger GetHigherPrime(BigInteger value)
 		{
+			if (value < Consts.BI2P64)
+			{
+				ulong ret = Prime53.GetHigherPrime(Common.ToULong(value));
+
+				if (ret != 0)
+					return ret;
+
+				//value = Consts.BI2P64 - 1;
+				value = Consts.BI2P64;
+			}
 			while (value < Consts.BI2P4096_1)
 			{
 				value++;
@@ -148,8 +156,6 @@ namespace Charlotte
 
 				if (Ground.EvStop.WaitForMillis(0))
 					break;
-
-				Common.ReportWithoutRate();
 			}
 			return 0;
 		}

@@ -37,6 +37,9 @@ namespace Charlotte
 
 					if (PrimeUtils.IsPrime(value))
 						goto gotPrime;
+
+					if (Ground.EvStop.WaitForMillis(0))
+						goto gotPrime; // 中止
 				}
 				denom += 2;
 

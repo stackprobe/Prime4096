@@ -120,13 +120,5 @@ namespace Charlotte
 			}
 			Ground.EvReported.Set();
 		}
-
-		private static double RWR_RamainingRate = 1.0;
-
-		public static void ReportWithoutRate()
-		{
-			RWR_RamainingRate *= 0.999;
-			Report(1.0 - RWR_RamainingRate);
-		}
 	}
 }

@@ -431,16 +431,21 @@ namespace Charlotte
 						() =>
 						{
 							WaitDlg.MessagePost.Post("最寄りの素数を探しています... (小さい方)");
+							this.ProgressRate = 0.333;
 							string lowerPrime = Prime4096.GetLowerPrime(value, () => cancelledBox[0] == false);
 							WaitDlg.MessagePost.Post("最寄りの素数を探しています... (大きい方)");
+							this.ProgressRate = 0.666;
 							string higherPrime = Prime4096.GetHigherPrime(value, () => cancelledBox[0] == false);
 
 							text = string.Join("\r\n",
-								"小さい方 ---->",
+								"元の数より小さい最大の素数 ---->",
 								lowerPrime,
 								"",
-								"大きい方 ---->",
-								higherPrime
+								"元の数より大きい最小の素数 ---->",
+								higherPrime,
+								"",
+								"元の数 ---->",
+								value
 								);
 						},
 						this.CommonInterlude,
@@ -488,7 +493,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
-					this.CommonInterlude_INIT();
+					this.CommonInterlude_INIT(0.5);
 
 					WaitDlgTools.Show(
 						"Prime4096",
@@ -499,7 +504,7 @@ namespace Charlotte
 						);
 
 					if (WaitDlg.LastCancelled)
-						text = "中止しました。";
+						text += "\r\n中止しました。結果は不正確です。";
 				}
 				catch (Exception ex)
 				{
@@ -605,9 +610,9 @@ namespace Charlotte
 
 		private double ProgressRate = 0.0;
 
-		private void CommonInterlude_INIT()
+		private void CommonInterlude_INIT(double rate = 0.0)
 		{
-			this.ProgressRate = 0.0;
+			this.ProgressRate = rate;
 		}
 
 		private double CommonInterlude()
