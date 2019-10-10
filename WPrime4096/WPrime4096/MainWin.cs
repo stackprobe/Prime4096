@@ -493,7 +493,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
-					this.CommonInterlude_INIT(0.5);
+					this.CommonInterlude_INIT();
 
 					WaitDlgTools.Show(
 						"Prime4096",
@@ -504,7 +504,7 @@ namespace Charlotte
 						);
 
 					if (WaitDlg.LastCancelled)
-						text += "\r\n中止しました。結果は不正確です。";
+						text += "\r\n処理を中止しました。この出力結果は正しくない可能性があります。";
 				}
 				catch (Exception ex)
 				{
@@ -610,9 +610,9 @@ namespace Charlotte
 
 		private double ProgressRate = 0.0;
 
-		private void CommonInterlude_INIT(double rate = 0.0)
+		private void CommonInterlude_INIT()
 		{
-			this.ProgressRate = rate;
+			this.ProgressRate = 0.0;
 		}
 
 		private double CommonInterlude()

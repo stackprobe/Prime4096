@@ -27,6 +27,7 @@ namespace Charlotte
 				goto gotPrime;
 
 			BigInteger denom = 3;
+			int valueFirstScale = value.ToByteArray().Length; // レポート用
 
 			while (Consts.BI2P64 <= value)
 			{
@@ -40,6 +41,8 @@ namespace Charlotte
 
 					if (Ground.EvStop.WaitForMillis(0))
 						goto gotPrime; // 中止
+
+					Common.Report(1.0 - value.ToByteArray().Length * 1.0 / valueFirstScale);
 				}
 				denom += 2;
 
