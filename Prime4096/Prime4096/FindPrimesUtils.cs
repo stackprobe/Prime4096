@@ -33,6 +33,8 @@ namespace Charlotte
 
 						Common.Report(0.5 + rate * 0.5);
 					}
+
+					GC.Collect(); // zantei
 				}
 			}
 		}
@@ -83,6 +85,8 @@ namespace Charlotte
 
 					Common.Report(0.5 + rate * 0.5);
 				}
+
+				GC.Collect(); // zantei
 			}
 			return count;
 		}
@@ -111,6 +115,17 @@ namespace Charlotte
 				count = S_GetPrimeCount(minval, maxval);
 			}
 			return count;
+		}
+
+		private static int P_Count = 0;
+
+		private static bool Pulser()
+		{
+			if (++P_Count < 100)
+				return false;
+
+			P_Count = 0;
+			return true;
 		}
 	}
 }

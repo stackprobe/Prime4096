@@ -62,6 +62,8 @@ namespace Charlotte
 		{
 			// -- 0001
 
+			ExtraTools.AntiWindowsDefenderSmartScreen();
+
 			Prime4096.INIT();
 			Prime53Lite.INIT();
 
@@ -162,7 +164,7 @@ namespace Charlotte
 
 				// -- 9900
 
-				BusyDlgTools.Show("Prime4096", "Deleting Prime.dat", () =>
+				BusyDlgTools.Show("Prime4096", "アプリケーションを終了しています...", () =>
 				{
 					Prime53Lite.RemovePrimeDat();
 				});
@@ -192,6 +194,10 @@ namespace Charlotte
 				{
 					this.XPressed = false;
 					this.CloseWindow();
+				}
+				if (this.MTCount % 600 == 0) // per 1 min
+				{
+					GC.Collect();
 				}
 			}
 			catch (Exception ex)
