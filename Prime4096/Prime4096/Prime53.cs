@@ -48,18 +48,30 @@ namespace Charlotte
 			Perform_OutFile_Interlude("/R " + minval + " " + maxval, outFile, interlude);
 		}
 
+#if false // not used
 		public static void WritePrimeCount(ulong minval, ulong maxval, string outFile, Func<bool> interlude)
 		{
 			Perform_OutFile_Interlude("/C " + minval + " " + maxval, outFile, interlude);
 		}
+#endif
+
+		public static ulong GetPrimeCount(ulong minval, ulong maxval, Func<bool> interlude)
+		{
+			return ulong.Parse(Perform_Interlude("/C " + minval + " " + maxval, interlude)[0]);
+		}
 
 		private static string[] Perform(string arguments)
+		{
+			return Perform_Interlude(arguments, () => true);
+		}
+
+		private static string[] Perform_Interlude(string arguments, Func<bool> interlude)
 		{
 			using (WorkingDir wd = new WorkingDir())
 			{
 				string outFile = wd.MakePath();
 
-				Perform_OutFile_Interlude(arguments, outFile, () => true);
+				Perform_OutFile_Interlude(arguments, outFile, interlude);
 
 				return File.ReadAllLines(outFile, Encoding.ASCII);
 			}

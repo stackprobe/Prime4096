@@ -31,7 +31,7 @@ static uint64 GetHigherPrime(uint64 value)
 }
 static void Main2(void)
 {
-	Consts_INIT();
+	Report_INIT();
 	Stop_INIT();
 	LoadConfig();
 
