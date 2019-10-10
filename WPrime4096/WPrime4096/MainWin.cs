@@ -138,6 +138,8 @@ namespace Charlotte
 
 				// -- 9900
 
+				Ground.Destroy();
+
 				// ----
 
 				this.Close();
@@ -335,11 +337,13 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
+					this.CommonInterlude_INIT();
+
 					WaitDlgTools.Show(
 						"Prime4096",
 						"出力しています...",
 						() => Prime4096.FindPrimes(minval, maxval, outFile, () => cancelledBox[0] == false),
-						() => 0.5, // TODO
+						this.CommonInterlude,
 						() => cancelledBox[0] = true
 						);
 
@@ -348,15 +352,9 @@ namespace Charlotte
 					else
 						MessageDlgTools.Information("Prime4096", "完了しました。");
 				}
-				catch (Returning)
-				{ }
-				catch (LongMessageException ex)
-				{
-					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
-				}
 				catch (Exception ex)
 				{
-					MessageDlgTools.Warning("Prime4096", ex);
+					this.CommonCought(ex);
 				}
 			}
 			this.Visible = true;
@@ -390,13 +388,9 @@ namespace Charlotte
 					}
 					);
 				}
-				catch (LongMessageException ex)
-				{
-					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
-				}
 				catch (Exception ex)
 				{
-					MessageDlgTools.Warning("Prime4096", ex);
+					this.CommonCought(ex);
 				}
 			}
 			this.Visible = true;
@@ -429,33 +423,36 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
+					this.CommonInterlude_INIT();
+
 					WaitDlgTools.Show(
 						"Prime4096",
 						"最寄りの素数を探しています...",
 						() =>
 						{
+							WaitDlg.MessagePost.Post("最寄りの素数を探しています... (小さい方)");
+							string lowerPrime = Prime4096.GetLowerPrime(value, () => cancelledBox[0] == false);
+							WaitDlg.MessagePost.Post("最寄りの素数を探しています... (大きい方)");
+							string higherPrime = Prime4096.GetHigherPrime(value, () => cancelledBox[0] == false);
+
 							text = string.Join("\r\n",
 								"小さい方 ---->",
-								Prime4096.GetLowerPrime(value, () => cancelledBox[0] == false),
+								lowerPrime,
 								"",
 								"大きい方 ---->",
-								Prime4096.GetHigherPrime(value, () => cancelledBox[0] == false)
+								higherPrime
 								);
 						},
-						() => 0.5, // TODO
+						this.CommonInterlude,
 						() => cancelledBox[0] = true
 						);
 
 					if (WaitDlg.LastCancelled)
 						text = "中止しました。";
 				}
-				catch (LongMessageException ex)
-				{
-					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
-				}
 				catch (Exception ex)
 				{
-					MessageDlgTools.Warning("Prime4096", ex);
+					this.CommonCought(ex);
 				}
 			}
 			this.Visible = true;
@@ -491,24 +488,22 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
+					this.CommonInterlude_INIT();
+
 					WaitDlgTools.Show(
 						"Prime4096",
 						"素因数分解しています...",
 						() => text = string.Join("\r\n", Prime4096.Factorization(value, () => cancelledBox[0] == false)),
-						() => 0.5, // TODO
+						this.CommonInterlude,
 						() => cancelledBox[0] = true
 						);
 
 					if (WaitDlg.LastCancelled)
 						text = "中止しました。";
 				}
-				catch (LongMessageException ex)
-				{
-					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
-				}
 				catch (Exception ex)
 				{
-					MessageDlgTools.Warning("Prime4096", ex);
+					this.CommonCought(ex);
 				}
 			}
 			this.Visible = true;
@@ -570,11 +565,13 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
+					this.CommonInterlude_INIT();
+
 					WaitDlgTools.Show(
 						"Prime4096",
 						"出力しています...",
 						() => Prime4096.WritePrimeCount(minval, maxval, outFile, () => cancelledBox[0] == false),
-						() => 0.5, // TODO
+						this.CommonInterlude,
 						() => cancelledBox[0] = true
 						);
 
@@ -583,18 +580,46 @@ namespace Charlotte
 					else
 						MessageDlgTools.Information("Prime4096", "完了しました。");
 				}
-				catch (Returning)
-				{ }
-				catch (LongMessageException ex)
-				{
-					LongMessageDlgTools.Warning("Prime4096", ex.Message, Consts.LongMessageDlg_Size);
-				}
 				catch (Exception ex)
 				{
-					MessageDlgTools.Warning("Prime4096", ex);
+					this.CommonCought(ex);
 				}
 			}
 			this.Visible = true;
+		}
+
+		private void CommonCought(Exception e)
+		{
+			if (e is Returning)
+				return;
+
+			if (e is LongMessageException)
+			{
+				LongMessageDlgTools.Warning("Prime4096", e.Message, Consts.LongMessageDlg_Size);
+			}
+			else
+			{
+				MessageDlgTools.Warning("Prime4096", e);
+			}
+		}
+
+		private double ProgressRate = 0.0;
+
+		private void CommonInterlude_INIT()
+		{
+			this.ProgressRate = 0.0;
+		}
+
+		private double CommonInterlude()
+		{
+			if (Ground.EvReported.WaitForMillis(0))
+			{
+				using (new MSection(Ground.MtxReport))
+				{
+					this.ProgressRate = double.Parse(File.ReadAllText(Consts.ReportFile, Encoding.ASCII).Trim());
+				}
+			}
+			return this.ProgressRate;
 		}
 	}
 }

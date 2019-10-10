@@ -75,7 +75,7 @@ namespace Charlotte
 			{
 				bool cancelled = false;
 
-				while (p.WaitForExit(2000) == false)
+				while (p.WaitForExit(100) == false)
 				{
 					if (cancelled || interlude() == false)
 					{

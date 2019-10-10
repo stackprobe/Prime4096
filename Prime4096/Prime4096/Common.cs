@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Numerics;
 using Charlotte.TCalcs;
 using Charlotte.Tools;
+using System.IO;
 
 namespace Charlotte
 {
@@ -46,14 +47,19 @@ namespace Charlotte
 				buff.Add((byte)((unit >> 56) & 0xff));
 			}
 			buff.Add(0x00);
-			return new BigInteger(buff.ToArray());
+			BigInteger ret = new BigInteger(buff.ToArray());
+
+			if (Consts.BI2P4096_0 <= ret)
+				throw new Exception("Over 2^4096-1");
+
+			return ret;
 		}
 
 		public static string ToString(BigInteger value)
 		{
 			List<string> buff = new List<string>();
 
-			while (value.IsZero)
+			while (value.IsZero == false)
 			{
 				var bUnit = BluffListTools.Create((value % Consts.BI10P19).ToByteArray()).FreeRange(0x00);
 
@@ -102,6 +108,25 @@ namespace Charlotte
 				((ulong)buff[7] << 56);
 
 			return ret;
+		}
+
+		public static void Report(double progressRate)
+		{
+			progressRate = DoubleTools.Range(progressRate, 0.0, 1.0);
+
+			using (new MSection(Ground.MtxReport))
+			{
+				File.WriteAllText(Consts.ReportFile, progressRate.ToString("F9"), Encoding.ASCII);
+			}
+			Ground.EvReported.Set();
+		}
+
+		private static double RWR_RamainingRate = 1.0;
+
+		public static void ReportWithoutRate()
+		{
+			RWR_RamainingRate *= 0.999;
+			Report(1.0 - RWR_RamainingRate);
 		}
 	}
 }

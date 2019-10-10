@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.Tools;
+using System.IO;
 
 namespace Charlotte
 {
@@ -33,5 +34,10 @@ namespace Charlotte
 		public static readonly I2Size LongMessageDlg_Size = new I2Size(780, 530);
 
 		public const int OutputLocalFileLenMax = 100;
+
+		public const string REPORT_IDENT = "{0a06a4fe-041b-4d3f-9894-c6e478d75f58}"; // shared_uuid
+		public const string REPORT_MTX_NAME = REPORT_IDENT + "_L";
+		public const string REPORTED_EV_NAME = REPORT_IDENT + "_R";
+		public static readonly string ReportFile = Path.Combine(Environment.GetEnvironmentVariable("TMP"), REPORT_IDENT + ".tmp");
 	}
 }

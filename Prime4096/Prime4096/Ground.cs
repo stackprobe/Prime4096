@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using Charlotte.Tools;
 using Charlotte.TCalcs;
+using System.Threading;
 
 namespace Charlotte
 {
@@ -38,6 +39,21 @@ namespace Charlotte
 			// ----
 		}
 
-		public static NamedEventUnit EvStop;
+		public static NamedEventUnit EvStop = new NamedEventUnit("{c4ef09ea-5598-4ddf-98f0-9c06b17d9b6c}");
+
+		public static Mutex MtxReport = MutexTools.Create(Consts.REPORT_MTX_NAME);
+		public static NamedEventUnit EvReported = new NamedEventUnit(Consts.REPORTED_EV_NAME);
+
+		public static void Destroy()
+		{
+			EvStop.Dispose();
+			EvStop = null;
+
+			MtxReport.Dispose();
+			MtxReport = null;
+
+			EvReported.Dispose();
+			EvReported = null;
+		}
 	}
 }

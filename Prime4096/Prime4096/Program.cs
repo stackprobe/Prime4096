@@ -32,16 +32,9 @@ namespace Charlotte
 			Prime53.INIT();
 			Ground.LoadConf();
 
-			Ground.EvStop = new NamedEventUnit("{c4ef09ea-5598-4ddf-98f0-9c06b17d9b6c}");
-			try
-			{
-				this.Main3(ar);
-			}
-			finally
-			{
-				Ground.EvStop.Dispose();
-				Ground.EvStop = null;
-			}
+			this.Main3(ar);
+
+			Ground.Destroy();
 		}
 
 		private void Main3(ArgsReader ar)
@@ -64,7 +57,7 @@ namespace Charlotte
 				string sn = ar.NextArg();
 				string outFile = ar.NextArg();
 
-				FactorizationUtils.Factorization(sn, outFile);
+				FactorizationUtils.Factorization(Common.ToBigInteger(sn), outFile);
 				return;
 			}
 			if (ar.ArgIs("/L"))
@@ -127,14 +120,38 @@ namespace Charlotte
 			throw new ArgumentException("不明なコマンド引数");
 		}
 
-		private BigInteger GetLowerPrime(BigInteger bigInteger)
+		private BigInteger GetLowerPrime(BigInteger value)
 		{
-			throw null; // TODO
+			while (value.IsZero == false)
+			{
+				value--;
+
+				if (PrimeUtils.IsPrime(value))
+					return value;
+
+				if (Ground.EvStop.WaitForMillis(0))
+					break;
+
+				Common.ReportWithoutRate();
+			}
+			return 0;
 		}
 
-		private BigInteger GetHigherPrime(BigInteger bigInteger)
+		private BigInteger GetHigherPrime(BigInteger value)
 		{
-			throw null; // TODO
+			while (value < Consts.BI2P4096_1)
+			{
+				value++;
+
+				if (PrimeUtils.IsPrime(value))
+					return value;
+
+				if (Ground.EvStop.WaitForMillis(0))
+					break;
+
+				Common.ReportWithoutRate();
+			}
+			return 0;
 		}
 	}
 }
