@@ -320,7 +320,8 @@ namespace Charlotte
 					string outFile = "Prime_" + minval + "-" + maxval + ".txt";
 
 					if (Consts.OutputLocalFileLenMax < outFile.Length)
-						outFile = "Prime.txt";
+						//outFile = "Prime.txt";
+						outFile = "Prime_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt";
 
 					//outFile = Path.Combine(ProcMain.SelfDir, outFile);
 					outFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), outFile);
@@ -553,7 +554,8 @@ namespace Charlotte
 					string outFile = "PrimeCount_" + minval + "-" + maxval + ".txt";
 
 					if (Consts.OutputLocalFileLenMax < outFile.Length)
-						outFile = "PrimeCount.txt";
+						//outFile = "PrimeCount.txt";
+						outFile = "PrimeCount_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt";
 
 					//outFile = Path.Combine(ProcMain.SelfDir, outFile);
 					outFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), outFile);
