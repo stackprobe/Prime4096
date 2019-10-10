@@ -120,5 +120,13 @@ namespace Charlotte
 			}
 			Ground.EvReported.Set();
 		}
+
+		public static void RemoveReportFile()
+		{
+			using (new MSection(Ground.MtxReport))
+			{
+				FileTools.Delete(Consts.ReportFile);
+			}
+		}
 	}
 }

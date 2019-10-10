@@ -34,6 +34,7 @@ namespace Charlotte
 
 			this.Main3(ar);
 
+			Common.RemoveReportFile();
 			Ground.Destroy();
 		}
 

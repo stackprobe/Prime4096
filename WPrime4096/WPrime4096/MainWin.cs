@@ -621,7 +621,10 @@ namespace Charlotte
 			{
 				using (new MSection(Ground.MtxReport))
 				{
-					this.ProgressRate = double.Parse(File.ReadAllText(Consts.ReportFile, Encoding.ASCII).Trim());
+					if (File.Exists(Consts.ReportFile))
+					{
+						this.ProgressRate = double.Parse(File.ReadAllText(Consts.ReportFile, Encoding.ASCII).Trim());
+					}
 				}
 			}
 			return this.ProgressRate;
