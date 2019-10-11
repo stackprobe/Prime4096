@@ -39,6 +39,8 @@ namespace Charlotte
 			// ----
 		}
 
+		public static Mutex MtxProcStartEnd = MutexTools.Create("{0a47d7c9-b6f1-499d-8a02-be94669f9fcf}");
+
 		public static NamedEventUnit EvStop = new NamedEventUnit("{c4ef09ea-5598-4ddf-98f0-9c06b17d9b6c}");
 
 		public static Mutex MtxReport = MutexTools.Create(Consts.REPORT_MTX_NAME);
@@ -46,6 +48,9 @@ namespace Charlotte
 
 		public static void Destroy()
 		{
+			MtxProcStartEnd.Dispose();
+			MtxProcStartEnd = null;
+
 			EvStop.Dispose();
 			EvStop = null;
 

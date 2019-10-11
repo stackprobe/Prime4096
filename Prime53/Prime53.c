@@ -35,9 +35,11 @@ static void Main2(void)
 	Stop_INIT();
 	LoadConfig();
 
-	if(argIs("/2"))
+	if(argIs("/2")) // リリース環境用 Prime.dat 作成
 	{
+		LOGPOS();
 		IsPrime(2);
+		LOGPOS();
 		return;
 	}
 	if(argIs("/D")) // リリース環境用 Prime.dat 削除
@@ -53,7 +55,9 @@ static void Main2(void)
 	}
 	if(argIs("/S"))
 	{
+		LOGPOS();
 		Stop();
+		LOGPOS();
 		return;
 	}
 	if(argIs("/P"))
@@ -64,7 +68,9 @@ static void Main2(void)
 		value = toValue64(nextArg());
 		outFile = nextArg();
 
+		LOGPOS();
 		writeOneLineNoRet_b(outFile, A_IsPrime(value) ? "P" : "N");
+		LOGPOS();
 		return;
 	}
 	if(argIs("/F"))
@@ -75,7 +81,9 @@ static void Main2(void)
 		value = toValue64(nextArg());
 		outFile = nextArg();
 
+		LOGPOS();
 		S_Factorization(value, outFile);
+		LOGPOS();
 		return;
 	}
 	if(argIs("/L"))
@@ -86,7 +94,9 @@ static void Main2(void)
 		value = toValue64(nextArg());
 		outFile = nextArg();
 
+		LOGPOS();
 		writeOneLineNoRet_b_cx(outFile, xcout("%I64u", GetLowerPrime(value)));
+		LOGPOS();
 		return;
 	}
 	if(argIs("/H"))
@@ -97,7 +107,9 @@ static void Main2(void)
 		value = toValue64(nextArg());
 		outFile = nextArg();
 
+		LOGPOS();
 		writeOneLineNoRet_b_cx(outFile, xcout("%I64u", GetHigherPrime(value)));
+		LOGPOS();
 		return;
 	}
 	if(argIs("/R"))
@@ -110,7 +122,9 @@ static void Main2(void)
 		maxval = toValue64(nextArg());
 		outFile = nextArg();
 
+		LOGPOS();
 		FindPrimes(minval, maxval, outFile);
+		LOGPOS();
 		return;
 	}
 	if(argIs("/C"))
@@ -123,7 +137,9 @@ static void Main2(void)
 		maxval = toValue64(nextArg());
 		outFile = nextArg();
 
+		LOGPOS();
 		WritePrimeCount(minval, maxval, outFile);
+		LOGPOS();
 		return;
 	}
 	error(); // 不明なコマンド引数
