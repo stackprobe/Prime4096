@@ -32,26 +32,31 @@ namespace Charlotte
 		{
 			using (new MSection(Ground.MtxProcStartEnd))
 			{
-				this.Main2B(ar);
+				Prime53.INIT();
+				Ground.LoadConf();
+
+				{
+					string errorReportFile = Path.Combine(ProcMain.SelfDir, Consts.ERROR_REPORT_LOCAL_FILE);
+
+					FileTools.Delete(errorReportFile);
+
+					try
+					{
+						using (MSection.Unsection(Ground.MtxProcStartEnd))
+						{
+							this.Main3(ar);
+						}
+					}
+					catch (Exception e)
+					{
+						File.WriteAllText(errorReportFile, GetLiteMessage(e), Encoding.UTF8);
+						throw;
+					}
+				}
+
+				Common.RemoveReportFile();
 			}
 			Ground.Destroy();
-		}
-
-		private void Main2B(ArgsReader ar)
-		{
-			string errorReportFile = Path.Combine(ProcMain.SelfDir, Consts.ERROR_REPORT_LOCAL_FILE);
-
-			FileTools.Delete(errorReportFile);
-
-			try
-			{
-				this.Main3(ar);
-			}
-			catch (Exception e)
-			{
-				File.WriteAllText(errorReportFile, GetLiteMessage(e), Encoding.UTF8);
-				throw;
-			}
 		}
 
 		private static string GetLiteMessage(Exception e)
@@ -60,25 +65,6 @@ namespace Charlotte
 		}
 
 		private void Main3(ArgsReader ar)
-		{
-			Prime53.INIT();
-			Ground.LoadConf();
-
-			this.Main4(ar);
-
-			Common.RemoveReportFile();
-			//Ground.Destroy(); // moved
-		}
-
-		private void Main4(ArgsReader ar)
-		{
-			using (MSection.Unsection(Ground.MtxProcStartEnd))
-			{
-				this.Main4B(ar);
-			}
-		}
-
-		private void Main4B(ArgsReader ar)
 		{
 			if (ar.ArgIs("/S"))
 			{

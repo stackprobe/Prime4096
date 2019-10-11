@@ -143,7 +143,7 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			this.MTBusy.Enter();
+			this.MTBusy.Enter(); // 2bs
 
 			// ----
 
@@ -154,25 +154,31 @@ namespace Charlotte
 		{
 			using (this.MTBusy.Section())
 			{
-				// -- 9000
-
-				// ----
-
-				this.MTBusy.Enter(); // 終了確定
-
-				// ----
-
-				// -- 9900
-
-				BusyDlgTools.Show("Prime4096", "アプリケーションを終了しています...", () =>
+				try
 				{
-					Prime53Lite.RemovePrimeDat();
-				});
+					// -- 9000
 
-				Ground.Destroy();
+					// ----
 
-				// ----
+					this.MTBusy.Enter(); // 終了確定
 
+					// ----
+
+					// -- 9900
+
+					BusyDlgTools.Show("Prime4096", "アプリケーションを終了しています...", () =>
+					{
+						Prime53Lite.RemovePrimeDat();
+					});
+
+					Ground.Destroy();
+
+					// ----
+				}
+				catch (Exception e)
+				{
+					MessageBox.Show("" + e, "Error @ CloseWindow()", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
 				this.Close();
 			}
 		}
@@ -194,6 +200,7 @@ namespace Charlotte
 				{
 					this.XPressed = false;
 					this.CloseWindow();
+					return;
 				}
 				if (this.MTCount % 600 == 0) // per 1 min
 				{
@@ -371,7 +378,9 @@ namespace Charlotte
 						"Prime4096",
 						"出力ファイルを選択して下さい。",
 						false,
-						outFile
+						outFile,
+						null,
+						"txt"
 						);
 
 					if (outFile == null)
@@ -390,7 +399,7 @@ namespace Charlotte
 						);
 
 					if (WaitDlg.LastCancelled)
-						MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "Prime4096", "中止しました。");
+						MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "Prime4096", "中止しました。\r\n出力ファイルの内容は正しくない可能性があります。");
 					else
 						MessageDlgTools.Information("Prime4096", "完了しました。");
 				}
@@ -546,7 +555,7 @@ namespace Charlotte
 						);
 
 					if (WaitDlg.LastCancelled)
-						text += "\r\n処理を中止しました。この出力結果は正しくない可能性があります。";
+						text += "\r\n中止しました。この出力結果は正しくない可能性があります。";
 				}
 				catch (Exception ex)
 				{
@@ -605,7 +614,9 @@ namespace Charlotte
 						"Prime4096",
 						"出力ファイルを選択して下さい。",
 						false,
-						outFile
+						outFile,
+						null,
+						"txt"
 						);
 
 					if (outFile == null)
@@ -617,14 +628,22 @@ namespace Charlotte
 
 					WaitDlgTools.Show(
 						"Prime4096",
-						"出力しています...",
+						"数えています...",
 						() => Prime4096.WritePrimeCount(minval, maxval, outFile, () => cancelledBox[0] == false),
 						this.CommonInterlude,
 						() => cancelledBox[0] = true
 						);
 
 					if (WaitDlg.LastCancelled)
-						MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "Prime4096", "中止しました。");
+					{
+						File.WriteAllText(
+							outFile,
+							File.ReadAllText(outFile, Encoding.ASCII).Trim() + "\n中止しました。この出力結果は正しくない可能性があります。",
+							StringTools.ENCODING_SJIS
+							);
+
+						MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "Prime4096", "中止しました。\r\n出力ファイルの内容は正しくない可能性があります。");
+					}
 					else
 						MessageDlgTools.Information("Prime4096", "完了しました。");
 				}
