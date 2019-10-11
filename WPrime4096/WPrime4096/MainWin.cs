@@ -399,7 +399,11 @@ namespace Charlotte
 						);
 
 					if (WaitDlg.LastCancelled)
+					{
+						// memo: Prime4096.exe, Prime53.exe は ABORTED 行を出力する。
+
 						MessageDlgTools.Show(MessageDlg.Mode_e.Warning, "Prime4096", "中止しました。\r\n出力ファイルの内容は正しくない可能性があります。");
+					}
 					else
 						MessageDlgTools.Information("Prime4096", "完了しました。");
 				}
@@ -636,6 +640,8 @@ namespace Charlotte
 
 					if (WaitDlg.LastCancelled)
 					{
+						// memo: Prime4096.exe, Prime53.exe は ABORTED 行等を出力しない。
+
 						File.WriteAllText(
 							outFile,
 							File.ReadAllText(outFile, Encoding.ASCII).Trim() + "\n中止しました。この出力結果は正しくない可能性があります。",

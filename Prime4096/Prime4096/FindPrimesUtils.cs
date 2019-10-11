@@ -27,7 +27,10 @@ namespace Charlotte
 						break;
 
 					if (Ground.EvStop.WaitForMillis(0))
+					{
+						FileTools.Write(writer, Encoding.ASCII.GetBytes("ABORTED\n"));
 						break; // 中止
+					}
 
 					{
 						int permil = (int)(((value - minval) * 1000) / (maxval - minval));

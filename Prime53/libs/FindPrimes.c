@@ -77,7 +77,11 @@ void FindPrimes(uint64 minval, uint64 maxval, char *outFile)
 		if(value % 0x08000000 == 1)
 		{
 			if(IsStopped())
+			{
+				WrUI64Flush();
+				errorCase(fprintf(Writer, "ABORTED\n") < 0);
 				break;
+			}
 
 			{
 				double rate = (value - minval) * 1.0 / (maxval - minval);
