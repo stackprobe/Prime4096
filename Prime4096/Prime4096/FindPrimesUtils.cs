@@ -10,7 +10,7 @@ namespace Charlotte
 {
 	public class FindPrimesUtils
 	{
-		private static void S_FindPrimes(BigInteger minval, BigInteger maxval, string outFile)
+		private static void FindPrimes_BIBI(BigInteger minval, BigInteger maxval, string outFile)
 		{
 			using (FileStream writer = new FileStream(outFile, FileMode.Append, FileAccess.Write))
 			{
@@ -20,6 +20,8 @@ namespace Charlotte
 					{
 						FileTools.Write(writer, Encoding.ASCII.GetBytes(Common.ToString(value)));
 						writer.WriteByte(0x0a); // '\n'
+
+						GC.Collect();
 					}
 					if (value == maxval)
 						break;
@@ -33,8 +35,6 @@ namespace Charlotte
 
 						Common.Report(0.5 + rate * 0.5);
 					}
-
-					GC.Collect(); // zantei
 				}
 			}
 		}
@@ -55,24 +55,27 @@ namespace Charlotte
 				else
 				{
 					Prime53.FindPrimes(Common.ToULong(minval), ulong.MaxValue, outFile, () => Ground.EvStop.WaitForMillis(0) == false);
-					S_FindPrimes(Consts.BI2P64, maxval, outFile);
+					FindPrimes_BIBI(Consts.BI2P64, maxval, outFile);
 				}
 			}
 			else
 			{
-				S_FindPrimes(minval, maxval, outFile);
+				FindPrimes_BIBI(minval, maxval, outFile);
 			}
 		}
 
-		private static BigInteger S_GetPrimeCount(BigInteger minval, BigInteger maxval)
+		private static BigInteger GetPrimeCount_BIBI(BigInteger minval, BigInteger maxval)
 		{
 			BigInteger count = 0;
 
 			for (BigInteger value = minval; ; value++)
 			{
 				if (PrimeUtils.IsPrime(value))
+				{
 					count++;
 
+					GC.Collect();
+				}
 				if (value == maxval)
 					break;
 
@@ -85,8 +88,6 @@ namespace Charlotte
 
 					Common.Report(0.5 + rate * 0.5);
 				}
-
-				GC.Collect(); // zantei
 			}
 			return count;
 		}
@@ -107,25 +108,14 @@ namespace Charlotte
 				else
 				{
 					count = Prime53.GetPrimeCount(Common.ToULong(minval), ulong.MaxValue, () => Ground.EvStop.WaitForMillis(0) == false);
-					count += S_GetPrimeCount(Consts.BI2P64, maxval);
+					count += GetPrimeCount_BIBI(Consts.BI2P64, maxval);
 				}
 			}
 			else
 			{
-				count = S_GetPrimeCount(minval, maxval);
+				count = GetPrimeCount_BIBI(minval, maxval);
 			}
 			return count;
-		}
-
-		private static int P_Count = 0;
-
-		private static bool Pulser()
-		{
-			if (++P_Count < 100)
-				return false;
-
-			P_Count = 0;
-			return true;
 		}
 	}
 }

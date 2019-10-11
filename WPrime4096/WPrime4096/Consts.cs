@@ -39,5 +39,7 @@ namespace Charlotte
 		public const string REPORT_MTX_NAME = REPORT_IDENT + "_L";
 		public const string REPORTED_EV_NAME = REPORT_IDENT + "_R";
 		public static readonly string ReportFile = Path.Combine(Environment.GetEnvironmentVariable("TMP"), REPORT_IDENT + ".tmp");
+
+		public const string ERROR_REPORT_LOCAL_FILE = "Prime4096.error.tmp";
 	}
 }

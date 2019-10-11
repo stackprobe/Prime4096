@@ -84,6 +84,17 @@ namespace Charlotte
 					}
 				}
 			}
+
+			{
+				string errorReportFile = Path.Combine(Path.GetDirectoryName(Prime4096File), Consts.ERROR_REPORT_LOCAL_FILE);
+
+				if (File.Exists(errorReportFile))
+				{
+					string message = File.ReadAllText(errorReportFile, Encoding.UTF8);
+					FileTools.Delete(errorReportFile);
+					throw new CUIError(message);
+				}
+			}
 		}
 	}
 }

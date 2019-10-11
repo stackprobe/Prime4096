@@ -19,5 +19,13 @@ namespace Charlotte
 			lines.Add(text);
 			return string.Join("\r\n", lines);
 		}
+
+		public static Exception GetTrueException(Exception e)
+		{
+			while (e is AggregateException)
+				e = ((AggregateException)e).InnerException;
+
+			return e;
+		}
 	}
 }

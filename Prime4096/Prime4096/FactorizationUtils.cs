@@ -48,8 +48,6 @@ namespace Charlotte
 
 				if (Pulser() && Ground.EvStop.WaitForMillis(0))
 					goto gotPrime; // 中止
-
-				GC.Collect(); // zantei
 			}
 			lines.AddRange(Prime53.Factorization(Common.ToULong(value)).Select(v => "" + v));
 			goto wrLines;

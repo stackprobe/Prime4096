@@ -148,6 +148,8 @@
 			this.T個数_最大値.Size = new System.Drawing.Size(588, 106);
 			this.T個数_最大値.TabIndex = 3;
 			this.T個数_最大値.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
+			this.T個数_最大値.TextChanged += new System.EventHandler(this.T個数_最大値_TextChanged);
+			this.T個数_最大値.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T個数_最大値_KeyPress);
 			// 
 			// T個数_最小値
 			// 
@@ -161,6 +163,8 @@
 			this.T個数_最小値.Size = new System.Drawing.Size(588, 106);
 			this.T個数_最小値.TabIndex = 1;
 			this.T個数_最小値.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
+			this.T個数_最小値.TextChanged += new System.EventHandler(this.T個数_最小値_TextChanged);
+			this.T個数_最小値.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T個数_最小値_KeyPress);
 			// 
 			// TabPage素因数分解
 			// 
@@ -200,6 +204,8 @@
 			this.T素因数分解_入力.Size = new System.Drawing.Size(620, 126);
 			this.T素因数分解_入力.TabIndex = 0;
 			this.T素因数分解_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目";
+			this.T素因数分解_入力.TextChanged += new System.EventHandler(this.T素因数分解_入力_TextChanged);
+			this.T素因数分解_入力.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T素因数分解_入力_KeyPress);
 			// 
 			// Btn素因数分解
 			// 
@@ -251,6 +257,8 @@
 			this.T判定_入力.Size = new System.Drawing.Size(620, 126);
 			this.T判定_入力.TabIndex = 0;
 			this.T判定_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目";
+			this.T判定_入力.TextChanged += new System.EventHandler(this.T判定_入力_TextChanged);
+			this.T判定_入力.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T判定_入力_KeyPress);
 			// 
 			// Btn判定
 			// 
@@ -332,6 +340,8 @@
 			this.T出力_最大値.Size = new System.Drawing.Size(588, 106);
 			this.T出力_最大値.TabIndex = 3;
 			this.T出力_最大値.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
+			this.T出力_最大値.TextChanged += new System.EventHandler(this.T出力_最大値_TextChanged);
+			this.T出力_最大値.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T出力_最大値_KeyPress);
 			// 
 			// T出力_最小値
 			// 
@@ -345,6 +355,8 @@
 			this.T出力_最小値.Size = new System.Drawing.Size(588, 106);
 			this.T出力_最小値.TabIndex = 1;
 			this.T出力_最小値.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
+			this.T出力_最小値.TextChanged += new System.EventHandler(this.T出力_最小値_TextChanged);
+			this.T出力_最小値.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T出力_最小値_KeyPress);
 			// 
 			// MainTab
 			// 
@@ -411,6 +423,8 @@
 			this.T探索_入力.Size = new System.Drawing.Size(620, 126);
 			this.T探索_入力.TabIndex = 0;
 			this.T探索_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目";
+			this.T探索_入力.TextChanged += new System.EventHandler(this.T探索_入力_TextChanged);
+			this.T探索_入力.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T探索_入力_KeyPress);
 			// 
 			// MainWin
 			// 

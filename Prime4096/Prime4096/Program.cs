@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using Charlotte.Tools;
 using System.Numerics;
+using Charlotte.Chocomint.Dialogs;
 
 namespace Charlotte
 {
@@ -29,16 +30,29 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
+			try
+			{
+				this.Main3(ar);
+			}
+			catch (Exception e)
+			{
+				File.WriteAllText(Path.Combine(ProcMain.SelfDir, Consts.ERROR_REPORT_LOCAL_FILE), e.GetType() + ": " + e.Message, Encoding.UTF8);
+				throw;
+			}
+		}
+
+		private void Main3(ArgsReader ar)
+		{
 			Prime53.INIT();
 			Ground.LoadConf();
 
-			this.Main3(ar);
+			this.Main4(ar);
 
 			Common.RemoveReportFile();
 			Ground.Destroy();
 		}
 
-		private void Main3(ArgsReader ar)
+		private void Main4(ArgsReader ar)
 		{
 			if (ar.ArgIs("/S"))
 			{

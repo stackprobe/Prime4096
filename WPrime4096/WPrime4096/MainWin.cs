@@ -218,13 +218,13 @@ namespace Charlotte
 
 		private void MainWin_ResizeBegin(object sender, EventArgs e)
 		{
-			this.SetControlVisible(false);
+			//this.SetControlVisible(false); // old -- ちらつきが無い様なので廃止
 		}
 
 		private void MainWin_ResizeEnd(object sender, EventArgs e)
 		{
-			this.RefreshUI();
-			this.SetControlVisible(true);
+			//this.RefreshUI(); // old -- moved -> _SizeChanged
+			//this.SetControlVisible(true); // old
 		}
 
 		private void MainWin_SizeChanged(object sender, EventArgs e)
@@ -505,7 +505,7 @@ namespace Charlotte
 			this.Visible = true;
 
 			this.T探索_結果.Text = text;
-			this.T探索_結果.SelectionStart = this.T探索_結果.TextLength;
+			//this.T探索_結果.SelectionStart = this.T探索_結果.TextLength;
 			//this.T探索_結果.ScrollToCaret();
 		}
 
@@ -556,7 +556,7 @@ namespace Charlotte
 			this.Visible = true;
 
 			this.T素因数分解_結果.Text = text;
-			this.T素因数分解_結果.SelectionStart = this.T素因数分解_結果.TextLength;
+			//this.T素因数分解_結果.SelectionStart = this.T素因数分解_結果.TextLength;
 			//this.T素因数分解_結果.ScrollToCaret();
 		}
 
@@ -638,10 +638,16 @@ namespace Charlotte
 
 		private void CommonCought(Exception e)
 		{
-			if (e is Returning)
+			Exception te = Utils.GetTrueException(e);
+
+			if (te is Returning)
 				return;
 
-			if (e is LongMessageException)
+			if (te is CUIError)
+			{
+				MessageDlgTools.Error("Prime4096 エラー", e);
+			}
+			else if (te is LongMessageException)
 			{
 				LongMessageDlgTools.Warning("Prime4096", e.Message, Consts.LongMessageDlg_Size);
 			}
@@ -671,6 +677,115 @@ namespace Charlotte
 				}
 			}
 			return this.ProgressRate;
+		}
+
+		private void T出力_最小値_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char)13) // enter
+			{
+				this.T出力_最大値.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void T出力_最大値_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char)13) // enter
+			{
+				this.Btn出力.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void T判定_入力_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char)13) // enter
+			{
+				this.Btn判定.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void T探索_入力_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char)13) // enter
+			{
+				this.Btn探索.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void T素因数分解_入力_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char)13) // enter
+			{
+				this.Btn素因数分解.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void T個数_最小値_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char)13) // enter
+			{
+				this.T個数_最大値.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void T個数_最大値_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char)13) // enter
+			{
+				this.Btn個数.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void T出力_最小値_TextChanged(object sender, EventArgs e)
+		{
+			this.CommonInputValueChanged(this.T出力_最小値);
+		}
+
+		private void T出力_最大値_TextChanged(object sender, EventArgs e)
+		{
+			this.CommonInputValueChanged(this.T出力_最大値);
+		}
+
+		private void T判定_入力_TextChanged(object sender, EventArgs e)
+		{
+			this.CommonInputValueChanged(this.T判定_入力);
+		}
+
+		private void T探索_入力_TextChanged(object sender, EventArgs e)
+		{
+			this.CommonInputValueChanged(this.T探索_入力);
+		}
+
+		private void T素因数分解_入力_TextChanged(object sender, EventArgs e)
+		{
+			this.CommonInputValueChanged(this.T素因数分解_入力);
+		}
+
+		private void T個数_最小値_TextChanged(object sender, EventArgs e)
+		{
+			this.CommonInputValueChanged(this.T個数_最小値);
+		}
+
+		private void T個数_最大値_TextChanged(object sender, EventArgs e)
+		{
+			this.CommonInputValueChanged(this.T個数_最大値);
+		}
+
+		private void CommonInputValueChanged(TextBox tb)
+		{
+			string text = new string(tb.Text.Where(chr => StringTools.DECIMAL.Contains(chr)).ToArray());
+
+			if (tb.Text != text)
+			{
+				tb.Text = text;
+				tb.SelectionStart = tb.TextLength;
+			}
 		}
 	}
 }
