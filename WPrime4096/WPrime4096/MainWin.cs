@@ -388,7 +388,13 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
-					this.CommonInterlude_INIT();
+					this.CommonInterlude_INIT(currValue =>
+					{
+						if (currValue == 0)
+							return "2^64 以上の素数を出力しています...";
+
+						return string.Format("だいたい {0} あたりの素数を出力しています...", currValue);
+					});
 
 					WaitDlgTools.Show(
 						"Prime4096",
@@ -486,10 +492,10 @@ namespace Charlotte
 						() =>
 						{
 							WaitDlg.MessagePost.Post("最寄りの素数を探しています... (小さい方)");
-							this.ProgressRate = 0.333;
+							this.WD_ProgressRate = 0.333;
 							string lowerPrime = Prime4096.GetLowerPrime(value, () => cancelledBox[0] == false);
 							WaitDlg.MessagePost.Post("最寄りの素数を探しています... (大きい方)");
-							this.ProgressRate = 0.666;
+							this.WD_ProgressRate = 0.666;
 							string higherPrime = Prime4096.GetHigherPrime(value, () => cancelledBox[0] == false);
 
 							text = string.Join("\r\n",
@@ -628,7 +634,13 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
-					this.CommonInterlude_INIT();
+					this.CommonInterlude_INIT(currValue =>
+					{
+						if (currValue == 0)
+							return "2^64 以上の素数を数えています...";
+
+						return string.Format("だいたい {0} あたりの素数を数えています...", currValue);
+					});
 
 					WaitDlgTools.Show(
 						"Prime4096",
@@ -682,26 +694,29 @@ namespace Charlotte
 			}
 		}
 
-		private double ProgressRate = 0.0;
+		private double WD_ProgressRate;
+		private Func<ulong, string> WD_GetMessage;
 
-		private void CommonInterlude_INIT()
+		private void CommonInterlude_INIT(Func<ulong, string> getMessage = null)
 		{
-			this.ProgressRate = 0.0;
+			this.WD_ProgressRate = 0.0;
+			this.WD_GetMessage = getMessage;
 		}
 
 		private double CommonInterlude()
 		{
-			if (Ground.EvReported.WaitForMillis(0))
+			Report report = Ground.ReportMgr.GetReport();
+
+			if (report != null)
 			{
-				using (new MSection(Ground.MtxReport))
+				this.WD_ProgressRate = report.ProgressRate;
+
+				if (this.WD_GetMessage != null)
 				{
-					if (File.Exists(Consts.ReportFile))
-					{
-						this.ProgressRate = double.Parse(File.ReadAllText(Consts.ReportFile, Encoding.ASCII).Trim());
-					}
+					WaitDlg.MessagePost.Post(this.WD_GetMessage(report.CurrentValue));
 				}
 			}
-			return this.ProgressRate;
+			return this.WD_ProgressRate;
 		}
 
 		private void T出力_最小値_KeyPress(object sender, KeyPressEventArgs e)

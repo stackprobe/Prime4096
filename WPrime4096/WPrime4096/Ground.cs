@@ -10,18 +10,13 @@ namespace Charlotte
 {
 	public static class Ground
 	{
-		public static readonly TCalc TCalc_Int = new TCalc(10, 0);
-
-		public static Mutex MtxReport = MutexTools.Create(Consts.REPORT_MTX_NAME);
-		public static NamedEventUnit EvReported = new NamedEventUnit(Consts.REPORTED_EV_NAME);
+		public static TCalc TCalc_Int = new TCalc(10, 0);
+		public static ReportMgr ReportMgr = new ReportMgr();
 
 		public static void Destroy()
 		{
-			Ground.MtxReport.Dispose();
-			Ground.MtxReport = null;
-
-			Ground.EvReported.Dispose();
-			Ground.EvReported = null;
+			ReportMgr.Dispose();
+			ReportMgr = null;
 		}
 	}
 }

@@ -116,7 +116,7 @@ namespace Charlotte
 
 			using (new MSection(Ground.MtxReport))
 			{
-				File.WriteAllText(Consts.ReportFile, progressRate.ToString("F9"), Encoding.ASCII);
+				File.WriteAllText(Consts.ReportFile, progressRate.ToString("F9") + "\n0", Encoding.ASCII);
 			}
 			Ground.EvReported.Set();
 		}

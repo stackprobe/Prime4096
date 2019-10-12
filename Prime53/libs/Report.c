@@ -36,11 +36,11 @@ void Report_INIT(void)
 
 	addFinalizer(FNLZ);
 }
-void Report(double value)
+void Report(double rate, uint64 currValue)
 {
 	handleWaitForever(MtxReport);
 	{
-		writeOneLineNoRet_b_cx(ReportFile, xcout("%.9f", value));
+		writeOneLineNoRet_b_cx(ReportFile, xcout("%.9f\n%I64u", rate, currValue));
 	}
 	mutexRelease(MtxReport);
 
