@@ -26,7 +26,7 @@ namespace Charlotte
 						return new Report()
 						{
 							ProgressRate = double.Parse(lines[0]),
-							CurrentValue = ulong.Parse(lines[1]),
+							CurrentValue = lines[1],
 						};
 					}
 				}

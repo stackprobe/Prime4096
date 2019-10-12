@@ -42,7 +42,7 @@ namespace Charlotte
 					if (Ground.EvStop.WaitForMillis(0))
 						goto gotPrime; // 中止
 
-					Common.Report(1.0 - value.ToByteArray().Length * 1.0 / valueFirstScale);
+					Common.Report(1.0 - value.ToByteArray().Length * 1.0 / valueFirstScale, value);
 				}
 				denom += 2;
 

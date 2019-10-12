@@ -21,6 +21,13 @@ namespace Charlotte
 						FileTools.Write(writer, Encoding.ASCII.GetBytes(Common.ToString(value)));
 						writer.WriteByte(0x0a); // '\n'
 
+						{
+							int permil = (int)(((value - minval) * 1000) / (maxval - minval));
+							double rate = permil / 1000.0;
+
+							Common.Report(0.5 + rate * 0.5, value);
+						}
+
 						GC.Collect();
 					}
 					if (value == maxval)
@@ -30,13 +37,6 @@ namespace Charlotte
 					{
 						FileTools.Write(writer, Encoding.ASCII.GetBytes("ABORTED\n"));
 						break; // 中止
-					}
-
-					{
-						int permil = (int)(((value - minval) * 1000) / (maxval - minval));
-						double rate = permil / 1000.0;
-
-						Common.Report(0.5 + rate * 0.5);
 					}
 				}
 			}
@@ -77,6 +77,13 @@ namespace Charlotte
 				{
 					count++;
 
+					{
+						int permil = (int)(((value - minval) * 1000) / (maxval - minval));
+						double rate = permil / 1000.0;
+
+						Common.Report(0.5 + rate * 0.5, value);
+					}
+
 					GC.Collect();
 				}
 				if (value == maxval)
@@ -84,13 +91,6 @@ namespace Charlotte
 
 				if (Ground.EvStop.WaitForMillis(0))
 					break; // 中止
-
-				{
-					int permil = (int)(((value - minval) * 1000) / (maxval - minval));
-					double rate = permil / 1000.0;
-
-					Common.Report(0.5 + rate * 0.5);
-				}
 			}
 			return count;
 		}

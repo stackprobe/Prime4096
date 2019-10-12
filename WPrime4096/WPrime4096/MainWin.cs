@@ -388,13 +388,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
-					this.CommonInterlude_INIT(currValue =>
-					{
-						if (currValue == 0)
-							return "2^64 以上の素数を出力しています...";
-
-						return string.Format("だいたい {0} あたりの素数を出力しています...", currValue);
-					});
+					this.CommonInterlude_INIT(currValue => string.Format("だいたい {0} あたりの素数を出力しています...", currValue));
 
 					WaitDlgTools.Show(
 						"Prime4096",
@@ -554,7 +548,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
-					this.CommonInterlude_INIT();
+					this.CommonInterlude_INIT(currValue => string.Format("素因数分解しています... {0}", currValue));
 
 					WaitDlgTools.Show(
 						"Prime4096",
@@ -634,13 +628,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
-					this.CommonInterlude_INIT(currValue =>
-					{
-						if (currValue == 0)
-							return "2^64 以上の素数を数えています...";
-
-						return string.Format("だいたい {0} あたりの素数を数えています...", currValue);
-					});
+					this.CommonInterlude_INIT(currValue => string.Format("だいたい {0} あたりの素数を数えています...", currValue));
 
 					WaitDlgTools.Show(
 						"Prime4096",
@@ -695,9 +683,9 @@ namespace Charlotte
 		}
 
 		private double WD_ProgressRate;
-		private Func<ulong, string> WD_GetMessage;
+		private Func<string, string> WD_GetMessage;
 
-		private void CommonInterlude_INIT(Func<ulong, string> getMessage = null)
+		private void CommonInterlude_INIT(Func<string, string> getMessage = null)
 		{
 			this.WD_ProgressRate = 0.0;
 			this.WD_GetMessage = getMessage;

@@ -110,13 +110,22 @@ namespace Charlotte
 			return ret;
 		}
 
-		public static void Report(double progressRate)
+		public static string ToExponentNotation(string sval)
+		{
+			if (30 < sval.Length)
+			{
+				sval = sval.Substring(0, 1) + "." + sval.Substring(1, 10) + "E+" + (sval.Length - 1);
+			}
+			return sval;
+		}
+
+		public static void Report(double progressRate, BigInteger currentValue)
 		{
 			progressRate = DoubleTools.Range(progressRate, 0.0, 1.0);
 
 			using (new MSection(Ground.MtxReport))
 			{
-				File.WriteAllText(Consts.ReportFile, progressRate.ToString("F9") + "\n0", Encoding.ASCII);
+				File.WriteAllText(Consts.ReportFile, progressRate.ToString("F9") + "\n" + ToExponentNotation(ToString(currentValue)), Encoding.ASCII);
 			}
 			Ground.EvReported.Set();
 		}
