@@ -30,15 +30,6 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
-			Console.WriteLine(Common.ToExponentNotation("12345678901234567890"));
-			Console.WriteLine(Common.ToExponentNotation("123456789012345678901"));
-			Console.WriteLine(Common.ToExponentNotation("1234567890123456789012"));
-			Console.WriteLine(Common.ToExponentNotation("12345678901234567890123"));
-			Console.WriteLine(Common.ToExponentNotation("10000000000000000000"));
-			Console.WriteLine(Common.ToExponentNotation("100000000000000000000"));
-			Console.WriteLine(Common.ToExponentNotation("1000000000000000000000"));
-			Console.WriteLine(Common.ToExponentNotation("10000000000000000000000"));
-
 			using (new MSection(Ground.MtxProcStartEnd))
 			{
 				Prime53.INIT();
@@ -158,7 +149,7 @@ namespace Charlotte
 
 		private BigInteger GetLowerPrime(BigInteger value)
 		{
-			while (Consts.BI2P64 < value)
+			while (Consts.BI2P64 <= value)
 			{
 				value--;
 
@@ -168,7 +159,7 @@ namespace Charlotte
 				if (Ground.EvStop.WaitForMillis(0))
 					return 0;
 			}
-			return Prime53.GetLowerPrime(Common.ToULong(value - 1));
+			return Prime53.GetLowerPrime(Common.ToULong(value));
 		}
 
 		private BigInteger GetHigherPrime(BigInteger value)
@@ -183,9 +174,12 @@ namespace Charlotte
 				//value = Consts.BI2P64 - 1;
 				value = Consts.BI2P64; // 2^64 is not prime
 			}
-			while (value < Consts.BI2P4096_1) // 2^4096-1 is not prime
+			for (; ; )
+			//while (value < Consts.BI2P4096_1) // 2^4096-1 is not prime
 			{
 				value++;
+
+				Console.WriteLine(DateTime.Now); // test
 
 				if (PrimeUtils.IsPrime(value))
 					return value;

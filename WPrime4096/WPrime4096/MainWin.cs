@@ -388,7 +388,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
-					this.CommonInterlude_INIT(currValue => string.Format("だいたい {0} あたりの素数を出力しています...", currValue));
+					this.CommonInterlude_INIT(currValue => string.Format("{0} あたりの素数を出力しています...", currValue));
 
 					WaitDlgTools.Show(
 						"Prime4096",
@@ -485,12 +485,15 @@ namespace Charlotte
 						"最寄りの素数を探しています...",
 						() =>
 						{
-							WaitDlg.MessagePost.Post("最寄りの素数を探しています... (小さい方)");
+							//WaitDlg.MessagePost.Post("最寄りの素数を探しています... (小さい方)");
 							this.WD_ProgressRate = 0.333;
 							string lowerPrime = Prime4096.GetLowerPrime(value, () => cancelledBox[0] == false);
-							WaitDlg.MessagePost.Post("最寄りの素数を探しています... (大きい方)");
+							//WaitDlg.MessagePost.Post("最寄りの素数を探しています... (大きい方)");
 							this.WD_ProgressRate = 0.666;
 							string higherPrime = Prime4096.GetHigherPrime(value, () => cancelledBox[0] == false);
+
+							if (lowerPrime == "0")
+								lowerPrime = "none";
 
 							text = string.Join("\r\n",
 								"元の数より小さい最大の素数 ---->",
@@ -628,7 +631,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
-					this.CommonInterlude_INIT(currValue => string.Format("だいたい {0} あたりの素数を数えています...", currValue));
+					this.CommonInterlude_INIT(currValue => string.Format("{0} あたりの素数を数えています...", currValue));
 
 					WaitDlgTools.Show(
 						"Prime4096",
