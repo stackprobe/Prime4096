@@ -41,7 +41,27 @@ namespace Charlotte
 
 		public static Mutex MtxProcStartEnd = MutexTools.Create("{0a47d7c9-b6f1-499d-8a02-be94669f9fcf}");
 
-		public static NamedEventUnit EvStop = new NamedEventUnit("{c4ef09ea-5598-4ddf-98f0-9c06b17d9b6c}");
+		private static NamedEventUnit EvStop = new NamedEventUnit("{c4ef09ea-5598-4ddf-98f0-9c06b17d9b6c}");
+
+		public static void Stop()
+		{
+			EvStop.Set();
+		}
+
+		private static bool Stopped = false;
+
+		public static bool IsStopped()
+		{
+			if (Stopped)
+				return true;
+
+			if (EvStop.WaitForMillis(0))
+			{
+				Stopped = true;
+				return true;
+			}
+			return false;
+		}
 
 		public static Mutex MtxReport = MutexTools.Create(Consts.REPORT_MTX_NAME);
 		public static NamedEventUnit EvReported = new NamedEventUnit(Consts.REPORTED_EV_NAME);

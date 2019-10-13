@@ -17,4 +17,4 @@ C:\Factory\Tools\DirFltr.exe /EF out
 
 C:\Factory\SubTools\zip.exe /O out Prime4096
 
-PAUSE
+IF NOT "%1" == "/-P" PAUSE

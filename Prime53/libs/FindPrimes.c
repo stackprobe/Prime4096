@@ -79,7 +79,7 @@ void FindPrimes(uint64 minval, uint64 maxval, char *outFile)
 			if(IsStopped())
 			{
 				WrUI64Flush();
-				errorCase(fprintf(Writer, "ABORTED\n") < 0);
+				errorCase(fprintf(Writer, "ABORTED - Prime53\n") < 0);
 				break;
 			}
 

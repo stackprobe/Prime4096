@@ -68,7 +68,7 @@ namespace Charlotte
 		{
 			if (ar.ArgIs("/S"))
 			{
-				Ground.EvStop.Set();
+				Ground.Stop();
 				return;
 			}
 			if (ar.ArgIs("/P"))
@@ -156,7 +156,7 @@ namespace Charlotte
 				if (PrimeUtils.IsPrime(value))
 					return value;
 
-				if (Ground.EvStop.WaitForMillis(0))
+				if (Ground.IsStopped())
 					return 0;
 			}
 			return Prime53.GetLowerPrime(Common.ToULong(value));
@@ -182,7 +182,7 @@ namespace Charlotte
 				if (PrimeUtils.IsPrime(value))
 					return value;
 
-				if (Ground.EvStop.WaitForMillis(0))
+				if (Ground.IsStopped())
 					break;
 			}
 			return 0;

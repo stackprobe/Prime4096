@@ -86,7 +86,7 @@
 			this.TabPage個数.Controls.Add(this.groupBox2);
 			this.TabPage個数.Location = new System.Drawing.Point(4, 29);
 			this.TabPage個数.Name = "TabPage個数";
-			this.TabPage個数.Size = new System.Drawing.Size(652, 404);
+			this.TabPage個数.Size = new System.Drawing.Size(642, 404);
 			this.TabPage個数.TabIndex = 3;
 			this.TabPage個数.Text = "個数";
 			this.TabPage個数.UseVisualStyleBackColor = true;
@@ -94,7 +94,7 @@
 			// Btn個数
 			// 
 			this.Btn個数.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn個数.Location = new System.Drawing.Point(265, 340);
+			this.Btn個数.Location = new System.Drawing.Point(255, 340);
 			this.Btn個数.Name = "Btn個数";
 			this.Btn個数.Size = new System.Drawing.Size(370, 50);
 			this.Btn個数.TabIndex = 1;
@@ -113,7 +113,7 @@
 			this.groupBox2.Controls.Add(this.T個数_最小値);
 			this.groupBox2.Location = new System.Drawing.Point(15, 15);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(620, 319);
+			this.groupBox2.Size = new System.Drawing.Size(610, 319);
 			this.groupBox2.TabIndex = 0;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "検索する範囲";
@@ -145,7 +145,7 @@
 			this.T個数_最大値.Multiline = true;
 			this.T個数_最大値.Name = "T個数_最大値";
 			this.T個数_最大値.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T個数_最大値.Size = new System.Drawing.Size(588, 106);
+			this.T個数_最大値.Size = new System.Drawing.Size(578, 106);
 			this.T個数_最大値.TabIndex = 3;
 			this.T個数_最大値.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
 			this.T個数_最大値.TextChanged += new System.EventHandler(this.T個数_最大値_TextChanged);
@@ -160,7 +160,7 @@
 			this.T個数_最小値.Multiline = true;
 			this.T個数_最小値.Name = "T個数_最小値";
 			this.T個数_最小値.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T個数_最小値.Size = new System.Drawing.Size(588, 106);
+			this.T個数_最小値.Size = new System.Drawing.Size(578, 106);
 			this.T個数_最小値.TabIndex = 1;
 			this.T個数_最小値.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
 			this.T個数_最小値.TextChanged += new System.EventHandler(this.T個数_最小値_TextChanged);
@@ -173,7 +173,7 @@
 			this.TabPage素因数分解.Controls.Add(this.Btn素因数分解);
 			this.TabPage素因数分解.Location = new System.Drawing.Point(4, 29);
 			this.TabPage素因数分解.Name = "TabPage素因数分解";
-			this.TabPage素因数分解.Size = new System.Drawing.Size(652, 404);
+			this.TabPage素因数分解.Size = new System.Drawing.Size(642, 404);
 			this.TabPage素因数分解.TabIndex = 2;
 			this.TabPage素因数分解.Text = "素因数分解";
 			this.TabPage素因数分解.UseVisualStyleBackColor = true;
@@ -187,7 +187,7 @@
 			this.T素因数分解_結果.Name = "T素因数分解_結果";
 			this.T素因数分解_結果.ReadOnly = true;
 			this.T素因数分解_結果.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T素因数分解_結果.Size = new System.Drawing.Size(620, 186);
+			this.T素因数分解_結果.Size = new System.Drawing.Size(610, 186);
 			this.T素因数分解_結果.TabIndex = 2;
 			this.T素因数分解_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目";
 			this.T素因数分解_結果.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T素因数分解_結果_KeyPress);
@@ -201,7 +201,7 @@
 			this.T素因数分解_入力.Multiline = true;
 			this.T素因数分解_入力.Name = "T素因数分解_入力";
 			this.T素因数分解_入力.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T素因数分解_入力.Size = new System.Drawing.Size(620, 126);
+			this.T素因数分解_入力.Size = new System.Drawing.Size(610, 126);
 			this.T素因数分解_入力.TabIndex = 0;
 			this.T素因数分解_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目";
 			this.T素因数分解_入力.TextChanged += new System.EventHandler(this.T素因数分解_入力_TextChanged);
@@ -210,7 +210,7 @@
 			// Btn素因数分解
 			// 
 			this.Btn素因数分解.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn素因数分解.Location = new System.Drawing.Point(455, 147);
+			this.Btn素因数分解.Location = new System.Drawing.Point(445, 147);
 			this.Btn素因数分解.Name = "Btn素因数分解";
 			this.Btn素因数分解.Size = new System.Drawing.Size(180, 50);
 			this.Btn素因数分解.TabIndex = 1;
@@ -226,7 +226,7 @@
 			this.TabPage判定.Location = new System.Drawing.Point(4, 29);
 			this.TabPage判定.Name = "TabPage判定";
 			this.TabPage判定.Padding = new System.Windows.Forms.Padding(3);
-			this.TabPage判定.Size = new System.Drawing.Size(652, 404);
+			this.TabPage判定.Size = new System.Drawing.Size(642, 404);
 			this.TabPage判定.TabIndex = 1;
 			this.TabPage判定.Text = "判定";
 			this.TabPage判定.UseVisualStyleBackColor = true;
@@ -240,7 +240,7 @@
 			this.T判定_結果.Name = "T判定_結果";
 			this.T判定_結果.ReadOnly = true;
 			this.T判定_結果.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T判定_結果.Size = new System.Drawing.Size(620, 186);
+			this.T判定_結果.Size = new System.Drawing.Size(610, 186);
 			this.T判定_結果.TabIndex = 3;
 			this.T判定_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目";
 			this.T判定_結果.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T判定_結果_KeyPress);
@@ -254,7 +254,7 @@
 			this.T判定_入力.Multiline = true;
 			this.T判定_入力.Name = "T判定_入力";
 			this.T判定_入力.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T判定_入力.Size = new System.Drawing.Size(620, 126);
+			this.T判定_入力.Size = new System.Drawing.Size(610, 126);
 			this.T判定_入力.TabIndex = 0;
 			this.T判定_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目";
 			this.T判定_入力.TextChanged += new System.EventHandler(this.T判定_入力_TextChanged);
@@ -263,7 +263,7 @@
 			// Btn判定
 			// 
 			this.Btn判定.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn判定.Location = new System.Drawing.Point(455, 147);
+			this.Btn判定.Location = new System.Drawing.Point(445, 147);
 			this.Btn判定.Name = "Btn判定";
 			this.Btn判定.Size = new System.Drawing.Size(180, 50);
 			this.Btn判定.TabIndex = 1;
@@ -278,7 +278,7 @@
 			this.TabPage出力.Location = new System.Drawing.Point(4, 29);
 			this.TabPage出力.Name = "TabPage出力";
 			this.TabPage出力.Padding = new System.Windows.Forms.Padding(3);
-			this.TabPage出力.Size = new System.Drawing.Size(652, 404);
+			this.TabPage出力.Size = new System.Drawing.Size(642, 404);
 			this.TabPage出力.TabIndex = 0;
 			this.TabPage出力.Text = "出力";
 			this.TabPage出力.UseVisualStyleBackColor = true;
@@ -286,7 +286,7 @@
 			// Btn出力
 			// 
 			this.Btn出力.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn出力.Location = new System.Drawing.Point(335, 340);
+			this.Btn出力.Location = new System.Drawing.Point(325, 340);
 			this.Btn出力.Name = "Btn出力";
 			this.Btn出力.Size = new System.Drawing.Size(300, 50);
 			this.Btn出力.TabIndex = 2;
@@ -305,7 +305,7 @@
 			this.groupBox1.Controls.Add(this.T出力_最小値);
 			this.groupBox1.Location = new System.Drawing.Point(15, 15);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(620, 319);
+			this.groupBox1.Size = new System.Drawing.Size(610, 319);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "出力する範囲";
@@ -337,7 +337,7 @@
 			this.T出力_最大値.Multiline = true;
 			this.T出力_最大値.Name = "T出力_最大値";
 			this.T出力_最大値.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T出力_最大値.Size = new System.Drawing.Size(588, 106);
+			this.T出力_最大値.Size = new System.Drawing.Size(578, 106);
 			this.T出力_最大値.TabIndex = 3;
 			this.T出力_最大値.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
 			this.T出力_最大値.TextChanged += new System.EventHandler(this.T出力_最大値_TextChanged);
@@ -352,7 +352,7 @@
 			this.T出力_最小値.Multiline = true;
 			this.T出力_最小値.Name = "T出力_最小値";
 			this.T出力_最小値.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T出力_最小値.Size = new System.Drawing.Size(588, 106);
+			this.T出力_最小値.Size = new System.Drawing.Size(578, 106);
 			this.T出力_最小値.TabIndex = 1;
 			this.T出力_最小値.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目";
 			this.T出力_最小値.TextChanged += new System.EventHandler(this.T出力_最小値_TextChanged);
@@ -371,7 +371,7 @@
 			this.MainTab.Location = new System.Drawing.Point(12, 12);
 			this.MainTab.Name = "MainTab";
 			this.MainTab.SelectedIndex = 0;
-			this.MainTab.Size = new System.Drawing.Size(660, 437);
+			this.MainTab.Size = new System.Drawing.Size(650, 437);
 			this.MainTab.TabIndex = 0;
 			// 
 			// TabPage最寄りの素数
@@ -381,7 +381,7 @@
 			this.TabPage最寄りの素数.Controls.Add(this.T探索_入力);
 			this.TabPage最寄りの素数.Location = new System.Drawing.Point(4, 29);
 			this.TabPage最寄りの素数.Name = "TabPage最寄りの素数";
-			this.TabPage最寄りの素数.Size = new System.Drawing.Size(652, 404);
+			this.TabPage最寄りの素数.Size = new System.Drawing.Size(642, 404);
 			this.TabPage最寄りの素数.TabIndex = 4;
 			this.TabPage最寄りの素数.Text = "最寄りの素数";
 			this.TabPage最寄りの素数.UseVisualStyleBackColor = true;
@@ -389,7 +389,7 @@
 			// Btn探索
 			// 
 			this.Btn探索.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn探索.Location = new System.Drawing.Point(455, 147);
+			this.Btn探索.Location = new System.Drawing.Point(445, 147);
 			this.Btn探索.Name = "Btn探索";
 			this.Btn探索.Size = new System.Drawing.Size(180, 50);
 			this.Btn探索.TabIndex = 1;
@@ -406,7 +406,7 @@
 			this.T探索_結果.Name = "T探索_結果";
 			this.T探索_結果.ReadOnly = true;
 			this.T探索_結果.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T探索_結果.Size = new System.Drawing.Size(620, 186);
+			this.T探索_結果.Size = new System.Drawing.Size(610, 186);
 			this.T探索_結果.TabIndex = 2;
 			this.T探索_結果.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目\r\n7行目\r\n8行目\r\n9行目";
 			this.T探索_結果.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.T探索_結果_KeyPress);
@@ -420,7 +420,7 @@
 			this.T探索_入力.Multiline = true;
 			this.T探索_入力.Name = "T探索_入力";
 			this.T探索_入力.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.T探索_入力.Size = new System.Drawing.Size(620, 126);
+			this.T探索_入力.Size = new System.Drawing.Size(610, 126);
 			this.T探索_入力.TabIndex = 0;
 			this.T探索_入力.Text = "1行目\r\n2行目\r\n3行目\r\n4行目\r\n5行目\r\n6行目";
 			this.T探索_入力.TextChanged += new System.EventHandler(this.T探索_入力_TextChanged);
@@ -430,7 +430,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(684, 461);
+			this.ClientSize = new System.Drawing.Size(674, 461);
 			this.Controls.Add(this.MainTab);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

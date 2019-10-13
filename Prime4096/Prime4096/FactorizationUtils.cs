@@ -39,14 +39,14 @@ namespace Charlotte
 					if (PrimeUtils.IsPrime_M(value))
 						goto gotPrime;
 
-					if (Ground.EvStop.WaitForMillis(0))
+					if (Ground.IsStopped())
 						goto gotPrime; // 中止
 
 					Common.Report(1.0 - value.ToByteArray().Length * 1.0 / valueFirstScale, value);
 				}
 				denom += 2;
 
-				if (Pulser() && Ground.EvStop.WaitForMillis(0))
+				if (Pulser() && Ground.IsStopped())
 					goto gotPrime; // 中止
 			}
 			lines.AddRange(Prime53.Factorization(Common.ToULong(value)).Select(v => "" + v));

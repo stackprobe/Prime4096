@@ -169,7 +169,9 @@ namespace Charlotte
 					BusyDlgTools.Show("Prime4096", "アプリケーションを終了しています...", () =>
 					{
 						Prime53Lite.RemovePrimeDat();
-					});
+					},
+					true
+					);
 
 					Ground.Destroy();
 
@@ -334,7 +336,6 @@ namespace Charlotte
 
 		private void Btn出力_Click(object sender, EventArgs e)
 		{
-			this.Visible = false;
 			InputFileDlg.FAT32 = true;
 
 			using (this.MTBusy.Section())
@@ -377,7 +378,7 @@ namespace Charlotte
 					outFile = InputFileDlgTools.Save(
 						"Prime4096",
 						"出力ファイルを選択して下さい。",
-						false,
+						true,
 						outFile,
 						null,
 						"txt"
@@ -388,6 +389,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
+					this.Visible = false;
 					this.CommonInterlude_INIT(currValue => string.Format("{0} あたりの素数を出力しています...", currValue));
 
 					WaitDlgTools.Show(
@@ -412,15 +414,13 @@ namespace Charlotte
 					this.CommonCought(ex);
 				}
 			}
-			this.Visible = true;
 			InputFileDlg.FAT32 = false; // 復元
+			this.Visible = true; // 復元
 		}
 
 		private void Btn判定_Click(object sender, EventArgs e)
 		{
 			string text = "";
-
-			this.Visible = false;
 
 			using (this.MTBusy.Section())
 			{
@@ -437,6 +437,8 @@ namespace Charlotte
 					if (Ground.TCalc_Int.Calc(Consts.S2P4096_1, "-", value)[0] == '-')
 						throw new LongMessageException(Utils.AutoInsertNewLine("0 以上 " + Consts.S2P4096_1 + " 以下の整数を入力して下さい。", Consts.MaxLineLen_LongMessageDlg));
 
+					this.Visible = false;
+
 					BusyDlgTools.Show("Prime4096", "素数かどうか判定しています...", () =>
 					{
 						text = value + "\r\n----> " + (Prime4096.IsPrime(value) ? "素数です。" : "素数ではありません。");
@@ -448,7 +450,7 @@ namespace Charlotte
 					this.CommonCought(ex);
 				}
 			}
-			this.Visible = true;
+			this.Visible = true; // 復元
 
 			this.T判定_結果.Text = text;
 			this.T判定_結果.SelectionStart = this.T判定_結果.TextLength;
@@ -458,8 +460,6 @@ namespace Charlotte
 		private void Btn探索_Click(object sender, EventArgs e)
 		{
 			string text = "";
-
-			this.Visible = false;
 
 			using (this.MTBusy.Section())
 			{
@@ -478,6 +478,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
+					this.Visible = false;
 					this.CommonInterlude_INIT();
 
 					WaitDlgTools.Show(
@@ -518,7 +519,7 @@ namespace Charlotte
 					this.CommonCought(ex);
 				}
 			}
-			this.Visible = true;
+			this.Visible = true; // 復元
 
 			this.T探索_結果.Text = text;
 			//this.T探索_結果.SelectionStart = this.T探索_結果.TextLength;
@@ -528,8 +529,6 @@ namespace Charlotte
 		private void Btn素因数分解_Click(object sender, EventArgs e)
 		{
 			string text = "";
-
-			this.Visible = false;
 
 			using (this.MTBusy.Section())
 			{
@@ -551,6 +550,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
+					this.Visible = false;
 					this.CommonInterlude_INIT(currValue => string.Format("素因数分解しています... {0}", currValue));
 
 					WaitDlgTools.Show(
@@ -569,7 +569,7 @@ namespace Charlotte
 					this.CommonCought(ex);
 				}
 			}
-			this.Visible = true;
+			this.Visible = true; // 復元
 
 			this.T素因数分解_結果.Text = text;
 			//this.T素因数分解_結果.SelectionStart = this.T素因数分解_結果.TextLength;
@@ -578,8 +578,6 @@ namespace Charlotte
 
 		private void Btn個数_Click(object sender, EventArgs e)
 		{
-			this.Visible = false;
-
 			using (this.MTBusy.Section())
 			{
 				try
@@ -620,7 +618,7 @@ namespace Charlotte
 					outFile = InputFileDlgTools.Save(
 						"Prime4096",
 						"出力ファイルを選択して下さい。",
-						false,
+						true,
 						outFile,
 						null,
 						"txt"
@@ -631,6 +629,7 @@ namespace Charlotte
 
 					bool[] cancelledBox = new bool[1];
 
+					this.Visible = false;
 					this.CommonInterlude_INIT(currValue => string.Format("{0} あたりの素数を数えています...", currValue));
 
 					WaitDlgTools.Show(
@@ -661,7 +660,7 @@ namespace Charlotte
 					this.CommonCought(ex);
 				}
 			}
-			this.Visible = true;
+			this.Visible = true; // 復元
 		}
 
 		private void CommonCought(Exception e)
@@ -673,15 +672,15 @@ namespace Charlotte
 
 			if (te is CUIError)
 			{
-				MessageDlgTools.Error("Prime4096 エラー", e);
+				MessageDlgTools.Error("Prime4096 エラー", e, this.Visible);
 			}
 			else if (te is LongMessageException)
 			{
-				LongMessageDlgTools.Warning("Prime4096", e.Message, Consts.LongMessageDlg_Size);
+				LongMessageDlgTools.Warning("Prime4096", e.Message, Consts.LongMessageDlg_Size, this.Visible);
 			}
 			else
 			{
-				MessageDlgTools.Warning("Prime4096", e);
+				MessageDlgTools.Warning("Prime4096", e, this.Visible);
 			}
 		}
 

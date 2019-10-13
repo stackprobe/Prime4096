@@ -33,9 +33,9 @@ namespace Charlotte
 					if (value == maxval)
 						break;
 
-					if (Ground.EvStop.WaitForMillis(0))
+					if (Ground.IsStopped())
 					{
-						FileTools.Write(writer, Encoding.ASCII.GetBytes("ABORTED\n"));
+						FileTools.Write(writer, Encoding.ASCII.GetBytes("ABORTED - Prime4096\n"));
 						break; // 中止
 					}
 				}
@@ -53,11 +53,11 @@ namespace Charlotte
 			{
 				if (maxval < Consts.BI2P64)
 				{
-					Prime53.FindPrimes(Common.ToULong(minval), Common.ToULong(maxval), outFile, () => Ground.EvStop.WaitForMillis(0) == false);
+					Prime53.FindPrimes(Common.ToULong(minval), Common.ToULong(maxval), outFile, () => Ground.IsStopped() == false);
 				}
 				else
 				{
-					Prime53.FindPrimes(Common.ToULong(minval), ulong.MaxValue, outFile, () => Ground.EvStop.WaitForMillis(0) == false);
+					Prime53.FindPrimes(Common.ToULong(minval), ulong.MaxValue, outFile, () => Ground.IsStopped() == false);
 					FindPrimes_BIBI(Consts.BI2P64, maxval, outFile);
 				}
 			}
@@ -89,7 +89,7 @@ namespace Charlotte
 				if (value == maxval)
 					break;
 
-				if (Ground.EvStop.WaitForMillis(0))
+				if (Ground.IsStopped())
 					break; // 中止
 			}
 			return count;
@@ -106,11 +106,11 @@ namespace Charlotte
 			{
 				if (maxval < Consts.BI2P64)
 				{
-					count = Prime53.GetPrimeCount(Common.ToULong(minval), Common.ToULong(maxval), () => Ground.EvStop.WaitForMillis(0) == false);
+					count = Prime53.GetPrimeCount(Common.ToULong(minval), Common.ToULong(maxval), () => Ground.IsStopped() == false);
 				}
 				else
 				{
-					count = Prime53.GetPrimeCount(Common.ToULong(minval), ulong.MaxValue, () => Ground.EvStop.WaitForMillis(0) == false);
+					count = Prime53.GetPrimeCount(Common.ToULong(minval), ulong.MaxValue, () => Ground.IsStopped() == false);
 					count += GetPrimeCount_BIBI(Consts.BI2P64, maxval);
 				}
 			}
