@@ -179,8 +179,6 @@ namespace Charlotte
 			{
 				value++;
 
-				Console.WriteLine(DateTime.Now); // test
-
 				if (PrimeUtils.IsPrime(value))
 					return value;
 
