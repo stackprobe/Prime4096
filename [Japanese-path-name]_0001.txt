@@ -1,0 +1,5 @@
+■以下の外部ファイルをリリース物に含める。
+
+	C:\Dev\CSharp\Chocolate\Chocolate\bin\Release\Chocolate.dll
+	C:\Dev\CSharp\DLL\Chocomint\Chocomint\bin\Release\Chocomint.dll
+	C:\Dev\CSharp\DLL\TCalc\TCalc\bin\Release\TCalc.dll

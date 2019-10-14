@@ -1,17 +1,16 @@
-IF NOT EXIST Prime4096\. GOTO END
+IF NOT EXIST WPrime4096\. GOTO END
+CLS
 rem ÉäÉäÅ[ÉXÇµÇƒ qrum ÇµÇ‹Ç∑ÅB
 PAUSE
 
 CALL newcsrr
 
 CALL ff
-cx ***
-
-IF ERRORLEVEL 1 START ?_Factory_Build_Error
+cx **
 
 CD %~dp0.
 
-IF NOT EXIST Prime4096\. GOTO END
+IF NOT EXIST WPrime4096\. GOTO END
 
 CALL qq
 cx **
