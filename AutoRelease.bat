@@ -8,7 +8,7 @@ CALL newcsrr
 CALL ff
 cx **
 
-CD %~dp0.
+CD /D %~dp0.
 
 IF NOT EXIST WPrime4096\. GOTO END
 
