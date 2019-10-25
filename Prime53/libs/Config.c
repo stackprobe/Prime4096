@@ -2,8 +2,8 @@
 
 // ---- Items ----
 
-uint MillerRabin_Lmt;
-uint MillerRabin_K;
+uint64 MillerRabin_Lmt;
+uint   MillerRabin_K;
 
 // ----
 

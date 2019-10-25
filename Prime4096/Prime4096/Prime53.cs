@@ -79,7 +79,28 @@ namespace Charlotte
 
 		private static void Perform_OutFile_Interlude(string arguments, string outFile, Func<bool> interlude)
 		{
-			using (Process p = ProcessTools.Start(Prime53File, arguments + " \"" + outFile + "\""))
+			using (Process p = ProcessTools.Start(
+				Prime53File,
+				arguments + " \"" + outFile + "\"",
+				"",
+				ProcessTools.WindowStyle_e.INVISIBLE,
+				psi => psi.RedirectStandardOutput = true
+				))
+			using (new ThreadEx(() =>
+			{
+				StreamReader reader = p.StandardOutput;
+
+				for (; ; )
+				{
+					string line = reader.ReadLine();
+
+					if (line == null)
+						break;
+
+					Console.WriteLine(line);
+				}
+			}
+			))
 			{
 				bool cancelled = false;
 

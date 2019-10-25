@@ -14,7 +14,7 @@ namespace Charlotte
 			if (value <= 1)
 				return false;
 
-			if (value <= 2)
+			if (value <= 3)
 				return true;
 
 			if (value.IsEven)

@@ -204,7 +204,7 @@ namespace Charlotte
 					this.CloseWindow();
 					return;
 				}
-				if (this.MTCount % 600 == 0) // per 1 min
+				if (this.MTCount % 600 == 0) // per minute
 				{
 					GC.Collect();
 				}

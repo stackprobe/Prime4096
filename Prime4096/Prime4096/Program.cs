@@ -66,6 +66,8 @@ namespace Charlotte
 
 		private void Main3(ArgsReader ar)
 		{
+			Console.WriteLine("Prime4096_MillerRabin_K: " + Ground.MillerRabin_K); // test
+
 			if (ar.ArgIs("/S"))
 			{
 				Ground.Stop();

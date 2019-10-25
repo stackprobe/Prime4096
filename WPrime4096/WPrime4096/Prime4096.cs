@@ -11,6 +11,8 @@ namespace Charlotte
 	public static class Prime4096
 	{
 		private static string Prime4096File;
+		private static string LogFile;
+		private static string LogFile0;
 
 		public static void INIT()
 		{
@@ -20,6 +22,8 @@ namespace Charlotte
 				file = FileTools.MakeFullPath(@"..\..\..\..\Prime4096\Prime4096\bin\Release\Prime4096.exe"); // devenv
 
 			Prime4096File = file;
+			LogFile = Path.Combine(Path.GetDirectoryName(file), Path.GetFileNameWithoutExtension(file) + ".log");
+			LogFile0 = LogFile + "0";
 		}
 
 		public static bool IsPrime(string value)
@@ -71,7 +75,31 @@ namespace Charlotte
 
 		private static void Perform_OutFile_Interlude(string arguments, string outFile, Func<bool> interlude)
 		{
-			using (Process p = ProcessTools.Start(Prime4096File, arguments + " \"" + outFile + "\""))
+			using (Process p = ProcessTools.Start(
+				Prime4096File,
+				arguments + " \"" + outFile + "\"",
+				"",
+				ProcessTools.WindowStyle_e.INVISIBLE,
+				psi => psi.RedirectStandardOutput = true
+				))
+			using (new ThreadEx(() =>
+			{
+				StreamReader reader = p.StandardOutput;
+
+				for (int c = 0; c < 100; c++)
+				{
+					string line = reader.ReadLine();
+
+					if (line == null)
+						break;
+
+					using (StreamWriter writer = new StreamWriter(LogFile, c != 0, Encoding.UTF8))
+					{
+						writer.WriteLine("[" + DateTime.Now + "." + (c + 1).ToString("D3") + "] " + line);
+					}
+				}
+			}
+			))
 			{
 				bool cancelled = false;
 
