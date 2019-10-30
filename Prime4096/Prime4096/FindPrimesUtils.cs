@@ -10,7 +10,7 @@ namespace Charlotte
 {
 	public class FindPrimesUtils
 	{
-		private static void FindPrimes_BIBI(BigInteger minval, BigInteger maxval, string outFile)
+		private static void FindPrimes_BIBI(BigInteger minval, BigInteger maxval, string outFile, Func<double, double> rateFltr)
 		{
 			using (FileStream writer = new FileStream(outFile, FileMode.Append, FileAccess.Write))
 			{
@@ -25,7 +25,7 @@ namespace Charlotte
 							int permil = (int)(((value - minval) * 1000) / (maxval - minval));
 							double rate = permil / 1000.0;
 
-							Common.Report(0.5 + rate * 0.5, value);
+							Common.Report(rateFltr(rate), value);
 						}
 
 						GC.Collect();
@@ -58,16 +58,16 @@ namespace Charlotte
 				else
 				{
 					Prime53.FindPrimes(Common.ToULong(minval), ulong.MaxValue, outFile, () => Ground.IsStopped() == false);
-					FindPrimes_BIBI(Consts.BI2P64, maxval, outFile);
+					FindPrimes_BIBI(Consts.BI2P64, maxval, outFile, rate => 0.5 + rate * 0.5);
 				}
 			}
 			else
 			{
-				FindPrimes_BIBI(minval, maxval, outFile);
+				FindPrimes_BIBI(minval, maxval, outFile, rate => rate);
 			}
 		}
 
-		private static BigInteger GetPrimeCount_BIBI(BigInteger minval, BigInteger maxval)
+		private static BigInteger GetPrimeCount_BIBI(BigInteger minval, BigInteger maxval, Func<double, double> rateFltr)
 		{
 			BigInteger count = 0;
 
@@ -81,7 +81,7 @@ namespace Charlotte
 						int permil = (int)(((value - minval) * 1000) / (maxval - minval));
 						double rate = permil / 1000.0;
 
-						Common.Report(0.5 + rate * 0.5, value);
+						Common.Report(rateFltr(rate), value);
 					}
 
 					GC.Collect();
@@ -111,12 +111,12 @@ namespace Charlotte
 				else
 				{
 					count = Prime53.GetPrimeCount(Common.ToULong(minval), ulong.MaxValue, () => Ground.IsStopped() == false);
-					count += GetPrimeCount_BIBI(Consts.BI2P64, maxval);
+					count += GetPrimeCount_BIBI(Consts.BI2P64, maxval, rate => 0.5 + rate * 0.5);
 				}
 			}
 			else
 			{
-				count = GetPrimeCount_BIBI(minval, maxval);
+				count = GetPrimeCount_BIBI(minval, maxval, rate => rate);
 			}
 			return count;
 		}

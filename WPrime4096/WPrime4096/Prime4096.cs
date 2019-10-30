@@ -12,7 +12,6 @@ namespace Charlotte
 	{
 		private static string Prime4096File;
 		private static string LogFile;
-		private static string LogFile0;
 
 		public static void INIT()
 		{
@@ -23,7 +22,6 @@ namespace Charlotte
 
 			Prime4096File = file;
 			LogFile = Path.Combine(Path.GetDirectoryName(file), Path.GetFileNameWithoutExtension(file) + ".log");
-			LogFile0 = LogFile + "0";
 		}
 
 		public static bool IsPrime(string value)

@@ -86,7 +86,7 @@ void FindPrimes(uint64 minval, uint64 maxval, char *outFile)
 			{
 				double rate = (value - minval) * 1.0 / (maxval - minval);
 
-				Report(rate * 0.5, value);
+				Report(rate * (maxval < UINT64MAX ? 1.0 : 0.5), value);
 			}
 		}
 		if(IsPrime_R(value))
@@ -132,7 +132,7 @@ void WritePrimeCount(uint64 minval, uint64 maxval, char *outFile)
 			{
 				double rate = (value - minval) * 1.0 / (maxval - minval);
 
-				Report(rate * 0.5, value);
+				Report(rate * (maxval < UINT64MAX ? 1.0 : 0.5), value);
 			}
 		}
 		if(IsPrime_R(value))
