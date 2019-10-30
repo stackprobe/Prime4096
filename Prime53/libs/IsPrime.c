@@ -8,6 +8,6 @@ int A_IsPrime(uint64 value)
 	}
 	else
 	{
-		return IsPrime_M_K(value, MillerRabin_K);
+		return IsPrime_M(value);
 	}
 }

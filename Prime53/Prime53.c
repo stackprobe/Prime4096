@@ -36,7 +36,6 @@ static void Main2(void)
 	LoadConfig();
 
 	cout("Prime53_MillerRabin_Lmt: %I64u\n", MillerRabin_Lmt); // test
-	cout("Prime53_MillerRabin_K: %u\n",      MillerRabin_K);   // test
 
 	if(argIs("/2")) // ƒŠƒŠ[ƒXŠÂ‹«—p Prime.dat ì¬
 	{
