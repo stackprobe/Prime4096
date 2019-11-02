@@ -78,6 +78,8 @@ namespace Charlotte
 				string sn = ar.NextArg();
 				string outFile = ar.NextArg();
 
+				Console.WriteLine("IsPrime_sn: " + sn);
+
 				File.WriteAllText(outFile, PrimeUtils.IsPrime(Common.ToBigInteger(sn)) ? "P" : "N", Encoding.ASCII);
 				return;
 			}
@@ -86,6 +88,8 @@ namespace Charlotte
 				string sn = ar.NextArg();
 				string outFile = ar.NextArg();
 
+				Console.WriteLine("Factorization_sn: " + sn);
+
 				FactorizationUtils.Factorization(Common.ToBigInteger(sn), outFile);
 				return;
 			}
@@ -93,6 +97,8 @@ namespace Charlotte
 			{
 				string sn = ar.NextArg();
 				string outFile = ar.NextArg();
+
+				Console.WriteLine("GetLowerPrime_sn: " + sn);
 
 				File.WriteAllText(outFile, Common.ToString(
 					GetLowerPrime(
@@ -107,6 +113,8 @@ namespace Charlotte
 			{
 				string sn = ar.NextArg();
 				string outFile = ar.NextArg();
+
+				Console.WriteLine("GetHigherPrime_sn: " + sn);
 
 				File.WriteAllText(outFile, Common.ToString(
 					GetHigherPrime(
@@ -123,6 +131,9 @@ namespace Charlotte
 				string sn2 = ar.NextArg();
 				string outFile = ar.NextArg();
 
+				Console.WriteLine("FindPrimes_sn1: " + sn1);
+				Console.WriteLine("FindPrimes_sn2: " + sn2);
+
 				FindPrimesUtils.FindPrimes(
 					Common.ToBigInteger(sn1),
 					Common.ToBigInteger(sn2),
@@ -135,6 +146,9 @@ namespace Charlotte
 				string sn1 = ar.NextArg();
 				string sn2 = ar.NextArg();
 				string outFile = ar.NextArg();
+
+				Console.WriteLine("GetPrimeCount_sn1: " + sn1);
+				Console.WriteLine("GetPrimeCount_sn2: " + sn2);
 
 				File.WriteAllText(outFile, Common.ToString(
 					FindPrimesUtils.GetPrimeCount(
