@@ -23,8 +23,8 @@ namespace Charlotte
 				value >>= 1;
 				lines.Add("2");
 			}
-			//if (PrimeUtils.IsPrime_M(value))
-			//goto gotPrime;
+			if (PrimeUtils.IsPrime_M(value))
+				goto gotPrime;
 
 			BigInteger denom = 3;
 			int valueFirstScale = value.ToByteArray().Length; // レポート用
@@ -36,8 +36,8 @@ namespace Charlotte
 					value /= denom;
 					lines.Add(Common.ToString(denom));
 
-					//if (PrimeUtils.IsPrime_M(value))
-					//goto gotPrime;
+					if (PrimeUtils.IsPrime_M(value))
+						goto gotPrime;
 
 					if (Ground.IsStopped())
 						goto gotPrime; // 中止
