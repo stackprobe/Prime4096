@@ -158,14 +158,6 @@ namespace Charlotte
 				{
 					// -- 9000
 
-					// ----
-
-					this.MTBusy.Enter(); // 終了確定
-
-					// ----
-
-					// -- 9900
-
 					BusyDlgTools.Show("Prime4096", "アプリケーションを終了しています...", () =>
 					{
 						Prime53Lite.RemovePrimeDat();
@@ -181,6 +173,7 @@ namespace Charlotte
 				{
 					MessageBox.Show("" + e, "Error @ CloseWindow()", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
+				this.MTBusy.Enter();
 				this.Close();
 			}
 		}
