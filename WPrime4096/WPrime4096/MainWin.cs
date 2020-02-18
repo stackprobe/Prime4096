@@ -62,6 +62,8 @@ namespace Charlotte
 		{
 			// -- 0001
 
+			// TODO WriteLog = write to .log file
+
 			ExtraTools.AntiWindowsDefenderSmartScreen();
 
 			Prime4096.INIT();
