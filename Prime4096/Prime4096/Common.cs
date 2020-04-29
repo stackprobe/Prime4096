@@ -121,7 +121,7 @@ namespace Charlotte
 
 		public static void Report(double progressRate, BigInteger currentValue)
 		{
-			progressRate = DoubleTools.Range(progressRate, 0.0, 1.0);
+			progressRate = DoubleTools.ToRange(progressRate, 0.0, 1.0);
 
 			using (new MSection(Ground.MtxReport))
 			{
