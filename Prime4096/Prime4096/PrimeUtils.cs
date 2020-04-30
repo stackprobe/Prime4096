@@ -29,24 +29,51 @@ namespace Charlotte
 				d >>= 1;
 				r++;
 			}
-			for (int k = 0; k < Ground.MillerRabin_K; k++)
+			if (value < Consts.BIXMR)
 			{
-				BigInteger x = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 3) + 2;
-
-				x = BigInteger.ModPow(x, d, value);
-
-				if (x != 1 && x != value - 1)
+				foreach (int ix in new int[] { /* 2, */ 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41 })
 				{
-					for (int c = r; ; c--)
+					BigInteger x = new BigInteger(new byte[] { (byte)ix, 0x00 });
+
+					x = BigInteger.ModPow(x, d, value);
+
+					if (x != 1 && x != value - 1)
 					{
-						if (c <= 0)
-							return false;
+						for (int c = r; ; c--)
+						{
+							if (c <= 0)
+								return false;
 
-						x = (x * x) % value;
-						//BigInteger.ModPow(x, 2, value);
+							x = (x * x) % value;
+							//x = BigInteger.ModPow(x, 2, value);
 
-						if (x == value - 1)
-							break;
+							if (x == value - 1)
+								break;
+						}
+					}
+				}
+			}
+			else
+			{
+				for (int k = 0; k < Ground.MillerRabin_K; k++)
+				{
+					BigInteger x = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 3) + 2;
+
+					x = BigInteger.ModPow(x, d, value);
+
+					if (x != 1 && x != value - 1)
+					{
+						for (int c = r; ; c--)
+						{
+							if (c <= 0)
+								return false;
+
+							x = (x * x) % value;
+							//x = BigInteger.ModPow(x, 2, value);
+
+							if (x == value - 1)
+								break;
+						}
 					}
 				}
 			}
