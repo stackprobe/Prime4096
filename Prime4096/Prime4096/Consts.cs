@@ -49,7 +49,9 @@ namespace Charlotte
 
 		// if n < 3,317,044,064,679,887,385,961,981, it is enough to test a = 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, and 41. @ wiki
 
-		public const string SXMR = "3317044064679887385961981";
-		public static readonly BigInteger BIXMR = Common.ToBigInteger(SXMR);
+		public const string SPXX = "3317044064679887385961981";
+		//public const string SPXX = "1000000000000000000000000"; // test
+		//public const string SPXX = "10000000000000000000000000"; // test
+		public static readonly BigInteger BIPXX = Common.ToBigInteger(SPXX);
 	}
 }

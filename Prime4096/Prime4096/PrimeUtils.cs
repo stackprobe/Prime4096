@@ -32,7 +32,7 @@ namespace Charlotte
 
 			// if n < 3,317,044,064,679,887,385,961,981, it is enough to test a = 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, and 41. @ wiki
 
-			if (value < Consts.BIXMR)
+			if (value < Consts.BIPXX)
 			{
 				foreach (int ix in new int[] { /* 2, */ 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41 })
 				{

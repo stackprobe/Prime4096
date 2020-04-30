@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Charlotte.Tools;
 using System.Numerics;
 using Charlotte.Chocomint.Dialogs;
+using Charlotte.Tests;
 
 namespace Charlotte
 {
@@ -44,7 +45,11 @@ namespace Charlotte
 					{
 						using (MSection.Unsection(Ground.MtxProcStartEnd))
 						{
+#if DEBUG // test code
+							new Test0001().Test01();
+#else
 							this.Main3(ar);
+#endif
 						}
 					}
 					catch (Exception e)
