@@ -11,7 +11,7 @@ namespace Charlotte
 	{
 		public static void Factorization(BigInteger value, string outFile)
 		{
-			// TODO GNFS ???
+			// TODO rho algorithm
 
 			List<string> lines = new List<string>();
 
