@@ -648,7 +648,7 @@ namespace Charlotte
 
 						File.WriteAllText(
 							outFile,
-							File.ReadAllText(outFile, Encoding.ASCII).Trim() + "\n中止しました。この出力結果は正しくない可能性があります。",
+							File.ReadAllText(outFile, Encoding.ASCII).Trim() + "\n中止しました。\nこの出力結果は正しくない可能性があります。",
 							StringTools.ENCODING_SJIS
 							);
 
