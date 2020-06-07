@@ -20,6 +20,15 @@ namespace Charlotte
 			if (value.IsEven)
 				return false;
 
+			if (value < 100)
+			{
+				foreach (int ix in Consts.PRIMES_NN)
+					if (value == ix)
+						return true;
+
+				return false;
+			}
+
 			int valueScale = value.ToByteArray().Length;
 			BigInteger d = value >> 1;
 			int r = 0;

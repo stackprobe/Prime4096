@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Numerics;
 using System.IO;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -18,16 +19,6 @@ namespace Charlotte
 				dest.Add(value);
 				goto endFunc;
 			}
-			foreach (int denom in Consts.PRIMES_NN)
-			{
-				while (value % denom == 0)
-				{
-					value /= denom;
-					dest.Add(denom);
-				}
-			}
-			if (value == 1)
-				goto endFunc;
 
 			Queue<BigInteger> q = new Queue<BigInteger>();
 
@@ -37,7 +28,11 @@ namespace Charlotte
 			{
 				BigInteger v = q.Dequeue();
 
-				if (PrimeUtils.IsPrime_M(v))
+				if (v < 2)
+				{
+					// noop
+				}
+				else if (PrimeUtils.IsPrime_M(v) || Ground.IsStopped())
 				{
 					dest.Add(v);
 				}
@@ -67,12 +62,21 @@ namespace Charlotte
 
 		private static BigInteger FindFactor(BigInteger value)
 		{
+			if (value < 2)
+				throw null; // souteigai !!!
+
+			foreach (int denom in Consts.PRIMES_NN)
+				while (value % denom == 0)
+					return denom;
+
 			for (BigInteger c = 1; ; c += 2) // zantei
 			{
-				foreach (int a in Consts.PRIMES_NN) // zantei
-				{
-					if(Pulser() && Ground.IsStopped())
+				int a = Consts.PRIMES_NN[(int)(c % Consts.PRIMES_NN.Length)]; // zantei
 
+				//foreach (int a in Consts.PRIMES_NN) // zantei
+				{
+					if (Pulser() && Ground.IsStopped())
+						return value;
 
 					BigInteger ret;
 
@@ -131,7 +135,7 @@ namespace Charlotte
 
 		private static bool Pulser()
 		{
-			if (++P_Count < 1000)
+			if (++P_Count < 10000)
 				return false;
 
 			P_Count = 0;
