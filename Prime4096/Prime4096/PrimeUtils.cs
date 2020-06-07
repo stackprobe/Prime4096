@@ -21,13 +21,7 @@ namespace Charlotte
 				return false;
 
 			if (value < 100)
-			{
-				foreach (int ix in Consts.PRIMES_NN)
-					if (value == ix)
-						return true;
-
-				return false;
-			}
+				return Consts.PRIMES_NN.Any(v => v == value);
 
 			int valueScale = value.ToByteArray().Length;
 			BigInteger d = value >> 1;

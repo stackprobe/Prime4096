@@ -24,21 +24,45 @@ namespace Charlotte
 
 			q.Enqueue(value);
 
+			int valueFirstScale = value.ToByteArray().Length; // レポート用
+
 			while (1 <= q.Count)
 			{
 				BigInteger v = q.Dequeue();
 
-				if (v < 2)
-				{
-					// noop
-				}
-				else if (PrimeUtils.IsPrime_M(v) || Ground.IsStopped())
+				if (PrimeUtils.IsPrime_M(v))
 				{
 					dest.Add(v);
+
+					// レポート
+					{
+						BigInteger tv = value;
+
+						foreach (BigInteger td in dest)
+							tv /= td;
+
+						Common.Report(1.0 - tv.ToByteArray().Length * 1.0 / valueFirstScale, tv);
+					}
 				}
 				else
 				{
 					BigInteger f = FindFactor(v);
+
+					if (f == -1) // ? 中止
+					{
+						dest.Add(v);
+						dest.AddRange(q.ToArray());
+
+						break;
+					}
+					if (f <= 1)
+						throw null; // souteigai !!!
+
+					if (v <= f)
+						throw null; // souteigai !!!
+
+					if (v % f != 0)
+						throw null; // souteigai !!!
 
 					q.Enqueue(f);
 					q.Enqueue(v / f);
@@ -62,21 +86,17 @@ namespace Charlotte
 
 		private static BigInteger FindFactor(BigInteger value)
 		{
-			if (value < 2)
-				throw null; // souteigai !!!
-
 			foreach (int denom in Consts.PRIMES_NN)
 				while (value % denom == 0)
 					return denom;
 
 			for (BigInteger c = 1; ; c += 2) // zantei
 			{
-				int a = Consts.PRIMES_NN[(int)(c % Consts.PRIMES_NN.Length)]; // zantei
-
-				//foreach (int a in Consts.PRIMES_NN) // zantei
+				//int a = Consts.PRIMES_NN[(int)(c % Consts.PRIMES_NN.Length)]; // zantei
+				foreach (int a in Consts.PRIMES_NN) // zantei
 				{
 					if (Pulser() && Ground.IsStopped())
-						return value;
+						return -1;
 
 					BigInteger ret;
 
@@ -135,7 +155,7 @@ namespace Charlotte
 
 		private static bool Pulser()
 		{
-			if (++P_Count < 10000)
+			if (++P_Count < 1000)
 				return false;
 
 			P_Count = 0;
