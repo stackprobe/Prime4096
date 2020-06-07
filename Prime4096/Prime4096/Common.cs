@@ -119,13 +119,13 @@ namespace Charlotte
 			return sval;
 		}
 
-		public static void Report(double progressRate, BigInteger currentValue)
+		public static void Report(double progressRate, BigInteger currentValue, string currValTrailer = "")
 		{
 			progressRate = DoubleTools.ToRange(progressRate, 0.0, 1.0);
 
 			using (new MSection(Ground.MtxReport))
 			{
-				File.WriteAllText(Consts.ReportFile, progressRate.ToString("F9") + "\n" + ToExponentNotation(ToString(currentValue)), Encoding.ASCII);
+				File.WriteAllText(Consts.ReportFile, progressRate.ToString("F9") + "\n" + ToExponentNotation(ToString(currentValue)) + currValTrailer, Encoding.ASCII);
 			}
 			Ground.EvReported.Set();
 		}

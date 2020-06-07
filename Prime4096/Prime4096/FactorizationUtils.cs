@@ -25,6 +25,7 @@ namespace Charlotte
 			q.Enqueue(value);
 
 			int valueFirstScale = value.ToByteArray().Length; // レポート用
+			int errorCount = 0;
 
 			while (1 <= q.Count)
 			{
@@ -41,7 +42,7 @@ namespace Charlotte
 						foreach (BigInteger td in dest)
 							tv /= td;
 
-						Common.Report(1.0 - tv.ToByteArray().Length * 1.0 / valueFirstScale, tv);
+						Common.Report(1.0 - tv.ToByteArray().Length * 1.0 / valueFirstScale, tv, string.Format(" (EC={0},FFFC={1})", errorCount, FF_FailedCount));
 					}
 				}
 				else
@@ -77,6 +78,8 @@ namespace Charlotte
 					catch (FindFactorError_Restore)
 					{
 						q.Enqueue(v);
+
+						errorCount++;
 					}
 				}
 			}
@@ -95,6 +98,8 @@ namespace Charlotte
 		endFunc:
 			File.WriteAllLines(outFile, dest.Select(v => Common.ToString(v)), Encoding.ASCII);
 		}
+
+		private static int FF_FailedCount = 0;
 
 		private static BigInteger FindFactor(BigInteger value)
 		{
@@ -139,6 +144,10 @@ namespace Charlotte
 
 				if (FindFactor(value, a, c, out ret))
 					return ret;
+
+				FF_FailedCount++;
+
+				Common.Report(0.0, 0, " " + FF_FailedCount); // test test test
 			}
 		}
 
@@ -147,7 +156,8 @@ namespace Charlotte
 			BigInteger x = 2;
 			BigInteger y = 2;
 
-			for (; ; )
+			for (int cc = 0; cc < 10000; cc++) // zantei ???
+			//for (; ; )
 			{
 				if (Pulser() && Ground.IsStopped())
 					throw new Cancelled();
@@ -169,6 +179,10 @@ namespace Charlotte
 				if (ret != 1)
 					return true;
 			}
+
+			// zantei ???
+			ret = 0;
+			return false;
 		}
 
 		private static BigInteger FF_GCD(BigInteger m, BigInteger n)
