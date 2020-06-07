@@ -46,15 +46,20 @@ namespace Charlotte
 				}
 				else
 				{
-					BigInteger f = FindFactor(v);
+					BigInteger f;
 
-					if (f == -1) // ? 中止
+					try
+					{
+						f = FindFactor(v);
+					}
+					catch (Cancelled)
 					{
 						dest.Add(v);
 						dest.AddRange(q.ToArray());
 
 						break;
 					}
+
 					if (f <= 1)
 						throw null; // souteigai !!!
 
@@ -90,19 +95,32 @@ namespace Charlotte
 				while (value % denom == 0)
 					return denom;
 
-			for (BigInteger c = 1; ; c += 2) // zantei
+#if false // zantei ???
+			//for (BigInteger c = 1; ; c += 2) // zantei
+			//for (int c = 1; c < 10000; c += 2) // zantei
+			for (int c = 1; c < 10000; c++) // zantei
 			{
 				//int a = Consts.PRIMES_NN[(int)(c % Consts.PRIMES_NN.Length)]; // zantei
 				foreach (int a in Consts.PRIMES_NN) // zantei
 				{
-					if (Pulser() && Ground.IsStopped())
-						return -1;
-
 					BigInteger ret;
 
 					if (FindFactor(value, a, c, out ret))
 						return ret;
 				}
+			}
+#endif
+
+			int valueScale = value.ToByteArray().Length;
+
+			for (; ; )
+			{
+				BigInteger a = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 1) + 1;
+				BigInteger c = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 1) + 1;
+				BigInteger ret;
+
+				if (FindFactor(value, a, c, out ret))
+					return ret;
 			}
 		}
 
@@ -113,6 +131,9 @@ namespace Charlotte
 
 			for (; ; )
 			{
+				if (Pulser() && Ground.IsStopped())
+					throw new Cancelled();
+
 				x = FF_Rand(x, a, c, value);
 				y = FF_Rand(y, a, c, value); // 1
 				y = FF_Rand(y, a, c, value); // 2
@@ -155,7 +176,7 @@ namespace Charlotte
 
 		private static bool Pulser()
 		{
-			if (++P_Count < 1000)
+			if (++P_Count < 30000)
 				return false;
 
 			P_Count = 0;
