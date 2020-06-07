@@ -46,31 +46,38 @@ namespace Charlotte
 				}
 				else
 				{
-					BigInteger f;
-
 					try
 					{
-						f = FindFactor(v);
+						BigInteger f;
+
+						try
+						{
+							f = FindFactor(v);
+						}
+						catch (Cancelled)
+						{
+							dest.Add(v);
+							dest.AddRange(q.ToArray());
+
+							break;
+						}
+
+						if (f <= 1)
+							throw new FindFactorError_Restore();
+
+						if (v <= f)
+							throw new FindFactorError_Restore();
+
+						if (v % f != 0)
+							throw new FindFactorError_Restore();
+
+						q.Enqueue(f);
+						q.Enqueue(v / f);
 					}
-					catch (Cancelled)
+					catch (FindFactorError_Restore)
 					{
-						dest.Add(v);
-						dest.AddRange(q.ToArray());
-
-						break;
+						q.Enqueue(v);
 					}
-
-					if (f <= 1)
-						throw null; // souteigai !!!
-
-					if (v <= f)
-						throw null; // souteigai !!!
-
-					if (v % f != 0)
-						throw null; // souteigai !!!
-
-					q.Enqueue(f);
-					q.Enqueue(v / f);
 				}
 			}
 
@@ -188,5 +195,8 @@ namespace Charlotte
 			P_Count = 0;
 			return true;
 		}
+
+		private class FindFactorError_Restore : Exception
+		{ }
 	}
 }
