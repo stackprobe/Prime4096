@@ -101,6 +101,9 @@ namespace Charlotte
 			if (Ground.IsStopped())
 				throw new Cancelled();
 
+			if (value < 2)
+				throw new ArgumentException();
+
 			foreach (int denom in Consts.PRIMES_NN)
 				while (value % denom == 0)
 					return denom;
