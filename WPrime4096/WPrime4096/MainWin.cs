@@ -557,7 +557,14 @@ namespace Charlotte
 						);
 
 					if (WaitDlg.LastCancelled)
-						text += "\r\n中止しました。この出力結果は正しくない可能性があります。";
+					{
+						//text += "\r\n中止しました。この出力結果は正しくない可能性があります。"; // old
+
+						text =
+							"中止しました。\r\n" +
+							"この出力結果は正しくない可能性があります。\r\n" +
+							text;
+					}
 				}
 				catch (Exception ex)
 				{

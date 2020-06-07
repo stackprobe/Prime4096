@@ -96,6 +96,12 @@ namespace Charlotte
 			File.WriteAllLines(outFile, dest.Select(v => Common.ToString(v)), Encoding.ASCII);
 		}
 
+		// memo:
+		// value の最小の素因数が p のとき、ランダムに選ばれた r が p の倍数である確率は 1/p なので、平均 p 回のトライで p を発見出来る。
+		// その間、他の value の約数も発見出来る可能性がある。
+		// -- 確率は 1/p よりずっと低い。合成数のとき更に素因数分解する必要がある。処理速度に貢献していないっぽい。
+		// -- 愚直に 2, 3, 5, 7, 9, ... と割って試していく方法の方が速いんじゃないか。-- トライ毎に FF_GCD() -- 1回の剰余
+
 		private static BigInteger FindFactor(BigInteger value)
 		{
 			if (Ground.IsStopped())
@@ -111,11 +117,15 @@ namespace Charlotte
 
 			for (int c = 0; c < 1000; c++)
 			{
+				// ここからトライ
+
 				BigInteger r = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 2) + 2; // 2 ～ (value - 1)
 				BigInteger f = FF_GCD(value, r);
 
 				if (f != 1)
-					return f;
+					return f; // トライ成功
+
+				// トライ失敗
 			}
 
 		retired:
