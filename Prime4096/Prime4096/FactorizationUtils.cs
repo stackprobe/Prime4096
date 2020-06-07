@@ -25,7 +25,6 @@ namespace Charlotte
 			q.Enqueue(value);
 
 			int valueFirstScale = value.ToByteArray().Length; // レポート用
-			int errorCount = 0;
 
 			while (1 <= q.Count)
 			{
@@ -42,7 +41,7 @@ namespace Charlotte
 						foreach (BigInteger td in dest)
 							tv /= td;
 
-						Common.Report(1.0 - tv.ToByteArray().Length * 1.0 / valueFirstScale, tv, string.Format(" (EC={0}, FFFC={1})", errorCount, FF_FailedCount));
+						Common.Report(1.0 - tv.ToByteArray().Length * 1.0 / valueFirstScale, tv);
 					}
 				}
 				else
@@ -64,22 +63,20 @@ namespace Charlotte
 						}
 
 						if (f <= 1)
-							throw new FindFactorError_Restore();
+							throw null; // bugged !!!
 
 						if (v <= f)
-							throw new FindFactorError_Restore();
+							throw null; // bugged !!!
 
 						if (v % f != 0)
-							throw new FindFactorError_Restore();
+							throw null; // bugged !!!
 
 						q.Enqueue(f);
 						q.Enqueue(v / f);
 					}
-					catch (FindFactorError_Restore)
+					catch (FF_Retired)
 					{
 						q.Enqueue(v);
-
-						errorCount++;
 					}
 				}
 			}
@@ -99,91 +96,36 @@ namespace Charlotte
 			File.WriteAllLines(outFile, dest.Select(v => Common.ToString(v)), Encoding.ASCII);
 		}
 
-		private static int FF_FailedCount = 0;
-
 		private static BigInteger FindFactor(BigInteger value)
 		{
 			if (Ground.IsStopped())
 				throw new Cancelled();
 
 			if (value < 2)
-				throw new ArgumentException();
+				throw null; // bugged !!!
 
-			foreach (int denom in Consts.PRIMES_NN)
-				while (value % denom == 0)
-					return denom;
+			if (value <= 3) // 2, 3 are prime
+				goto retired;
 
-#if false // zantei ???
-			//for (BigInteger c = 1; ; c += 2) // zantei
-			//for (int c = 1; c < 10000; c += 2) // zantei
-			for (int c = 1; c < 10000; c++) // zantei
+			int valueScale = value.ToByteArray().Length;
+
+			for (int c = 0; c < 1000; c++)
 			{
-				//int a = Consts.PRIMES_NN[(int)(c % Consts.PRIMES_NN.Length)]; // zantei
-				foreach (int a in Consts.PRIMES_NN) // zantei
-				{
-					BigInteger ret;
+				BigInteger r = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 2) + 2; // 2 ～ (value - 1)
+				BigInteger f = FF_GCD(value, r);
 
-					if (FindFactor(value, a, c, out ret))
-						return ret;
-				}
+				if (f != 1)
+					return f;
 			}
-#endif
 
-			BigInteger acPrm = value;
-
-			if (acPrm > Consts.BI2P256)
-				acPrm = Consts.BI2P256;
-
-			int acPrmScale = acPrm.ToByteArray().Length;
-
-			for (; ; )
-			{
-				BigInteger a = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(acPrmScale + 10), new byte[] { 0x00 } })) % (acPrm - 1) + 1;
-				BigInteger c = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(acPrmScale + 10), new byte[] { 0x00 } })) % (acPrm - 1) + 1;
-				BigInteger ret;
-
-				if (FindFactor(value, a, c, out ret))
-					return ret;
-
-				FF_FailedCount++;
-
-				//Common.Report(0.0, 0, " " + FF_FailedCount); // test test test
-			}
-		}
-
-		private static bool FindFactor(BigInteger value, BigInteger a, BigInteger c, out BigInteger ret)
-		{
-			BigInteger x = 2;
-			BigInteger y = 2;
-
-			for (; ; )
-			{
-				if (Pulser() && Ground.IsStopped())
-					throw new Cancelled();
-
-				x = FF_Rand(x, a, c, value);
-				y = FF_Rand(y, a, c, value); // y 1回目
-				y = FF_Rand(y, a, c, value); // y 2回目
-
-				//if (x == y) return false;
-
-				BigInteger d = x - y;
-
-				if (d < 0)
-					d = -d;
-
-				ret = FF_GCD(value, d);
-
-				if (ret == value)
-					return false;
-
-				if (ret != 1)
-					return true;
-			}
+		retired:
+			throw new FF_Retired();
 		}
 
 		private static BigInteger FF_GCD(BigInteger m, BigInteger n)
 		{
+			//if (m < n) throw null;
+
 			while (n != 0)
 			{
 				BigInteger r = m % n;
@@ -194,23 +136,7 @@ namespace Charlotte
 			return m;
 		}
 
-		private static BigInteger FF_Rand(BigInteger x, BigInteger a, BigInteger c, BigInteger m)
-		{
-			return (a * x + c) % m;
-		}
-
-		private static int P_Count = 0;
-
-		private static bool Pulser()
-		{
-			if (++P_Count < 1000)
-				return false;
-
-			P_Count = 0;
-			return true;
-		}
-
-		private class FindFactorError_Restore : Exception
+		private class FF_Retired : Exception
 		{ }
 	}
 }
