@@ -42,7 +42,7 @@ namespace Charlotte
 						foreach (BigInteger td in dest)
 							tv /= td;
 
-						Common.Report(1.0 - tv.ToByteArray().Length * 1.0 / valueFirstScale, tv, string.Format(" (EC={0},FFFC={1})", errorCount, FF_FailedCount));
+						Common.Report(1.0 - tv.ToByteArray().Length * 1.0 / valueFirstScale, tv, string.Format(" (EC={0}, FFFC={1})", errorCount, FF_FailedCount));
 					}
 				}
 				else
@@ -147,7 +147,7 @@ namespace Charlotte
 
 				FF_FailedCount++;
 
-				Common.Report(0.0, 0, " " + FF_FailedCount); // test test test
+				//Common.Report(0.0, 0, " " + FF_FailedCount); // test test test
 			}
 		}
 
@@ -156,8 +156,7 @@ namespace Charlotte
 			BigInteger x = 2;
 			BigInteger y = 2;
 
-			for (int cc = 0; cc < 10000; cc++) // zantei ???
-			//for (; ; )
+			for (; ; )
 			{
 				if (Pulser() && Ground.IsStopped())
 					throw new Cancelled();
@@ -179,10 +178,6 @@ namespace Charlotte
 				if (ret != 1)
 					return true;
 			}
-
-			// zantei ???
-			ret = 0;
-			return false;
 		}
 
 		private static BigInteger FF_GCD(BigInteger m, BigInteger n)
