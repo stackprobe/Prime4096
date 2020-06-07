@@ -11,52 +11,120 @@ namespace Charlotte
 	{
 		public static void Factorization(BigInteger value, string outFile)
 		{
-			// TODO rho algorithm
+			List<BigInteger> dest = new List<BigInteger>();
 
-			List<string> lines = new List<string>();
-
-			if (value <= 3)
-				goto gotPrime;
-
-			while (4 <= value && value.IsEven)
+			if (value < 2)
 			{
-				value >>= 1;
-				lines.Add("2");
+				dest.Add(value);
+				goto endFunc;
 			}
-			if (PrimeUtils.IsPrime_M(value))
-				goto gotPrime;
-
-			BigInteger denom = 3;
-			int valueFirstScale = value.ToByteArray().Length; // レポート用
-
-			while (Consts.BI2P64 <= value)
+			foreach (int denom in Consts.PRIMES_NN)
 			{
 				while (value % denom == 0)
 				{
 					value /= denom;
-					lines.Add(Common.ToString(denom));
-
-					if (PrimeUtils.IsPrime_M(value))
-						goto gotPrime;
-
-					if (Ground.IsStopped())
-						goto gotPrime; // 中止
-
-					Common.Report(1.0 - value.ToByteArray().Length * 1.0 / valueFirstScale, value);
+					dest.Add(denom);
 				}
-				denom += 2;
-
-				if (Pulser() && Ground.IsStopped())
-					goto gotPrime; // 中止
 			}
-			lines.AddRange(Prime53.Factorization(Common.ToULong(value)).Select(v => "" + v));
-			goto wrLines;
+			if (value == 1)
+				goto endFunc;
 
-		gotPrime:
-			lines.Add(Common.ToString(value));
+			Queue<BigInteger> q = new Queue<BigInteger>();
 
-		wrLines:
-			File.WriteAllLines(outFile, lines, Encoding.ASCII);
+			q.Enqueue(value);
+
+			while (1 <= q.Count)
+			{
+				BigInteger v = q.Dequeue();
+
+				if (PrimeUtils.IsPrime_M(v))
+				{
+					dest.Add(v);
+				}
+				else
+				{
+					BigInteger f = FindFactor(v);
+
+					q.Enqueue(f);
+					q.Enqueue(v / f);
+				}
+			}
+
+			dest.Sort((a, b) =>
+			{
+				if (a < b)
+					return -1;
+
+				if (b < a)
+					return 1;
+
+				return 0;
+			});
+
+		endFunc:
+			File.WriteAllLines(outFile, dest.Select(v => Common.ToString(v)), Encoding.ASCII);
+		}
+
+		private static BigInteger FindFactor(BigInteger value)
+		{
+			for (BigInteger c = 1; ; c += 2) // zantei
+			{
+				foreach (int a in Consts.PRIMES_NN) // zantei
+				{
+					if(Pulser() && Ground.IsStopped())
+
+
+					BigInteger ret;
+
+					if (FindFactor(value, a, c, out ret))
+						return ret;
+				}
+			}
+		}
+
+		private static bool FindFactor(BigInteger value, BigInteger a, BigInteger c, out BigInteger ret)
+		{
+			BigInteger x = 2;
+			BigInteger y = 2;
+
+			for (; ; )
+			{
+				x = FF_Rand(x, a, c, value);
+				y = FF_Rand(y, a, c, value); // 1
+				y = FF_Rand(y, a, c, value); // 2
+
+				BigInteger d = x - y;
+
+				if (d < 0)
+					d = -d;
+
+				ret = FF_GCD(value, d);
+
+				if (ret == value)
+					return false;
+
+				if (ret != 1)
+					return true;
+			}
+		}
+
+		private static BigInteger FF_GCD(BigInteger m, BigInteger n)
+		{
+			if (m < n) throw null; // souteigai !!!
+
+			while (n != 0)
+			{
+				BigInteger r = m % n;
+
+				m = n;
+				n = r;
+			}
+			return m;
+		}
+
+		private static BigInteger FF_Rand(BigInteger x, BigInteger a, BigInteger c, BigInteger m)
+		{
+			return (a * x + c) % m;
 		}
 
 		private static int P_Count = 0;

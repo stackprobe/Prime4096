@@ -53,5 +53,11 @@ namespace Charlotte
 		//public const string SPXX = "1000000000000000000000000"; // test
 		//public const string SPXX = "10000000000000000000000000"; // test
 		public static readonly BigInteger BIPXX = Common.ToBigInteger(SPXX);
+
+		/// <summary>
+		/// 2桁以下の素数一覧
+		/// 小さい順
+		/// </summary>
+		public static int[] PRIMES_NN = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
 	}
 }
