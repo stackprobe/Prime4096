@@ -165,6 +165,8 @@ namespace Charlotte
 				y = FF_Rand(y, a, c, value); // y 1回目
 				y = FF_Rand(y, a, c, value); // y 2回目
 
+				//if (x == y) return false;
+
 				BigInteger d = x - y;
 
 				if (d < 0)
