@@ -91,6 +91,9 @@ namespace Charlotte
 
 		private static BigInteger FindFactor(BigInteger value)
 		{
+			if (Ground.IsStopped())
+				throw new Cancelled();
+
 			foreach (int denom in Consts.PRIMES_NN)
 				while (value % denom == 0)
 					return denom;
@@ -111,12 +114,17 @@ namespace Charlotte
 			}
 #endif
 
-			int valueScale = value.ToByteArray().Length;
+			BigInteger acPrm = value;
+
+			if (acPrm > Consts.BI2P256)
+				acPrm = Consts.BI2P256;
+
+			int acPrmScale = acPrm.ToByteArray().Length;
 
 			for (; ; )
 			{
-				BigInteger a = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 1) + 1;
-				BigInteger c = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 1) + 1;
+				BigInteger a = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(acPrmScale + 10), new byte[] { 0x00 } })) % (acPrm - 1) + 1;
+				BigInteger c = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(acPrmScale + 10), new byte[] { 0x00 } })) % (acPrm - 1) + 1;
 				BigInteger ret;
 
 				if (FindFactor(value, a, c, out ret))
@@ -135,8 +143,8 @@ namespace Charlotte
 					throw new Cancelled();
 
 				x = FF_Rand(x, a, c, value);
-				y = FF_Rand(y, a, c, value); // 1
-				y = FF_Rand(y, a, c, value); // 2
+				y = FF_Rand(y, a, c, value); // y 1回目
+				y = FF_Rand(y, a, c, value); // y 2回目
 
 				BigInteger d = x - y;
 
@@ -155,8 +163,6 @@ namespace Charlotte
 
 		private static BigInteger FF_GCD(BigInteger m, BigInteger n)
 		{
-			if (m < n) throw null; // souteigai !!!
-
 			while (n != 0)
 			{
 				BigInteger r = m % n;
@@ -176,7 +182,7 @@ namespace Charlotte
 
 		private static bool Pulser()
 		{
-			if (++P_Count < 30000)
+			if (++P_Count < 1000)
 				return false;
 
 			P_Count = 0;

@@ -59,5 +59,10 @@ namespace Charlotte
 		/// 小さい順
 		/// </summary>
 		public static int[] PRIMES_NN = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
+
+		/// <summary>
+		/// 2 ^ 256
+		/// </summary>
+		public static readonly BigInteger BI2P256 = new BigInteger(BinTools.Join(new byte[][] { ArrayTools.Repeat((byte)0x00, 32), new byte[] { 0x01 } }));
 	}
 }
