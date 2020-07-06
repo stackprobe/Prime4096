@@ -37,7 +37,7 @@ namespace Charlotte
 
 			if (value < Consts.BIPXX)
 			{
-				foreach (int ix in new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41 }) // 何故2を除外していたのか？？？ @ 2020.6.25
+				foreach (int ix in new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41 })
 				{
 					BigInteger x = new BigInteger(new byte[] { (byte)ix, 0x00 });
 
