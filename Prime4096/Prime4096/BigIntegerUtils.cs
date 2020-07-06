@@ -10,6 +10,12 @@ namespace Charlotte
 	{
 		public static int GetByteArrayLength(BigInteger v)
 		{
+			if (v < 0)
+				throw new ArgumentException();
+
+			if (v == 0)
+				return 0;
+
 			return GetLogarithm(v, 256) + 1;
 		}
 
