@@ -13,18 +13,18 @@ namespace Charlotte
 			return GetLogarithm(v, 256) + 1;
 		}
 
-		public static int GetLogarithm(BigInteger v, BigInteger x) // ret: Log(v, x) 以下の最大の整数, x == 底
+		public static int GetLogarithm(BigInteger v, BigInteger b) // ret: Log(v, x) 以下の最大の整数, b: 底
 		{
 			if (v < 1)
-				throw null;
+				throw new ArgumentException();
 
-			if (x < 2)
-				throw null;
+			if (b < 2)
+				throw new ArgumentException();
 
 			int r = 1;
 
 			{
-				BigInteger t = x;
+				BigInteger t = b;
 
 				while (t <= v)
 				{
@@ -38,7 +38,7 @@ namespace Charlotte
 			while (l + 1 < r)
 			{
 				int m = (l + r) / 2;
-				BigInteger t = GL_PowerOf(x, m);
+				BigInteger t = GL_PowerOf(b, m);
 
 				if (t <= v)
 					l = m;
@@ -51,7 +51,7 @@ namespace Charlotte
 		private static BigInteger GL_PowerOf(BigInteger v, int x)
 		{
 			if (x < 1)
-				throw null;
+				throw null; // bugged !!!
 
 			if (x == 1)
 				return v;
