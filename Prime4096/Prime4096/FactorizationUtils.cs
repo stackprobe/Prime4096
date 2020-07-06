@@ -115,11 +115,20 @@ namespace Charlotte
 
 			int valueScale = value.ToByteArray().Length;
 
+			if (valueScale < 1)
+				throw null; // souteigai !!!
+
 			for (int c = 0; c < 1000; c++)
 			{
 				// ここからトライ
 
-				BigInteger r = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 2) + 2; // 2 ～ (value - 1)
+				BigInteger r;
+
+				if (valueScale < 5)
+					r = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale), new byte[] { 0x00 } })) % (value - 2) + 2; // 2 ～ (value - 1)
+				else
+					r = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale / 2 + 1), new byte[] { 0x00 } })) + 2; // 2 ～ (about_sqrt(value))
+
 				BigInteger f = FF_GCD(value, r);
 
 				if (f != 1)

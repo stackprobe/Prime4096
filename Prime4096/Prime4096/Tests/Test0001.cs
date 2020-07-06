@@ -89,5 +89,17 @@ namespace Charlotte.Tests
 
 			FactorizationUtils.Factorization(value, @"C:\temp\1.txt");
 		}
+
+		public void Test07()
+		{
+			for (int value = 0; value <= 10000; value++)
+			{
+				Console.WriteLine(value);
+
+				FactorizationUtils.Factorization(value, @"C:\temp\1.txt");
+
+				Console.WriteLine("ok");
+			}
+		}
 	}
 }
