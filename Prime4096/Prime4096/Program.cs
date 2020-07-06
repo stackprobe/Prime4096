@@ -47,14 +47,12 @@ namespace Charlotte
 						{
 #if DEBUG // test code
 							//new Test0001().Test01();
-							//new Test0001().Test02();
+							new Test0001().Test02();
 							//new Test0001().Test03();
 							//new Test0001().Test04();
 							//new Test0001().Test05();
 							//new Test0001().Test06();
 							//new Test0001().Test07();
-							//BigIntegerUtilsTest.Test01();
-							BigIntegerUtilsTest.Test02();
 #else
 							this.Main3(ar);
 #endif
