@@ -8,6 +8,8 @@ namespace Charlotte
 {
 	public static class BigIntegerUtils
 	{
+		// sync > @ GetByteArrayLength_BigInteger
+
 		public static int GetByteArrayLength(BigInteger v)
 		{
 			byte[] bytes = v.ToByteArray();
@@ -19,5 +21,7 @@ namespace Charlotte
 
 			return index + 1;
 		}
+
+		// < sync
 	}
 }
