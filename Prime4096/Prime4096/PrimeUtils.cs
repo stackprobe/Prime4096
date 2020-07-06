@@ -23,7 +23,7 @@ namespace Charlotte
 			if (value < 100)
 				return Consts.PRIMES_NN.Any(v => v == value);
 
-			int valueScale = value.ToByteArray().Length;
+			int valueScale = BigIntegerUtils.GetByteArrayLength(value);
 			BigInteger d = value >> 1;
 			int r = 0;
 
@@ -49,7 +49,7 @@ namespace Charlotte
 			{
 				for (int k = 0; k < Ground.MillerRabin_K; k++)
 				{
-					BigInteger x = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 3) + 2;
+					BigInteger x = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 3) + 2; // 2 ～ (value - 2)
 
 					if (IsPrime_X(x, d, r, value) == false)
 						return false;

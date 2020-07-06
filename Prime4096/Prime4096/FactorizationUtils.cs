@@ -24,7 +24,7 @@ namespace Charlotte
 
 			q.Enqueue(value);
 
-			int valueFirstScale = value.ToByteArray().Length; // レポート用
+			int valueFirstScale = BigIntegerUtils.GetByteArrayLength(value); // レポート用
 
 			while (1 <= q.Count)
 			{
@@ -41,7 +41,7 @@ namespace Charlotte
 						foreach (BigInteger td in dest)
 							tv /= td;
 
-						Common.Report(1.0 - tv.ToByteArray().Length * 1.0 / valueFirstScale, tv);
+						Common.Report(1.0 - BigIntegerUtils.GetByteArrayLength(tv) * 1.0 / valueFirstScale, tv);
 					}
 				}
 				else
@@ -113,7 +113,7 @@ namespace Charlotte
 			if (value <= 3) // 2, 3 are prime
 				goto retired;
 
-			int valueScale = value.ToByteArray().Length;
+			int valueScale = BigIntegerUtils.GetByteArrayLength(value);
 
 			if (valueScale < 1)
 				throw null; // souteigai !!!
