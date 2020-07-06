@@ -122,7 +122,12 @@ namespace Charlotte
 			{
 				// ここからトライ
 
-				BigInteger r = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 2) + 2; // 2 ～ (value - 1)
+				BigInteger r;
+
+				if (valueScale < 100)
+					r = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale + 10), new byte[] { 0x00 } })) % (value - 2) + 2; // 2 ～ (value - 1)
+				else
+					r = new BigInteger(BinTools.Join(new byte[][] { SecurityTools.CRandom.GetBytes(valueScale / 2 + 10), new byte[] { 0x00 } })) + 2; // 2 ～ (about_sqrt(value))
 
 				BigInteger f = FF_GCD(value, r);
 
