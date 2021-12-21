@@ -7,5 +7,5 @@ Prime4096
 ビルド済み配布物
 ----------------
 
-http://stackprobe.dip.jp/Prime4096
+http://stackprobe.ccsp.mydns.jp/Prime4096
 
