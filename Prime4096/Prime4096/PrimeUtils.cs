@@ -25,7 +25,7 @@ namespace Charlotte
 
 			int valueScale = BigIntegerUtils.GetByteArrayLength(value);
 			BigInteger d = value >> 1;
-			int r = 0;
+			int r = 1;
 
 			while (d.IsEven)
 			{
