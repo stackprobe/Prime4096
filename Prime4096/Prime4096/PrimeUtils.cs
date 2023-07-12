@@ -25,8 +25,7 @@ namespace Charlotte
 
 			int valueScale = BigIntegerUtils.GetByteArrayLength(value);
 			BigInteger d = value >> 1;
-			int r = 0; // BUG ???
-			//int r = 1;
+			int r = 0;
 
 			while (d.IsEven)
 			{
@@ -58,6 +57,29 @@ namespace Charlotte
 			}
 			return true;
 		}
+
+#if false // memo:
+
+https://zh.wikipedia.org/wiki/%E7%B1%B3%E5%8B%92-%E6%8B%89%E5%AE%BE%E6%A3%80%E9%AA%8C#%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6
+
+Input #1: n > 3, an odd integer to be tested for primality;
+Input #2: k, a parameter that determines the accuracy of the test
+Output: composite if n is composite, otherwise probably prime
+
+write n - 1 as (2^r)*d with d odd by factoring powers of 2 from n - 1
+WitnessLoop: repeat k times:
+	pick a random integer a in the range [2, n - 2]
+	x <- a^d mod n
+	if x = 1 or x = n - 1 then
+		continue WitnessLoop
+	repeat r - 1 times:
+		x <- x^2 mod n
+		if x = n - 1 then
+			continue WitnessLoop
+	return composite
+return probably prime
+
+#endif
 
 		private static bool IsPrime_X(BigInteger x, BigInteger d, int r, BigInteger value)
 		{
